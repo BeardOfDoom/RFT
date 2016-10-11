@@ -8,7 +8,7 @@ import (
 )
 
 func WebHandler(w http.ResponseWriter, r *http.Request) {
-	fileName := fmt.Sprintf("View/%s", r.URL.Path[1:])
+	fileName := fmt.Sprintf("%s", r.URL.Path[1:])
 	body, err := ioutil.ReadFile(fileName)
 	fmt.Printf("File loaded: %s\n", fileName)
 	if err != nil {
