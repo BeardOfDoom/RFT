@@ -6,7 +6,25 @@ import (
 )
 
 func Homepage(w http.ResponseWriter, r *http.Request) {
-  //data := "valami"
-  t, _ := template.ParseFiles("View/HomePage/main.html")
-	t.Execute(w, "HomePage")
+  data := ""
+  t, _ := template.ParseFiles("View/HomePage/index.html", "View/Layout/main.html")
+	t.ExecuteTemplate(w, "layout", data)
+}
+
+func TrainsAndTickets(w http.ResponseWriter, r *http.Request) {
+  data := ""
+  t, _ := template.ParseFiles("View/TrainsAndTickets/index.html", "View/Layout/main.html")
+	t.ExecuteTemplate(w, "layout", data)
+}
+
+func Login(w http.ResponseWriter, r *http.Request) {
+  data := ""
+  t, _ := template.ParseFiles("View/Login/index.html", "View/Layout/main.html")
+	t.ExecuteTemplate(w, "layout", data)
+}
+
+func Register(w http.ResponseWriter, r *http.Request) {
+  data := ""
+  t, _ := template.ParseFiles("View/Register/index.html", "View/Layout/main.html")
+	t.ExecuteTemplate(w, "layout", data)
 }

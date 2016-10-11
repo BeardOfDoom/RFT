@@ -1,0 +1,29 @@
+{{define "layout"}}
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="/Bootstrap/css/bootstrap.min.css">
+  <title>RFT Vasút</title>
+</head>
+<body>
+
+  <nav class="navbar navbar-static-top navbar-inverse">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li><a href="/">Főoldal</a></li>
+        <li><a href="/TrainsAndTickets">Jegyek &amp; járatok</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/Login">Bejelentkezés</a></li>
+        <li><a href="/Register">Regisztráció</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+{{template "content" . }}
+
+</body>
+</html>
+{{end}}

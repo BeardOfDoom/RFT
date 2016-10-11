@@ -15,6 +15,10 @@ func info() {
 
 func main() {
   info()
-	http.HandleFunc("/", Handler.Homepage)
+  http.HandleFunc("/", Handler.Homepage)
+  http.HandleFunc("/TrainsAndTickets", Handler.TrainsAndTickets)
+  http.HandleFunc("/Login", Handler.Login)
+  http.HandleFunc("/Register", Handler.Register)
+  http.HandleFunc("/Bootstrap/", Handler.WebHandler)
 	http.ListenAndServe(":8000", nil)
 }
