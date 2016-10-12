@@ -19,6 +19,6 @@ func main() {
   http.HandleFunc("/TrainsAndTickets", Handler.TrainsAndTickets)
   http.HandleFunc("/Login", Handler.Login)
   http.HandleFunc("/Register", Handler.Register)
-  http.HandleFunc("/Web/Bootstrap/", Handler.WebHandler)
+  http.HandleFunc("/Web/", Handler.WebHandler)
 	http.ListenAndServe(":8000", nil)
 }

@@ -3,20 +3,26 @@
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" href="/Web/Bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/Web/CustomCSS/customCSS.css">
+  <script src="/Web/CustomJS/customJS.js"></script>
+  <script src="/Web/Plugins/jQuery/jQuery-2.1.4.min.js"></script>
+  <script src="Web/Plugins/Slider/jssor.slider-21.1.6.mini.js" type="text/javascript"></script>
   <title>RFT Vasút</title>
 </head>
-<body>
+<body onload="setActiveLink()">
+
 
   <nav class="navbar navbar-static-top navbar-inverse">
   <div class="container-fluid">
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
-        <li><a href="/">Főoldal</a></li>
-        <li><a href="/TrainsAndTickets">Jegyek &amp; járatok</a></li>
+        <li><img src="Web/Images/index.png" height="5%" style="margin-top:10px; margin-left:-5px;" /></li>
+        <li id="1"><a href="/">Főoldal</a></li>
+        <li id="2"><a href="/TrainsAndTickets">Jegyek &amp; járatok</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="/Login">Bejelentkezés</a></li>
-        <li><a href="/Register">Regisztráció</a></li>
+        <li id="3"><a href="/Login">Bejelentkezés</a></li>
+        <li id="4"><a href="/Register">Regisztráció</a></li>
       </ul>
     </div>
   </div>
