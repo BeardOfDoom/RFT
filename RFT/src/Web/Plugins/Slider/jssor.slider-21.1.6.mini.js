@@ -1,5 +1,4 @@
-
-(function(i, f, c, k, d, l, h) { 
+(function(i, f, c, k, d, l, h) {
     new(function() {});
     var e = i.$JssorEasing$ = {
             $EaseSwing: function(a) {

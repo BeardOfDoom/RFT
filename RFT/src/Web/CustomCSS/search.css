@@ -1,0 +1,105 @@
+
+.search-form {
+	background:rgba(0,0,0,0.9);
+	width:90%;
+	margin-right: auto;
+  margin-left: 5%;
+	margin-top: 1%;
+ 	position: absolute;
+}
+
+text {
+	color: #fff;
+	font-family: 'Open Sans', sans-serif;
+	font-size:18px;
+	font-weight:600;
+}
+
+.Menetrend {
+	margin-right: 0;
+	margin-left: 0;
+}
+
+.head {
+	position: absolute;
+	top: 1%;
+	margin-left: 25%;
+}
+
+#loginImg {
+	width: 60%;
+}
+
+#datepicker {
+	margin-top: 15%;
+	margin-left: 10%;
+}
+
+form {
+	padding:24% 2.5em;
+}
+
+form li{
+	border:1px solid #B4B2B2;
+	margin-bottom: 10px;
+	list-style:none;
+	width:60%;
+	background:none;
+	border-radius: 0.3em;
+	-webkit-border-radius: 0.3em;
+	-o-	border-radius: 0.3em;
+	-moz-border-radius: 0.3em;
+}
+
+input[type="text"] {
+	font-family: 'Open Sans', sans-serif;
+	width:99%;
+	padding:0.7em 2em 0.7em 1.7em;
+	color:rgb(255,255,255);
+	font-size:18px;
+	outline: none;
+	background: none;
+	border:none;
+	font-weight:600;
+}
+
+form li:hover{
+	background-color: rgba(0,0,0,0);
+	border:1px solid rgba(0,0,0,0);
+	 box-shadow: 0 0 2em #fff;
+	 -webkit-box-shadow: 0 0 2em #fff;
+	 -o-box-shadow: 0 0 2em #fff;
+	 -moz-box-shadow: 0 0 2em #fff;
+}
+
+input[type="submit"]:hover{
+box-shadow: 0 0 2em #fff;
+-webkit-box-shadow: 0 0 2em #fff;
+-o-box-shadow: 0 0 2em #fff;
+-moz-box-shadow: 0 0 2em #fff;
+}
+
+input[type="submit"]{
+	float:right;
+	font-size:18px;
+	display: inline-block;
+	font-weight:600;
+	color: #fff;
+	transition: 0.1s all;
+	-webkit-transition: 0.1s all;
+	-moz-transition: 0.1s all;
+	-o-transition: 0.1s all;
+	cursor: pointer;
+	outline: none;
+	padding:15px 10px;
+	margin-top:-6%;
+	margin-right: 5%;
+	font-family: 'Open Sans', sans-serif;
+	width:20%;
+	border:none;
+	border-radius: 0.3em;
+	-webkit-border-radius: 0.3em;
+	-o-	border-radius: 0.3em;
+	-moz-border-radius: 0.3em;
+	background-color: rgba(0,0,0,1);
+}
