@@ -1,3 +1,31 @@
 {{define "content"}}
-<h1>Login</h1>
+<style>
+body {
+  background: url(Web/Images/Login/train.jpg) no-repeat center center fixed;
+ -webkit-background-size: cover;
+ -moz-background-size: cover;
+ -o-background-size: cover;
+ background-size: cover;
+}
+</style>
+<body>
+<link href="Web/CustomCSS/login.css" rel='stylesheet' type='text/css' />
+<div class="login-form">
+    <div class="head">
+      <img src="/Web/Images/Login/rftv.png" alt="" id="loginImg"/>
+    </div>
+  <form name="form1" method="post" action="">
+    <li>
+      <input name="myUsername" type="text" class="text" value="Felhasználónév" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Felhasználónév';}" ><a href="#" class=" icon user"></a>
+    </li>
+    <li>
+      <input name="myPassword" type="password" value="Jelszó" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Jelszó';}"><a href="#" class=" icon lock"></a>
+    </li>
+    <div class="p-container">
+          <input type="submit"  value="Bejelentkezés" >
+        <div class="clear"> </div>
+    </div>
+  </form>
+</div>
+</body>
 {{end}}
