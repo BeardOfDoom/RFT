@@ -1,11 +1,9 @@
 
 .search-form {
-	background:rgba(0,0,0,0.9);
-	width:90%;
-	margin-right: auto;
-  margin-left: 5%;
-	margin-top: 1%;
- 	position: absolute;
+	background:rgba(0,0,0,0.8);
+	width: 90%;
+	margin-left: 5%;
+	margin-top: 3%;
 }
 
 text {
@@ -20,30 +18,58 @@ text {
 	margin-left: 0;
 }
 
-.head {
-	position: absolute;
-	top: 1%;
-	margin-left: 25%;
-}
-
-#loginImg {
-	width: 60%;
-}
-
 #datepicker {
-	margin-top: 15%;
-	margin-left: 10%;
+	margin-top: 10%;
+	margin-left: -10%;
+}
+
+.options {
+	margin-top: 8%;
+	margin-left: -40%;
+}
+
+.styled-select {
+	 background: url(../Images/TrainsAndTickets/select.png) no-repeat 96% 0;
+   height: 5%;
+   overflow: hidden;
+   width: 90%;
+}
+
+.styled-select select {
+   background: transparent;
+   border: none;
+	 font-family: 'Open Sans', sans-serif;
+	 color:rgb(255,255,255);
+	 font-size:12px;
+	 font-weight:600;
+   height: 29px;
+   padding: 5px;
+   width: 102%;
+}
+
+.rounded {
+   -webkit-border-radius: 10px;
+   -moz-border-radius: 10px;
+   border-radius: 10px;
+}
+
+.black   {
+	background-color: rgba(0, 0, 0, 0.6);
+}
+
+.black select   {
+	color: #fff;
 }
 
 form {
-	padding:24% 2.5em;
+	padding:15% 2.5em;
 }
 
 form li{
 	border:1px solid #B4B2B2;
-	margin-bottom: 10px;
+	margin-bottom: 10%;
 	list-style:none;
-	width:60%;
+	width:90%;
 	background:none;
 	border-radius: 0.3em;
 	-webkit-border-radius: 0.3em;
@@ -56,7 +82,7 @@ input[type="text"] {
 	width:99%;
 	padding:0.7em 2em 0.7em 1.7em;
 	color:rgb(255,255,255);
-	font-size:18px;
+	font-size:16px;
 	outline: none;
 	background: none;
 	border:none;
@@ -102,4 +128,49 @@ input[type="submit"]{
 	-o-	border-radius: 0.3em;
 	-moz-border-radius: 0.3em;
 	background-color: rgba(0,0,0,1);
+}
+
+.squaredTwo {
+  width: 28px;
+  height: 28px;
+  position: relative;
+  background: #fcfff4;
+  background: -webkit-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+  background: linear-gradient(to bottom, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+  box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0, 0, 0, 0.5);
+}
+.squaredTwo label {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  background: -webkit-linear-gradient(top, #222222 0%, #45484d 100%);
+  background: linear-gradient(to bottom, #222222 0%, #45484d 100%);
+  box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5), 0px 1px 0px white;
+}
+.squaredTwo label:after {
+  content: '';
+  width: 12px;
+  height: 8px;
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  border: 3px solid #fcfff4;
+  border-top: none;
+  border-right: none;
+  background: transparent;
+  opacity: 0;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+.squaredTwo label:hover::after {
+  opacity: 0.3;
+}
+.squaredTwo input[type=checkbox] {
+  visibility: hidden;
+}
+.squaredTwo input[type=checkbox]:checked + label:after {
+  opacity: 1;
 }

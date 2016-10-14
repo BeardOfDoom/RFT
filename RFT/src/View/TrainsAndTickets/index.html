@@ -1,47 +1,137 @@
 {{define "content"}}
 <style>
-body {
-  background: url(Web/Images/TrainsAndTickets/train.jpg) no-repeat center center fixed;
- -webkit-background-size: cover;
- -moz-background-size: cover;
- -o-background-size: cover;
- background-size: cover;
-}
+   body {
+   background: url(Web/Images/TrainsAndTickets/train.jpg) no-repeat center center fixed;
+   -webkit-background-size: cover;
+   -moz-background-size: cover;
+   -o-background-size: cover;
+   background-size: cover;
+   }
 </style>
 <link href="Web/CustomCSS/search.css" rel='stylesheet' type='text/css' />
 <div class="search-form">
-    <div class="row">
-      <div class="col-md-6">
-        <form name="form1" method="post" action="">
-          <text>Honnan:</text>
-          <li>
-            <input name="from" type="text" class="text" value="Induló Állomás" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Induló Állomás';}" >
-          </li>
-          <text>Hova:</text>
-          <li>
-            <input name="to" type="text" class="text" value="Célállomás" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Célállomás';}" >
-          </li>
-        </form>
+   <div class="row">
+      <div class="col-xs-6 col-sm-4">
+         <form name="form1" method="post" action="">
+            <text>Honnan:</text>
+            <li>
+               <input name="from" type="text" class="text" value="Induló Állomás" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Induló Állomás';}" >
+            </li>
+            <text>Hova:</text>
+            <li>
+               <input name="to" type="text" class="text" value="Célállomás" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Célállomás';}" >
+            </li>
+         </form>
       </div>
-      <div class="col-md-6">
-        <div id="datepicker"><text>Mikor:</text></div>
+      <div class="col-xs-6 col-sm-4">
+         <div id="datepicker">
+            <text>Mikor:</text>
+         </div>
       </div>
-    </div>
-    <div class="row">
-      <input type="submit" value="Menetrend">
-    </div>
+      <div class="col-xs-6 col-sm-4">
+         <div class="options">
+            <text>Kedvezmény:</text>
+            <div class="styled-select black rounded">
+               <select>
+                  <optgroup label="">
+                     <option>Teljesárú menetdíj</option>
+                  </optgroup>
+                  <optgroup label="20%-os kedvezmény">
+                     <option>Belföldi Budapest Card Tulajdonos (20%)</option>
+                     <option>Természetjáró Kedvezmény (20%)</option>
+                  </optgroup>
+                  <optgroup label="33%-os kedvezmény">
+                     <option>26 éven aluli fiatal (Péntek 10:00 - Vasárnap 24:00) (33%)</option>
+                     <option>Családi Kedvezmény (33%)</option>
+                     <option>Hungary Card Tulajdonos (Egy útra szóló kedvezmény) (33%)</option>
+                  </optgroup>
+                  <optgroup label="50%-os kedvezmény">
+                     <option>Gyermek 6-tól 14 éves korig (50%)</option>
+                     <option>Közszolgálati alkalmazott (50%)</option>
+                     <option>Magyar igazolvány külföldieknek (diák) (50%)</option>
+                     <option>Nyugdíjas - 50% (évi 16 egyúti) (50%)</option>
+                     <option>Tanuló (levelező) a lakóhely és a tanintézet között (50%)</option>
+                     <option>Tanuló (nappali vagy esti) - diákigazolvánnyal rendelkező (50%)</option>
+                     <option>RFTV Klub 50% Kártya (50%)</option>
+                  </optgroup>
+                  <optgroup label="90%-os kedvezmény">
+                     <option>Fogyatékosságban szenvedő szoc. otthoni gondozott (90%)</option>
+                     <option>Fogyatékossági támogatásban részesülő személy (90%)</option>
+                     <option>Hallássérült (90%)</option>
+                     <option>Hallássérült kísérője (90%)</option>
+                     <option>Magyar igazolvány külföldieknek (6-65 év között) (90%)</option>
+                     <option>Munkanélküli (Képzésben résztvevő munkanélküli) (90%)</option>
+                     <option>Nyugdíjas - 90% (évi 2 egyúti) (90%)</option>
+                     <option>Vak személy (90%)</option>
+                     <option>Vak személy kísérője (90%)</option>
+                  </optgroup>
+                  <optgroup label="Díjmentes">
+                     <option>65 éven felüli személy (díjm.)</option>
+                     <option>Gyermek 6 éves korig (díjm.)</option>
+                     <option>Magyar igazolvány külföldieknek (65 év felett) (díjm.)</option>
+                  </optgroup>
+               </select>
+            </div>
+            <br>
+            <text>Keresési feltételek:</text>
+            <br/><br/>
+            <table border="0">
+               <tr>
+                  <td>
+                     <div class="squaredTwo">
+                        <input type="checkbox" value="" id="potjegy" name="check" />
+                        <label for="potjegy"></label>
+                     </div>
+                  </td>
+                  <td>
+                     <text style="margin-left: 10px; font-size:14px;">Pótjegy nélkül</text>
+                  </td>
+                  <td>
+                     <div class="squaredTwo" style="margin-left: 60%;">
+                        <input type="checkbox" value="" id="helyi" name="check" />
+                        <label for="helyi"></label>
+                     </div>
+                  </td>
+                  <td>
+                     <text style="margin-left: 10px; font-size:14px;">Helyi közlekedés nélkül</text>
+                  </td>
+               </tr>
+            </table>
+            <br/>
+            <table border="0">
+               <tr>
+                  <td>
+                     <div class="squaredTwo">
+                        <input type="checkbox" value="" id="atszallas" name="check" />
+                        <label for="atszallas"></label>
+                     </div>
+                  </td>
+                  <td>
+                     <text style="margin-left: 10px; font-size:14px;">Átszállás nélkül</text>
+                  </td>
+                  <td>
+                     <div class="squaredTwo" style="margin-left: 54%;">
+                        <input type="checkbox" value="" id="kerekpar" name="check" />
+                        <label for="kerekpar"></label>
+                     </div>
+                  </td>
+                  <td>
+                     <text style="margin-left: 10px; font-size:14px;">Kerékpárszállítással</text>
+                  </td>
+               </tr>
+            </table>
+         </div>
+      </div>
+   </div>
+   <input type="submit" value="Menetrend">
 </div>
-
-
-
-
 <script>
-//  var currentDate = $( "#datepicker" ).datepicker( "getDate" );
-$( "#datepicker" ).datepicker( "option", "dayNames", [ "Vasárnap", "Hétfő", "Kedd", "Szerda", "Csütörtök", "Péntek", "Szombat" ] );
-$( "#datepicker" ).datepicker({dayNamesMin: [ "V", "H", "K", "Sz", "Cs", "P", "Sz" ]});
-$( "#datepicker" ).datepicker( "option", "monthNames", [ "Január", "Február", "Március", "Április", "Május", "Június", "Július", "Augusztus", "Szeptember", "Október", "November", "December" ] );
-$( "#datepicker" ).datepicker( "option", "showMonthAfterYear", true );
-$( "#datepicker" ).datepicker( "option", "firstDay", 1 );
-$( "#datepicker" ).datepicker();
+   //  var currentDate = $( "#datepicker" ).datepicker( "getDate" );
+   $( "#datepicker" ).datepicker( "option", "dayNames", [ "Vasárnap", "Hétfő", "Kedd", "Szerda", "Csütörtök", "Péntek", "Szombat" ] );
+   $( "#datepicker" ).datepicker({dayNamesMin: [ "V", "H", "K", "Sz", "Cs", "P", "Sz" ]});
+   $( "#datepicker" ).datepicker( "option", "monthNames", [ "Január", "Február", "Március", "Április", "Május", "Június", "Július", "Augusztus", "Szeptember", "Október", "November", "December" ] );
+   $( "#datepicker" ).datepicker( "option", "showMonthAfterYear", true );
+   $( "#datepicker" ).datepicker( "option", "firstDay", 1 );
+   $( "#datepicker" ).datepicker();
 </script>
 {{end}}
