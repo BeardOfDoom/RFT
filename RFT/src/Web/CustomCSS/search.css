@@ -42,9 +42,9 @@ text {
 	 color:rgb(255,255,255);
 	 font-size:12px;
 	 font-weight:600;
-   height: 29px;
+   height: 100%;
    padding: 5px;
-   width: 102%;
+   width: 104%;
 }
 
 .rounded {
