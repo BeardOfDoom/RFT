@@ -28,3 +28,9 @@ func Register(w http.ResponseWriter, r *http.Request) {
   t, _ := template.ParseFiles("View/Register/index.html", "View/Layout/main.html")
 	t.ExecuteTemplate(w, "layout", data)
 }
+
+func Map(w http.ResponseWriter, r *http.Request) {
+	data := ""
+	t, _ := template.ParseFiles("View/Map/index.html", "View/Layout/main.html")
+	t.ExecuteTemplate(w, "layout", data)
+}
