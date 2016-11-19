@@ -1,0 +1,423 @@
+﻿{
+    "timezone": "+1:00",
+    "defaultstopinterval": "00:00:10",
+    "vehicles":
+    [
+        {
+            "name": "Kisvárda - Debrecen",
+            "info": "Blazing Fast!",
+            "route": "Kisvárda - Debrecen",
+            "stops":
+            [
+                {
+                    "name": "Kisvárda",
+                    "departure": {"time": "11:25", "day": 1}
+                },
+                {
+                    "name": "Ajak",
+                    "departure": {"time": "11:30", "day": 1}
+                },
+                {
+                    "name": "Pátroha",
+                    "departure": {"time": "11:35", "day": 1}
+                },
+                {
+                    "name": "Gégény",
+                    "arrival": {"time": "11:40", "day": 1}
+                },
+                {
+                    "name": "Demecser",
+                    "arrival": {"time": "11:45", "day": 1}
+                },
+                {
+                    "name": "Kék",
+                    "arrival": {"time": "11:50", "day": 1}
+                },
+                {
+                    "name": "Nyírbogdány",
+                    "arrival": {"time": "11:55", "day": 1}
+                },
+                {
+                    "name": "Kemecse",
+                    "arrival": {"time": "12:00", "day": 1}
+                },
+                {
+                    "name": "Sóstóhegy",
+                    "arrival": {"time": "12:05", "day": 1}
+                },
+                {
+                    "name": "Sóstó",
+                    "arrival": {"time": "12:10", "day": 1}
+                },
+                {
+                    "name": "Nyíregyháza",
+                    "arrival": {"time": "12:15", "day": 1}
+                },
+                {
+                    "name": "Újfehértó",
+                    "arrival": {"time": "12:20", "day": 1}
+                },
+                {
+                    "name": "Téglás",
+                    "arrival": {"time": "12:25", "day": 1}
+                },
+                {
+                    "name": "Hajdúhadház",
+                    "arrival": {"time": "12:30", "day": 1}
+                },
+                {
+                    "name": "Bocskaikert",
+                    "arrival": {"time": "12:35", "day": 1}
+                },
+                {
+                    "name": "Apafa",
+                    "arrival": {"time": "12:40", "day": 1}
+                },
+                {
+                    "name": "Debrecen-Csapókert",
+                    "arrival": {"time": "12:45", "day": 1}
+                },
+                {
+                    "name": "Debrecen",
+                    "arrival": {"time": "12:50", "day": 1}
+                }
+            ]
+        },
+		{
+            "name": "Kisvárda - Debrecen 2",
+            "info": "Blazing Fast!",
+            "route": "Kisvárda - Debrecen",
+            "stops":
+            [
+                {
+                    "name": "Kisvárda",
+                    "departure": {"time": "12:25", "day": 1}
+                },
+                {
+                    "name": "Ajak",
+                    "departure": {"time": "12:30", "day": 1}
+                },
+                {
+                    "name": "Pátroha",
+                    "departure": {"time": "12:35", "day": 1}
+                },
+                {
+                    "name": "Gégény",
+                    "arrival": {"time": "12:40", "day": 1}
+                },
+                {
+                    "name": "Demecser",
+                    "arrival": {"time": "12:45", "day": 1}
+                },
+                {
+                    "name": "Kék",
+                    "arrival": {"time": "12:50", "day": 1}
+                },
+                {
+                    "name": "Nyírbogdány",
+                    "arrival": {"time": "12:55", "day": 1}
+                },
+                {
+                    "name": "Kemecse",
+                    "arrival": {"time": "13:00", "day": 1}
+                },
+                {
+                    "name": "Sóstóhegy",
+                    "arrival": {"time": "13:05", "day": 1}
+                },
+                {
+                    "name": "Sóstó",
+                    "arrival": {"time": "13:10", "day": 1}
+                },
+                {
+                    "name": "Nyíregyháza",
+                    "arrival": {"time": "13:15", "day": 1}
+                },
+                {
+                    "name": "Újfehértó",
+                    "arrival": {"time": "13:20", "day": 1}
+                },
+                {
+                    "name": "Téglás",
+                    "arrival": {"time": "13:25", "day": 1}
+                },
+                {
+                    "name": "Hajdúhadház",
+                    "arrival": {"time": "13:30", "day": 1}
+                },
+                {
+                    "name": "Bocskaikert",
+                    "arrival": {"time": "13:35", "day": 1}
+                },
+                {
+                    "name": "Apafa",
+                    "arrival": {"time": "13:40", "day": 1}
+                },
+                {
+                    "name": "Debrecen-Csapókert",
+                    "arrival": {"time": "13:45", "day": 1}
+                },
+                {
+                    "name": "Debrecen",
+                    "arrival": {"time": "13:50", "day": 1}
+                }
+            ]
+        },
+		{
+            "name": "Kisvárda - Debrecen 3",
+            "info": "Blazing Fast!",
+            "route": "Kisvárda - Debrecen",
+            "stops":
+            [
+                {
+                    "name": "Kisvárda",
+                    "departure": {"time": "13:25", "day": 1}
+                },
+                {
+                    "name": "Ajak",
+                    "departure": {"time": "13:30", "day": 1}
+                },
+                {
+                    "name": "Pátroha",
+                    "departure": {"time": "13:35", "day": 1}
+                },
+                {
+                    "name": "Gégény",
+                    "arrival": {"time": "13:40", "day": 1}
+                },
+                {
+                    "name": "Demecser",
+                    "arrival": {"time": "13:45", "day": 1}
+                },
+                {
+                    "name": "Kék",
+                    "arrival": {"time": "13:50", "day": 1}
+                },
+                {
+                    "name": "Nyírbogdány",
+                    "arrival": {"time": "13:55", "day": 1}
+                },
+                {
+                    "name": "Kemecse",
+                    "arrival": {"time": "14:00", "day": 1}
+                },
+                {
+                    "name": "Sóstóhegy",
+                    "arrival": {"time": "14:05", "day": 1}
+                },
+                {
+                    "name": "Sóstó",
+                    "arrival": {"time": "14:10", "day": 1}
+                },
+                {
+                    "name": "Nyíregyháza",
+                    "arrival": {"time": "14:15", "day": 1}
+                },
+                {
+                    "name": "Újfehértó",
+                    "arrival": {"time": "14:20", "day": 1}
+                },
+                {
+                    "name": "Téglás",
+                    "arrival": {"time": "14:25", "day": 1}
+                },
+                {
+                    "name": "Hajdúhadház",
+                    "arrival": {"time": "14:30", "day": 1}
+                },
+                {
+                    "name": "Bocskaikert",
+                    "arrival": {"time": "14:35", "day": 1}
+                },
+                {
+                    "name": "Apafa",
+                    "arrival": {"time": "14:40", "day": 1}
+                },
+                {
+                    "name": "Debrecen-Csapókert",
+                    "arrival": {"time": "14:45", "day": 1}
+                },
+                {
+                    "name": "Debrecen",
+                    "arrival": {"time": "14:50", "day": 1}
+                }
+            ]
+        },
+		{
+            "name": "Kisvárda - Debrecen 4",
+            "info": "Blazing Fast!",
+            "route": "Kisvárda - Debrecen",
+            "stops":
+            [
+                {
+                    "name": "Kisvárda",
+                    "departure": {"time": "14:25", "day": 1}
+                },
+                {
+                    "name": "Ajak",
+                    "departure": {"time": "14:30", "day": 1}
+                },
+                {
+                    "name": "Pátroha",
+                    "departure": {"time": "14:35", "day": 1}
+                },
+                {
+                    "name": "Gégény",
+                    "arrival": {"time": "14:40", "day": 1}
+                },
+                {
+                    "name": "Demecser",
+                    "arrival": {"time": "14:45", "day": 1}
+                },
+                {
+                    "name": "Kék",
+                    "arrival": {"time": "14:50", "day": 1}
+                },
+                {
+                    "name": "Nyírbogdány",
+                    "arrival": {"time": "14:55", "day": 1}
+                },
+                {
+                    "name": "Kemecse",
+                    "arrival": {"time": "15:00", "day": 1}
+                },
+                {
+                    "name": "Sóstóhegy",
+                    "arrival": {"time": "15:05", "day": 1}
+                },
+                {
+                    "name": "Sóstó",
+                    "arrival": {"time": "15:10", "day": 1}
+                },
+                {
+                    "name": "Nyíregyháza",
+                    "arrival": {"time": "15:15", "day": 1}
+                },
+                {
+                    "name": "Újfehértó",
+                    "arrival": {"time": "15:20", "day": 1}
+                },
+                {
+                    "name": "Téglás",
+                    "arrival": {"time": "15:25", "day": 1}
+                },
+                {
+                    "name": "Hajdúhadház",
+                    "arrival": {"time": "15:30", "day": 1}
+                },
+                {
+                    "name": "Bocskaikert",
+                    "arrival": {"time": "15:35", "day": 1}
+                },
+                {
+                    "name": "Apafa",
+                    "arrival": {"time": "15:40", "day": 1}
+                },
+                {
+                    "name": "Debrecen-Csapókert",
+                    "arrival": {"time": "15:45", "day": 1}
+                },
+                {
+                    "name": "Debrecen",
+                    "arrival": {"time": "15:50", "day": 1}
+                }
+            ]
+        },
+		{
+            "name": "Kisvárda - Debrecen 5",
+            "info": "Blazing Fast!",
+            "route": "Kisvárda - Debrecen",
+            "stops":
+            [
+                {
+                    "name": "Kisvárda",
+                    "departure": {"time": "15:25", "day": 1}
+                },
+                {
+                    "name": "Ajak",
+                    "departure": {"time": "15:30", "day": 1}
+                },
+                {
+                    "name": "Pátroha",
+                    "departure": {"time": "15:35", "day": 1}
+                },
+                {
+                    "name": "Gégény",
+                    "arrival": {"time": "15:40", "day": 1}
+                },
+                {
+                    "name": "Demecser",
+                    "arrival": {"time": "15:45", "day": 1}
+                },
+                {
+                    "name": "Kék",
+                    "arrival": {"time": "15:50", "day": 1}
+                },
+                {
+                    "name": "Nyírbogdány",
+                    "arrival": {"time": "15:55", "day": 1}
+                },
+                {
+                    "name": "Kemecse",
+                    "arrival": {"time": "16:00", "day": 1}
+                },
+                {
+                    "name": "Sóstóhegy",
+                    "arrival": {"time": "16:05", "day": 1}
+                },
+                {
+                    "name": "Sóstó",
+                    "arrival": {"time": "16:10", "day": 1}
+                },
+                {
+                    "name": "Nyíregyháza",
+                    "arrival": {"time": "16:15", "day": 1}
+                },
+                {
+                    "name": "Újfehértó",
+                    "arrival": {"time": "16:20", "day": 1}
+                },
+                {
+                    "name": "Téglás",
+                    "arrival": {"time": "16:25", "day": 1}
+                },
+                {
+                    "name": "Hajdúhadház",
+                    "arrival": {"time": "16:30", "day": 1}
+                },
+                {
+                    "name": "Bocskaikert",
+                    "arrival": {"time": "16:35", "day": 1}
+                },
+                {
+                    "name": "Apafa",
+                    "arrival": {"time": "16:40", "day": 1}
+                },
+                {
+                    "name": "Debrecen-Csapókert",
+                    "arrival": {"time": "16:45", "day": 1}
+                },
+                {
+                    "name": "Debrecen",
+                    "arrival": {"time": "16:50", "day": 1}
+                }
+            ]
+        },
+		{
+            "name": "Kisvárda - Debrecen 6",
+            "info": "Blazing Fast!",
+            "route": "Kisvárda - Debrecen",
+            "stops":
+            [
+                {
+                    "name": "Kisvárda",
+                    "departure": {"time": "00:00", "day": 1}
+                },
+                {
+                    "name": "Debrecen",
+                    "arrival": {"time": "23:59", "day": 1}
+                }
+            ]
+        }
+    ]
+}
