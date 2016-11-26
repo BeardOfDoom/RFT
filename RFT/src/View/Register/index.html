@@ -1,3 +1,39 @@
 {{define "content"}}
-<h1>Register</h1>
+<style>
+body {
+  background: url(Web/Images/Register/background.jpg) no-repeat center center fixed;
+ -webkit-background-size: cover;
+ -moz-background-size: cover;
+ -o-background-size: cover;
+ background-size: cover;
+}
+</style>
+<link href="Web/CustomCSS/register.css" rel='stylesheet' type='text/css' />
+<div class="head">
+  <img src="/Web/Images/Register/rftv.png" alt="" id="Img"/>
+</div>
+<div class="register-form">
+  <form name="form1" method="post" action="/Register">
+    <text>Felhasználónév</text>
+    <li>
+      <input name="username" type="text" class="text" value="példa: vitál.andrás" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'példa: vitál.andrás';}" ><a href="#" class=" icon user"></a>
+    </li>
+    <text>Jelszó</text>
+    <li>
+      <input name="password" type="password" value="Jelszó" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Jelszó';}"><a href="#" class=" icon lock"></a>
+    </li>
+    <text>Jelszó ismét</text>
+    <li>
+      <input name="password2" type="password" value="Jelszó" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Jelszó';}"><a href="#" class=" icon lock"></a>
+    </li>
+    <text>E-mail cím</text>
+    <li>
+      <input name="email" type="text" class="text" value="példa: vitál.andrás48@gmail.com" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'példa: vitál.andrás48@gmail.com';}" ><img src="/Web/Images/Register/email.png" class="email" /></a>
+    </li>
+    <div class="p-container">
+          <input type="submit"  value="Regisztráció" >
+        <div class="clear"> </div>
+    </div>
+  </form>
+</div>
 {{end}}
