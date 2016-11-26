@@ -20,6 +20,34 @@ func SQLFactory(username, password, host, db string, port int) SQLConfig {
 	return SQLConfig{username, password, host, port, db}
 }
 
+func (this SQLConfig) MySqlTest()  {
+
+  var id, name string
+
+  inf := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", this.username, this.password, this.host, this.port, this.db)
+  db, err := sql.Open("mysql", inf);
+  if err != nil {
+    panic(err)
+  }
+  defer db.Close()
+
+  rows, err := db.Query("SELECT * FROM test")
+  if err != nil {
+    panic(err)
+  }
+  defer rows.Close()
+
+
+  for rows.Next() {
+    err := rows.Scan(&id, &name)
+    if err != nil {
+      panic(err)
+    }
+    fmt.Println(id, " ", name)
+  }
+
+}
+
 func (this SQLConfig) MysqlAuthentificate(username, password string) bool {
     var usern, passw, salt string
 
