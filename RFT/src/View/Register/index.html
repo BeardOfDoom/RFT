@@ -19,6 +19,14 @@ $(document).ready(function(){
 </div>
 <div class="register-form">
   <form name="form1" method="post" action="/Registration">
+    <text>Vezetéknév</text>
+    <li>
+      <input name="lastname" type="text" required pattern="[a-zA-ZéáűőúöüóíÉÁŰŐÚÖÜÓÍ]+" oninvalid="this.setCustomValidity('Kérjük adja meg a vezetéknevét!')" oninput="setCustomValidity('')"><a href="#" class=" icon user"></a>
+    </li>
+    <text>Keresztnév</text>
+    <li>
+      <input name="firstname" type="text" required pattern="[a-zA-ZéáűőúöüóíÉÁŰŐÚÖÜÓÍ]+" oninvalid="this.setCustomValidity('Kérjük adja meg a keresztnevét!')" oninput="setCustomValidity('')"><a href="#" class=" icon user"></a>
+    </li>
     <text>Felhasználónév</text>
     <span data-toggle="tooltip" title="A felhasználónév ékezetmentes kis- és nagybetűket, számokat, _ és . karaktereket tartalmazhat, valamint minimum 4 és maximum 20 karakater hosszú lehet.">
       <img src="/Web/Images/Register/question.png" width="20px" style="margin-bottom:8px; margin-left:4px;"/>
