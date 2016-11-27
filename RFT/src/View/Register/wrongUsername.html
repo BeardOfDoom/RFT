@@ -1,0 +1,42 @@
+{{define "content"}}
+<style>
+body {
+  background: url(Web/Images/Register/backgroundblur.jpg) no-repeat center center fixed;
+ -webkit-background-size: cover;
+ -moz-background-size: cover;
+ -o-background-size: cover;
+ background-size: cover;
+}
+
+text {
+  font-family: 'Open Sans', sans-serif;
+	color:rgb(255,255,255);
+	font-size:28px;
+	outline: none;
+	font-weight:600;
+  position:absolute;
+  top:40%;
+  left:50%;
+  margin-left:-250px;
+  border:none;
+  text-shadow: 0 0 0.2em #000, 0 0 0.2em #000;
+}
+
+a.back, a.back:active, a.back:visited {
+  color:rgb(0, 0, 0);
+  border:none;
+  text-shadow: 0 0 0.2em #fff, 0 0 0.2em #fff;
+}
+
+a.back:hover {
+  text-decoration: none;
+  text-shadow: 0 0 0.2em #737776, 0 0 0.2em #737776;
+}
+
+</style>
+<text>
+  Ez a felhasználónév már foglalt!<br/>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kérjük válasszon másikat. <br/>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/Register" class="back">Vissza</a>
+</text>
+{{end}}

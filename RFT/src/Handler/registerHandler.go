@@ -4,6 +4,7 @@ import (
 	"Service"
 	"fmt"
 	"net/http"
+  "html/template"
 )
 
 func Registration(w http.ResponseWriter, r *http.Request) {
@@ -16,13 +17,14 @@ func Registration(w http.ResponseWriter, r *http.Request) {
 
 	validationCode := Service.Registration(firstname, lastname, username, password, email) //0 - OK,  -1 - User already exists -2 - Unexpected error
 	if validationCode == 0 {
-		//TODO
-		fmt.Println(validationCode)
+    data := ""
+    t, _ := template.ParseFiles("View/Register/succes.html", "View/Layout/main.html")
+    t.ExecuteTemplate(w, "layout", data)
 	} else if validationCode == -1 {
-		//TODO
-		fmt.Println(validationCode)
+    data := ""
+    t, _ := template.ParseFiles("View/Register/wrongUsername.html", "View/Layout/main.html")
+    t.ExecuteTemplate(w, "layout", data)
 	} else {
-		//TODO
 		fmt.Println(validationCode)
 	}
 }
