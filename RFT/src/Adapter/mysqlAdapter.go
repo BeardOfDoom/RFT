@@ -64,7 +64,7 @@ func (this SQLConfig) MySqlTest() {
 }
 
 func (this SQLConfig) MysqlAuthentificate(username, password string) bool {
-	var usern, passw, salt string
+	var usern, passw, salt1, salt2 string
 
 	inf := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", this.username, this.password, this.host, this.port, this.db)
 	db, err := sql.Open("mysql", inf)
@@ -73,28 +73,26 @@ func (this SQLConfig) MysqlAuthentificate(username, password string) bool {
 	}
 	defer db.Close()
 
-	rows, err := db.Query("SELECT username, password, salt FROM users WHERE username='" + username + "'")
+	rows, err := db.Query("SELECT NICKNAME, PASSWORD, SALT1, SALT2 FROM USERS WHERE NICKNAME='" + username + "'")
 	if err != nil {
 		panic(err)
 	}
 	defer rows.Close()
 
-	/* #TODO
-	   tesztelni, mikor jo mikor nem, return false megirni
-	*/
 	for rows.Next() {
-		err := rows.Scan(&usern, &passw, &salt)
+		err := rows.Scan(&usern, &passw, &salt1, &salt2)
 		if err != nil {
 			panic(err)
 		}
 	}
 
-	data := []byte(salt + password)
-	md5Sum := md5.Sum(data)
-	s := string(md5Sum[:])
-	if s == passw {
+	saltedPassword := fmt.Sprintf(salt1 + password + salt2)
+	hashedPassword := GetMD5Hash(saltedPassword)
+	if hashedPassword == passw {
+		fmt.Println("OKEEE")
 		return true
 	} else {
+		fmt.Println("NEIN")
 		return false
 	}
 }
