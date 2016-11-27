@@ -16,6 +16,8 @@
       $("#4").addClass('active');
     } else if (url.indexOf("Registration") != -1) {
       return 0;
+    } else if (url.indexOf("Authentificate") != -1) {
+      return 0;
     } else {
       $("#1").addClass('active');
     }
