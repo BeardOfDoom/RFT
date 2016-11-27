@@ -18,7 +18,7 @@ $(document).ready(function(){
   <img src="/Web/Images/Register/rftv.png" alt="" id="Img"/>
 </div>
 <div class="register-form">
-  <form name="form1" method="post" action="/Register">
+  <form name="form1" method="post" action="/Registration">
     <text>Felhasználónév</text>
     <span data-toggle="tooltip" title="A felhasználónév ékezetmentes kis- és nagybetűket, számokat, _ és . karaktereket tartalmazhat, valamint minimum 4 és maximum 20 karakater hosszú lehet.">
       <img src="/Web/Images/Register/question.png" width="20px" style="margin-bottom:8px; margin-left:4px;"/>
@@ -35,7 +35,7 @@ $(document).ready(function(){
     </li>
     <text>Jelszó ismét</text>
     <li>
-      <input name="password2" id="pass2" onchange="validate()" type="password" required pattern="[A-Za-z0-9]{6,20}" oninvalid="this.setCustomValidity('Kérjük adja meg helyesen a jelszót ismét!')" oninput="setCustomValidity('')"><a href="#" class=" icon lock"></a>
+      <input id="pass2" onchange="validate()" type="password" required pattern="[A-Za-z0-9]{6,20}" oninvalid="this.setCustomValidity('Kérjük adja meg helyesen a jelszót ismét!')" oninput="setCustomValidity('')"><a href="#" class=" icon lock"></a>
     </li>
     <text>E-mail cím</text>
     <li>

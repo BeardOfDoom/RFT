@@ -3,10 +3,24 @@ package Handler
 import(
   "net/http"
   "Service"
+  "fmt"
 )
 
-func RegistrationAuthentificate(w http.ResponseWriter, r *http.Request) {
+func Registration(w http.ResponseWriter, r *http.Request) {
   r.ParseForm()
+  username := r.FormValue("username")
+  password := r.FormValue("password")
+  email := r.FormValue("email")
 
-  _ = Service.RegistrationAuthentificate(r.FormValue("username"), r.FormValue("password"), r.FormValue("fullname"))
+  validationCode := Service.Registration(username, password, email) //0 - OK,  -1 - User already exists -2 - Unexpected error
+  if (validationCode == 0) {
+    //TODO
+    fmt.Println(validationCode)
+  } else if (validationCode == -1) {
+    //TODO
+    fmt.Println(validationCode)
+  } else {
+    //TODO
+    fmt.Println(validationCode)
+  }
 }

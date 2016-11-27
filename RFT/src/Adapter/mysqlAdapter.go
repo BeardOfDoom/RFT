@@ -93,41 +93,50 @@ func generateSalt() string {
     return string(b)
 }
 
-func (this SQLConfig) MysqlRegistrationAuthentificate(username, password, fullname string) bool {
-  var usern, salt string
+func (this SQLConfig) MysqlRegistration(username, password, email string) int {
+  var MySQLResultUser string
 
   inf := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", this.username, this.password, this.host, this.port, this.db)
   db, err := sql.Open("mysql", inf);
   if err != nil {
     panic(err)
+    return -2
   }
   defer db.Close()
 
-  rows, err := db.Query("SELECT username FROM users WHERE username='"+ username +"'")
+  rows, err := db.Query("SELECT NICKNAME FROM USERS WHERE NICKNAME='"+ username +"'")
   if err != nil {
     panic(err)
+    return -2
   }
   defer rows.Close()
 
   for rows.Next() {
-    err := rows.Scan(&usern)
+    err := rows.Scan(&MySQLResultUser)
     if err != nil {
       panic(err)
+      return -2
     }
   }
-  if(usern != "") {
-    return false
+
+  if (MySQLResultUser != "") {
+    return -1
   }
 
-  salt = generateSalt()
+  //TODO: Kijavítani a salt-ot, hogy helyesen működjön
+  salt := generateSalt()
   data := []byte(salt + password)
   md5Sum := md5.Sum(data)
   s := string(md5Sum[:])
-  _, errr := db.Exec("INSERT INTO users (username, password, salt, fullname) VALUES ('"+username+"', '"+
-          s +"', '"+ salt +"', '"+ fullname +"')")
-  if errr != nil {
+  s = "Felulirva hibas mukodes miatt"
+
+  _, err = db.Exec("INSERT INTO USERS (NICKNAME, PASSWORD, SALT, TYPE, EMAIL) VALUES ('" + username + "', '" +
+          password + "', '" + s + "', '" + "user" + "', '" + email + "')")
+
+  if err != nil {
     panic(err)
-    return false
+    return -2
   }
-  return true
+
+  return 0;
 }
