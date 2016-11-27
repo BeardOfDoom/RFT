@@ -8,6 +8,11 @@ body {
  background-size: cover;
 }
 </style>
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
 <link href="Web/CustomCSS/register.css" rel='stylesheet' type='text/css' />
 <div class="head">
   <img src="/Web/Images/Register/rftv.png" alt="" id="Img"/>
@@ -15,25 +20,40 @@ body {
 <div class="register-form">
   <form name="form1" method="post" action="/Register">
     <text>Felhasználónév</text>
+    <span data-toggle="tooltip" title="A felhasználónév ékezetmentes kis- és nagybetűket, számokat, _ és . karaktereket tartalmazhat, valamint minimum 4 és maximum 20 karakater hosszú lehet.">
+      <img src="/Web/Images/Register/question.png" width="20px" style="margin-bottom:8px; margin-left:4px;"/>
+    </span>
     <li>
-      <input name="username" type="text" class="text" value="példa: vitál.andrás" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'példa: vitál.andrás';}" ><a href="#" class=" icon user"></a>
+      <input name="username" type="text" required pattern="[a-zA-Z0-9_.]{4,20}" oninvalid="this.setCustomValidity('Kérjük adjon meg egy helyes felhasználónevet!')" oninput="setCustomValidity('')"><a href="#" class=" icon user"></a>
     </li>
     <text>Jelszó</text>
+    <span data-toggle="tooltip" title="A jelszó ékezetmentes kis- és nagybetűket, és számokat tartalmazhat, valamint minimum 6 és maximum 20 karakater hosszú lehet.">
+      <img src="/Web/Images/Register/question.png" width="20px" style="margin-bottom:8px; margin-left:4px;"/>
+    </span>
     <li>
-      <input name="password" type="password" value="Jelszó" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Jelszó';}"><a href="#" class=" icon lock"></a>
+      <input name="password" id="pass1" onchange="validate()" type="password" required pattern="[A-Za-z0-9]{6,20}" oninvalid="this.setCustomValidity('Kérjük adjon meg egy helyes jelszót!')" oninput="setCustomValidity('')"><a href="#" class=" icon lock"></a>
     </li>
     <text>Jelszó ismét</text>
     <li>
-      <input name="password2" type="password" value="Jelszó" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Jelszó';}"><a href="#" class=" icon lock"></a>
+      <input name="password2" id="pass2" onchange="validate()" type="password" required pattern="[A-Za-z0-9]{6,20}" oninvalid="this.setCustomValidity('Kérjük adja meg helyesen a jelszót ismét!')" oninput="setCustomValidity('')"><a href="#" class=" icon lock"></a>
     </li>
     <text>E-mail cím</text>
     <li>
-      <input name="email" type="text" class="text" value="példa: vitál.andrás48@gmail.com" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'példa: vitál.andrás48@gmail.com';}" ><img src="/Web/Images/Register/email.png" class="email" /></a>
+      <input name="email" type="text" required pattern="[a-zA-Z0-9!#$%&amp;.'*+-/=?^_`|~]+[@][a-zA-Z]+[.][a-z]+" oninvalid="this.setCustomValidity('Kérjük adjon meg egy e-mail címet!')" oninput="setCustomValidity('')"><img src="/Web/Images/Register/email.png" class="email" /></a>
     </li>
     <div class="p-container">
           <input type="submit"  value="Regisztráció" >
-        <div class="clear"> </div>
+      <div class="clear"> </div>
     </div>
   </form>
 </div>
+<script>
+function validate() {
+  var pass1 = document.getElementById("pass1").value;
+  var pass2 = document.getElementById("pass2").value;
+  if (pass1 != pass2) {
+    document.getElementById("pass2").setCustomValidity('Nem egyezik meg a két jelszó!');
+  }
+}
+</script>
 {{end}}
