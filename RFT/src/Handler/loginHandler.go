@@ -1,10 +1,10 @@
 package Handler
 
 import (
-	"fmt"
-	"net/http"
 	"Service"
+	"fmt"
 	"html/template"
+	"net/http"
 )
 
 func Authentificate(w http.ResponseWriter, r *http.Request) {
@@ -13,10 +13,9 @@ func Authentificate(w http.ResponseWriter, r *http.Request) {
 	valid := Service.Authentificate(r.FormValue("username"), r.FormValue("password"))
 	fmt.Println(valid)
 
-	if(valid != "") {
-		data := valid
+	if valid.Valid {
 		t, _ := template.ParseFiles("View/HomePage/index.html", "View/Layout/main.html")
-		t.ExecuteTemplate(w, "layout", data)
+		t.ExecuteTemplate(w, "layout", valid)
 	} else {
 		data := ""
 		t, _ := template.ParseFiles("View/Login/error.html", "View/Layout/main.html")

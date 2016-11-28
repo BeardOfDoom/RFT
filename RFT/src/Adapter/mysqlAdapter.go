@@ -17,6 +17,11 @@ type SQLConfig struct {
 	db       string
 }
 
+type Authentification struct {
+	Valid    bool
+	Username string
+}
+
 func SQLFactory(username, password, host, db string, port int) SQLConfig {
 	return SQLConfig{username, password, host, port, db}
 }
@@ -36,35 +41,9 @@ func generateSalt() string {
 	return string(b)
 }
 
-func (this SQLConfig) MySqlTest() {
-
-	var id, name string
-
-	inf := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", this.username, this.password, this.host, this.port, this.db)
-	db, err := sql.Open("mysql", inf)
-	if err != nil {
-		panic(err)
-	}
-	defer db.Close()
-
-	rows, err := db.Query("SELECT * FROM test")
-	if err != nil {
-		panic(err)
-	}
-	defer rows.Close()
-
-	for rows.Next() {
-		err := rows.Scan(&id, &name)
-		if err != nil {
-			panic(err)
-		}
-		fmt.Println(id, " ", name)
-	}
-
-}
-
-func (this SQLConfig) MysqlAuthentificate(username, password string) string {
+func (this SQLConfig) MysqlAuthentificate(username, password string) Authentification {
 	var usern, passw, salt1, salt2 string
+	var auth Authentification
 
 	inf := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", this.username, this.password, this.host, this.port, this.db)
 	db, err := sql.Open("mysql", inf)
@@ -89,10 +68,14 @@ func (this SQLConfig) MysqlAuthentificate(username, password string) string {
 	saltedPassword := fmt.Sprintf(salt1 + password + salt2)
 	hashedPassword := GetMD5Hash(saltedPassword)
 	if hashedPassword == passw {
-		return username
+		auth.Valid = true
+		auth.Username = username
 	} else {
-		return ""
+		auth.Valid = false
+		auth.Username = ""
 	}
+
+	return auth
 }
 
 func (this SQLConfig) MysqlRegistration(firstname, lastname, username, password, email string) int {
