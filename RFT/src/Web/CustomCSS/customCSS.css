@@ -15,3 +15,18 @@ li#logo:hover {
 li:hover {
   background-color: #525252;
 }
+
+hello {
+  color: rgb(255, 255, 255);
+  font-family: 'Open Sans', sans-serif;
+  position: relative;
+  top: 15;
+}
+
+hello:hover, li.hello:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+b {
+  color: rgb(255, 255, 255);
+}

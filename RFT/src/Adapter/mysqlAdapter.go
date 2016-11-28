@@ -18,22 +18,22 @@ type SQLConfig struct {
 }
 
 type Authentification struct {
-	Valid    	bool
-	Username 	string
-	Firstname	string
-	Lastname	string
+	Valid     bool
+	Username  string
+	Firstname string
+	Lastname  string
 }
 
 type SQLData struct {
-	From string
-	To string
-	Date string
-	Discount string
-	Potjegy string
-	Helyi string
+	From      string
+	To        string
+	Date      string
+	Discount  string
+	Potjegy   string
+	Helyi     string
 	Atszallas string
-	Kerekpar string
-	Exits bool
+	Kerekpar  string
+	Exits     bool
 }
 
 func SQLFactory(username, password, host, db string, port int) SQLConfig {
@@ -150,7 +150,7 @@ func (this SQLConfig) MysqlSearchTimetable(from, to, date, discount, potjegy, he
 	}
 	defer db.Close()
 
-//TODO query megirasa a parameterek alapjan
+	//TODO query megirasa a parameterek alapjan
 	rows, err := db.Query("SELECT NICKNAME FROM USERS")
 	if err != nil {
 		panic(err)
@@ -158,7 +158,7 @@ func (this SQLConfig) MysqlSearchTimetable(from, to, date, discount, potjegy, he
 	defer rows.Close()
 
 	for rows.Next() {
-		err := rows.Scan()//TODO beolvasni a strukturaba
+		err := rows.Scan() //TODO beolvasni a strukturaba
 		if err != nil {
 			panic(err)
 		}
