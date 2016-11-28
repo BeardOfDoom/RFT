@@ -10,9 +10,9 @@
 </style>
 <link href="Web/CustomCSS/search.css" rel='stylesheet' type='text/css' />
 <div class="search-form">
+   <form action="/Search" method="post">
    <div class="row">
       <div class="col-xs-6 col-sm-4">
-         <form name="form1" method="post" action="">
             <text>Honnan:</text>
             <li>
                <input name="from" type="text" class="text" value="Induló Állomás" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Induló Állomás';}" >
@@ -21,7 +21,6 @@
             <li>
                <input name="to" type="text" class="text" value="Célállomás" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Célállomás';}" >
             </li>
-         </form>
       </div>
       <div class="col-xs-6 col-sm-4">
          <div id="datepicker">
@@ -79,7 +78,7 @@
                <tr>
                   <td>
                      <div class="squaredTwo">
-                        <input type="checkbox" value="" id="potjegy" name="potjegy" />
+                        <input type="checkbox" value="potjegynelkul" id="potjegy" name="potjegy" />
                         <label for="potjegy"></label>
                      </div>
                   </td>
@@ -88,7 +87,7 @@
                   </td>
                   <td>
                      <div class="squaredTwo" style="margin-left: 60%;">
-                        <input type="checkbox" value="" id="helyi" name="helyi" />
+                        <input type="checkbox" value="helyikozlekedesnelkul" id="helyi" name="helyi" />
                         <label for="helyi"></label>
                      </div>
                   </td>
@@ -102,7 +101,7 @@
                <tr>
                   <td>
                      <div class="squaredTwo">
-                        <input type="checkbox" value="" id="atszallas" name="atszallas" />
+                        <input type="checkbox" value="atszallasnelkul" id="atszallas" name="atszallas" />
                         <label for="atszallas"></label>
                      </div>
                   </td>
@@ -111,7 +110,7 @@
                   </td>
                   <td>
                      <div class="squaredTwo" style="margin-left: 54%;">
-                        <input type="checkbox" value="" id="kerekpar" name="kerekpar" />
+                        <input type="checkbox" value="kerekparral" id="kerekpar" name="kerekpar" />
                         <label for="kerekpar"></label>
                      </div>
                   </td>
@@ -123,15 +122,21 @@
          </div>
       </div>
    </div>
-   <input type="submit" value="Menetrend">
+     <input type="hidden" id="date" value="" name="date"/>
+     <input type="submit" value="Menetrend" onclick="passDate()">
+   </form>
 </div>
 <script>
-   //  var currentDate = $( "#datepicker" ).datepicker( "getDate" );
    $( "#datepicker" ).datepicker( "option", "dayNames", [ "Vasárnap", "Hétfő", "Kedd", "Szerda", "Csütörtök", "Péntek", "Szombat" ] );
    $( "#datepicker" ).datepicker({dayNamesMin: [ "V", "H", "K", "Sz", "Cs", "P", "Sz" ]});
    $( "#datepicker" ).datepicker( "option", "monthNames", [ "Január", "Február", "Március", "Április", "Május", "Június", "Július", "Augusztus", "Szeptember", "Október", "November", "December" ] );
    $( "#datepicker" ).datepicker( "option", "showMonthAfterYear", true );
    $( "#datepicker" ).datepicker( "option", "firstDay", 1 );
    $( "#datepicker" ).datepicker();
+
+   function passDate() {
+     var currentDate = $( "#datepicker" ).datepicker( "getDate" );
+     document.getElementById('date').value = currentDate;
+   }
 </script>
 {{end}}
