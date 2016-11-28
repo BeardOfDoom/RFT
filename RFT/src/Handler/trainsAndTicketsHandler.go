@@ -12,7 +12,7 @@ func SearchTimetable(w http.ResponseWriter, r *http.Request) {
 	//TODO: kitálni, hogy hogyan legyen lekezelve a discount és a pótjegy nélkül majd az ár kiszámításánál
 	//TODO: valamint a helyi közlekedés nélkül és a kerékpárszállítással is
 	result := Service.SearchTimetable(r.FormValue("from"), r.FormValue("to"), r.FormValue("date"),
-		r.FormValue("discount"), r.FormValue("extraTicket"), r.FormValue("withoutLocalTransportation"),
+		r.FormValue("discount"), r.FormValue("withoutExtraTicket"), r.FormValue("withoutLocalTransportation"),
 		r.FormValue("withoutChange"), r.FormValue("withBicycleDelivery"))
 	fmt.Println(result)
 	fmt.Println(r.FormValue("from"))
