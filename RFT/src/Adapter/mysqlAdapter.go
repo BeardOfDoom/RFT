@@ -63,7 +63,7 @@ func (this SQLConfig) MySqlTest() {
 
 }
 
-func (this SQLConfig) MysqlAuthentificate(username, password string) bool {
+func (this SQLConfig) MysqlAuthentificate(username, password string) string {
 	var usern, passw, salt1, salt2 string
 
 	inf := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", this.username, this.password, this.host, this.port, this.db)
@@ -89,11 +89,9 @@ func (this SQLConfig) MysqlAuthentificate(username, password string) bool {
 	saltedPassword := fmt.Sprintf(salt1 + password + salt2)
 	hashedPassword := GetMD5Hash(saltedPassword)
 	if hashedPassword == passw {
-		fmt.Println("OKEEE")
-		return true
+		return username
 	} else {
-		fmt.Println("NEIN")
-		return false
+		return ""
 	}
 }
 
