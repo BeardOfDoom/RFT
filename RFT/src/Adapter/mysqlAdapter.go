@@ -18,8 +18,10 @@ type SQLConfig struct {
 }
 
 type Authentification struct {
-	Valid    bool
-	Username string
+	Valid    	bool
+	Username 	string
+	Firstname	string
+	Lastname	string
 }
 
 type SQLData struct {
@@ -54,7 +56,7 @@ func generateSalt() string {
 }
 
 func (this SQLConfig) MysqlAuthentificate(username, password string) Authentification {
-	var usern, passw, salt1, salt2 string
+	var usern, passw, salt1, salt2, fname, lname string
 	var auth Authentification
 
 	inf := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", this.username, this.password, this.host, this.port, this.db)
@@ -64,14 +66,14 @@ func (this SQLConfig) MysqlAuthentificate(username, password string) Authentific
 	}
 	defer db.Close()
 
-	rows, err := db.Query("SELECT NICKNAME, PASSWORD, SALT1, SALT2 FROM USERS WHERE NICKNAME='" + username + "'")
+	rows, err := db.Query("SELECT NICKNAME, PASSWORD, SALT1, SALT2, FIRSTNAME, LASTNAME FROM USERS WHERE NICKNAME='" + username + "'")
 	if err != nil {
 		panic(err)
 	}
 	defer rows.Close()
 
 	for rows.Next() {
-		err := rows.Scan(&usern, &passw, &salt1, &salt2)
+		err := rows.Scan(&usern, &passw, &salt1, &salt2, &fname, &lname)
 		if err != nil {
 			panic(err)
 		}
@@ -82,6 +84,8 @@ func (this SQLConfig) MysqlAuthentificate(username, password string) Authentific
 	if hashedPassword == passw {
 		auth.Valid = true
 		auth.Username = username
+		auth.Firstname = fname
+		auth.Lastname = lname
 	} else {
 		auth.Valid = false
 		auth.Username = ""

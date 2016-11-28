@@ -25,6 +25,7 @@
       <ul class="nav navbar-nav navbar-right">
         <script>
             if (getCookie("validLogin") == "true") {
+              document.write("<li><a href='#'>Üdvözöljük " + getCookie("lastname") + " " + getCookie("firstname") + "!</a></li>");
               document.write('<li id="3"><a href="/Logout"><b>Kijelentkezés</b></a></li>');
             } else {
               document.write('<li id="3"><a href="/Login"><b>Bejelentkezés</b></a></li>');

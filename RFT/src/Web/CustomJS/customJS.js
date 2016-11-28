@@ -2,11 +2,15 @@
   function logout() {
     deleteCookie("validLogin");
     deleteCookie("username");
+    deleteCookie("firstname");
+    deleteCookie("lastname");
   }
 
-  function writeLoginInformation(username) {
+  function writeLoginInformation(username, fname, lname) {
       document.cookie = "validLogin=true";
       document.cookie = "username=" + username;
+      document.cookie = "firstname=" + fname;
+      document.cookie = "lastname=" + lname;
   }
 
   function deleteCookie(cookieName) {
