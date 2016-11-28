@@ -22,6 +22,18 @@ type Authentification struct {
 	Username string
 }
 
+type SQLData struct {
+	From string
+	To string
+	Date string
+	Discount string
+	Potjegy string
+	Helyi string
+	Atszallas string
+	Kerekpar string
+	Exits bool
+}
+
 func SQLFactory(username, password, host, db string, port int) SQLConfig {
 	return SQLConfig{username, password, host, port, db}
 }
@@ -122,4 +134,30 @@ func (this SQLConfig) MysqlRegistration(firstname, lastname, username, password,
 	}
 
 	return 0
+}
+
+func (this SQLConfig) MysqlSearchTimetable(from, to, date, discount, potjegy, helyi, atszallas, kerekpar string) SQLData {
+	var result SQLData
+
+	inf := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", this.username, this.password, this.host, this.port, this.db)
+	db, err := sql.Open("mysql", inf)
+	if err != nil {
+		panic(err)
+	}
+	defer db.Close()
+
+//TODO query megirasa a parameterek alapjan
+	rows, err := db.Query("SELECT NICKNAME FROM USERS")
+	if err != nil {
+		panic(err)
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		err := rows.Scan()//TODO beolvasni a strukturaba
+		if err != nil {
+			panic(err)
+		}
+	}
+	return result
 }
