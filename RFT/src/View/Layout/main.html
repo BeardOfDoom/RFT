@@ -23,7 +23,13 @@
         <li id="2"><a href="/TrainsAndTickets"><b>Jegyek és járatok</b></a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li id="3"><a href="/Login"><b>Bejelentkezés</b></a></li>
+        <script>
+            if (getCookie("validLogin") == "true") {
+              document.write('<li id="3"><a href="/Logout"><b>Kijelentkezés</b></a></li>');
+            } else {
+              document.write('<li id="3"><a href="/Login"><b>Bejelentkezés</b></a></li>');
+            }
+        </script>
         <li id="4"><a href="/Register"><b>Regisztráció</b></a></li>
       </ul>
     </div>

@@ -1,0 +1,10 @@
+{{define "content"}}
+<script>
+  var validLogin = {{ .Valid }}
+  var username = {{ .Username }}
+  if (validLogin) {
+    writeLoginInformation(username)
+  }
+</script>
+<meta http-equiv="refresh" content="0; url=/" />
+{{end}}

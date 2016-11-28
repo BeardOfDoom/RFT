@@ -1,4 +1,18 @@
 
+  function logout() {
+    deleteCookie("validLogin");
+    deleteCookie("username");
+  }
+
+  function writeLoginInformation(username) {
+      document.cookie = "validLogin=true";
+      document.cookie = "username=" + username;
+  }
+
+  function deleteCookie(cookieName) {
+    document.cookie = cookieName + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  }
+
   function getCookie(cookieName) {
     var cookie = document.cookie.split(';');
     for (var i = 0; i < cookie.length; i++) {

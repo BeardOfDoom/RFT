@@ -21,6 +21,7 @@ func main() {
 	http.HandleFunc("/Authentificate", Handler.Authentificate)
 	http.HandleFunc("/Registration", Handler.Registration)
 	http.HandleFunc("/Register", Handler.Register)
+	http.HandleFunc("/Logout", Handler.Logout)
 	http.HandleFunc("/Web/", Handler.WebHandler)
 	http.HandleFunc("/Map", Handler.Map)
 	http.ListenAndServe(":8000", nil)
