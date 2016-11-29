@@ -1,6 +1,6 @@
-﻿/* transit.js 0.1.0
+﻿/* transit-osm.js 0.1.0
  * (c) Pranav Ravichandran <me@onloop.net>
- * transit.js carries the MIT license.
+ * transit-osm.js carries the MIT license.
  * http://onloop.net/transit/
  */
 
@@ -8,11 +8,7 @@ var transit = (function () {
     return {
         // Get a selector div, a list of names of stops in the map, and the points of the stops,
         // and return a map object with a status and a search bar.
-        initMap : function (selector, stopsList, routePoints, showLog, showSearch) {
-            var mapDet = {
-                mapTypeId: google.maps.MapTypeId.ROADMAP
-            };
-
+        initMap : function (selector, tileLayer, stopsList, routePoints, showLog, showSearch) {
             // Remove the initialization message before overlaying the map on the div.
             $(selector + "> #init").html('');
 
@@ -61,8 +57,8 @@ var transit = (function () {
                 transit.initStatus(selector);
             }
 
-            var map = new google.maps.Map(document.getElementById('transitMap'), mapDet);
-
+            var map = L.map('transitMap');
+            tileLayer.addTo(map);
             if (showSearch) transit.initSearch(selector, stopsList, routePoints, map);
 
             return map;
@@ -181,9 +177,8 @@ var transit = (function () {
                     source: stopsList,
                     select: function (event, ui) {
                         var coordsOfItem = routePoints[ui.item.value];
-                        var zeroIn = new google.maps.LatLng(coordsOfItem.x, coordsOfItem.y);
-                        map.setZoom(15);
-                        map.setCenter(zeroIn);
+                        var zeroIn = new L.LatLng(coordsOfItem.x, coordsOfItem.y);
+                        map.setView(zeroIn, 15);
                     }
                 });
 
@@ -199,21 +194,17 @@ var transit = (function () {
 
         // Initialize a marker at a point specified by the coords parameter in the map.
         initMarker : function (coords, selector, map, color) {
-            var markerPos = new google.maps.LatLng(coords.x, coords.y);
+            var markerPos = new L.LatLng(coords.x, coords.y);
 
-            var markerIcon = {
-                path: google.maps.SymbolPath.CIRCLE,
+            marker = new L.CircleMarker(markerPos, {
+                radius: 7,
+                color: 'black',
+                opacity: 1,
+                weight: 7,
+                fill: true,
                 fillColor: color,
-                fillOpacity: 0.8,
-                scale: 7
-            };
-
-            var marker = {
-                position: markerPos,
-                icon: markerIcon
-            };
-
-            marker = new google.maps.Marker(marker);
+                fillOpacity: 0.7
+            });
 
             return marker;
         },
@@ -221,47 +212,45 @@ var transit = (function () {
         // Event handlers for marker mouseover, like infowindow popups and status messages.
         onMarkerMouseover : function (selector, map, marker, mouseoverText, showLog) {
             if (showLog) {
-                // Clear all listeners first so they don't accumulate.
-                google.maps.event.clearListeners(marker, 'mouseover');
-                google.maps.event.clearListeners(marker, 'mouseout');
+                // Clear all listeners so they don't accumulate.
+                marker.removeEventListener('mouseover');
+                marker.removeEventListener('mouseout');
 
-                google.maps.event.addListener(marker, 'mouseover', function () {
+                L.DomEvent.addListener(marker, 'mouseover', function () {
                     $(selector + '> #status').stop(true, true);
                     $(selector + '> #status').css('display', 'inline');
                     $(selector + '> #status').html(mouseoverText);
                 });
 
-                google.maps.event.addListener(marker, 'mouseout', function () {
+                L.DomEvent.addListener(marker, 'mouseout', function () {
                     $(selector + '> #status').css('display', 'none');
                 });
             }
 
-            if (typeof marker.infoWindow != "undefined") {
+            if (typeof marker.popup != "undefined") {
                 // Update content of existing infowindow.
-                marker.infoWindow.setContent(mouseoverText);
+                marker.popup.setContent(mouseoverText);
             } else {
-                marker.infoWindow = new google.maps.InfoWindow({
-                    content: mouseoverText
-                });
+                marker.unbindPopup();
+                marker.popup = new L.Popup().setContent(mouseoverText);
 
                 // Open an infowindow on clicking a marker.
-                google.maps.event.addListener(marker, 'click', function () {
-                    marker.infoWindow.open(map, marker);
-                });
+                marker.bindPopup(marker.popup);
 
                 // Close all info windows on clicking anywhere on the map.
-                google.maps.event.addListener(map, 'click', function () {
-                    marker.infoWindow.close();
+                L.DomEvent.addListener(map, 'click', function () {
+                    map.closePopup();
                 });
             }
         },
 
         // Take a KML file in a public domain and overlay it on the map.
         overlayKml : function (kmlUrl, map) {
-            var kmlOptions = {
-                map: map
-            };
-            var kmlLayer = new google.maps.KmlLayer(kmlUrl, kmlOptions);
+            var kmlLayer = new L.KML(kmlUrl, {async: true});
+            kmlLayer.on("loaded", function (e) { map.fitBounds(e.target.getBounds()); });
+
+            map.addLayer(kmlLayer);
+            map.addControl(new L.Control.Layers({}, {'Show Routes': kmlLayer}));
         },
 
         // AJAX promise for doing stuff with the kml data later.
@@ -931,7 +920,7 @@ var transit = (function () {
 
                                 if (!currPosition.currentCoords) {
                                     if (typeof vehicle.markers[i] != "undefined") {
-                                        vehicle.markers[i].setMap(null);
+                                        map.removeLayer(vehicle.markers[i]);
                                         delete vehicle.markers[i];
                                     }
                                     continue;
@@ -940,7 +929,7 @@ var transit = (function () {
                                 if (showLog) transit.writeLog(selector, currPosition, vehicle);
 
                                 if (currPosition.completed) {
-                                    vehicle.markers[i].setMap(null);
+                                    map.removeLayer(vehicle.markers[i]);
                                     delete vehicle.markers[i];
                                 }
 
@@ -949,12 +938,12 @@ var transit = (function () {
                                 if (typeof vehicle.markers[i] == "undefined") {
                                     var currMarker = transit.initMarker(currPosition.currentCoords, selector,
                                                                         map, vehicle.color);
-                                    currMarker.setMap(map);
+                                    currMarker.addTo(map);
                                     vehicle.markers[i] = currMarker;
                                 } else {
-                                    var currMarkerPos = new google.maps.LatLng(currPosition.currentCoords.x,
-                                                                               currPosition.currentCoords.y);
-                                    vehicle.markers[i].setPosition(currMarkerPos);
+                                    var currMarkerPos = new L.LatLng(currPosition.currentCoords.x,
+                                                                     currPosition.currentCoords.y);
+                                    vehicle.markers[i].setLatLng(currMarkerPos);
                                 }
 
                                 transit.onMarkerMouseover(selector, map, vehicle.markers[i], mouseOverInfo, showLog);
@@ -964,11 +953,12 @@ var transit = (function () {
         },
 
         // String all the function calls together. Kinda like C's main().
-        callMain : function (selector, refreshInterval, routeObj, vehicleObj, remoteKmlFile, showLog, showSearch, vehicles) {
+        callMain : function (selector, tileLayer, refreshInterval, routeObj, vehicleObj, kmlFile, showLog, showSearch, vehicles) {
             var timezone = vehicleObj.timezone;
             var stopinterval = vehicleObj.stopinterval;
-            var map = transit.initMap(selector, routeObj.stopnames, routeObj.points, showLog, showSearch);
-            transit.overlayKml(remoteKmlFile, map);
+            var map = transit.initMap(selector, tileLayer, routeObj.stopnames, routeObj.points, showLog, showSearch);
+            map.invalidateSize();
+            transit.overlayKml(kmlFile, map);
 
             $('#timezone').append("UTC" + timezone + "/Local" +
                                   transit.secondsToHours(transit.parseTimeZone(timezone) % 86400));
@@ -995,7 +985,7 @@ var transit = (function () {
 
         // Initialize stuff. Run the promises, acquire the kml and json data, add the main DOM listener,
         // call the main function and write statuses if anything goes awry.
-        initialize : function (selector, localKmlFile, remoteKmlFile, jsonFile, showLog, showSearch, refreshInterval) {
+        initialize : function (selector, tileLayer, kmlFile, jsonFile, showLog, showSearch, refreshInterval) {
             // Default the refreshInterval to 1 second if it's less than 1 or unspecified.
             refreshInterval = (typeof refreshInterval == "undefined" ||
                                refreshInterval < 1) ? 1000 : refreshInterval * 1000;
@@ -1014,25 +1004,401 @@ var transit = (function () {
             $(selector).append("<div id='init' style='position:absolute;width:100%;" +
                                "text-align:center;top:48%;font-weight:bold;z-index:99;'></div>");
             $(selector + '> #init').html('Initialis(z)ing...');
-            google.maps.event.addDomListener(window, 'load',
-                    function () {
-                        var kml = transit.kmlPromise(localKmlFile);
-                        var json = transit.jsonPromise(jsonFile);
 
-                        kml.success(function (kmlData) {
-                            json.success(function (jsonData) {
-                                var routeObj = transit.routeParser(kmlData);
-                                var vehicleObj = transit.vehicleParser(jsonData);
-                                transit.callMain(selector, refreshInterval, routeObj, vehicleObj,
-                                                 remoteKmlFile, showLog, showSearch);
-                            }).fail(function () {
-                                $(selector + '> #init').html('Oh Shoot, there was an error loading the JSON file. ' +
-                                                            'Check your file path or syntax.');
-                            });
-                        }).fail(function () {
-                            $(selector + '> #init').html('Oh Shoot, there was an error loading the KML file.');
-                        });
+            $(document).ready(function () {
+                var kml = transit.kmlPromise(kmlFile);
+                var json = transit.jsonPromise(jsonFile);
+
+                kml.success(function (kmlData) {
+                    json.success(function (jsonData) {
+                        var routeObj = transit.routeParser(kmlData);
+                        var vehicleObj = transit.vehicleParser(jsonData);
+                        transit.callMain(selector, tileLayer, refreshInterval, routeObj, vehicleObj,
+                                         kmlFile, showLog, showSearch);
+                    }).fail(function () {
+                        $(selector + '> #init').html('Oh Shoot, there was an error loading the JSON file. ' +
+                                                     'Check your file path or syntax.');
                     });
+                }).fail(function () {
+                    $(selector + '> #init').html('Oh Shoot, there was an error loading the KML file.');
+                });
+            });
         }
     };
 })();
+
+// https://github.com/Leaflet/Leaflet/pull/1927
+// Issue with stationary popups for circle markers. This issue has been fixed in leaflet 0.7.0,
+// which hasn't been released yet, so this is a temporary fix.
+L.CircleMarker = L.CircleMarker.extend({
+    setLatLng: function (latlng) {
+        L.Circle.prototype.setLatLng.call(this, latlng);
+        if (this._popup && this._popup._isOpen) {
+            this._popup.setLatLng(latlng);
+        }
+    }
+});
+
+/* Pavel Shramov's KML Overlay plugin, KML.js
+ * https://github.com/shramov/leaflet-plugins
+ * /
+
+/* Copyright (c) 2011-2012, Pavel Shramov
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, are
+permitted provided that the following conditions are met:
+
+   1. Redistributions of source code must retain the above copyright notice, this list of
+      conditions and the following disclaimer.
+
+   2. Redistributions in binary form must reproduce the above copyright notice, this list
+      of conditions and the following disclaimer in the documentation and/or other materials
+      provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
+EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR
+TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
+
+/*global L: true */
+
+L.KML = L.FeatureGroup.extend({
+	options: {
+		async: true
+	},
+
+	initialize: function(kml, options) {
+		L.Util.setOptions(this, options);
+		this._kml = kml;
+		this._layers = {};
+
+		if (kml) {
+			this.addKML(kml, options, this.options.async);
+		}
+	},
+
+	loadXML: function(url, cb, options, async) {
+		if (async == undefined) async = this.options.async;
+		if (options == undefined) options = this.options;
+
+		var req = new window.XMLHttpRequest();
+		req.open('GET', url, async);
+		try {
+			req.overrideMimeType('text/xml'); // unsupported by IE
+		} catch(e) {}
+		req.onreadystatechange = function() {
+			if (req.readyState != 4) return;
+			if(req.status == 200) cb(req.responseXML, options);
+		};
+		req.send(null);
+	},
+
+	addKML: function(url, options, async) {
+		var _this = this;
+		var cb = function(gpx, options) { _this._addKML(gpx, options) };
+		this.loadXML(url, cb, options, async);
+	},
+
+	_addKML: function(xml, options) {
+		var layers = L.KML.parseKML(xml);
+		if (!layers || !layers.length) return;
+		for (var i = 0; i < layers.length; i++)
+		{
+			this.fire('addlayer', {
+				layer: layers[i]
+			});
+			this.addLayer(layers[i]);
+		}
+		this.latLngs = L.KML.getLatLngs(xml);
+		this.fire("loaded");
+	},
+
+	latLngs: []
+});
+
+L.Util.extend(L.KML, {
+
+	parseKML: function (xml) {
+		var style = this.parseStyle(xml);
+		var el = xml.getElementsByTagName("Folder");
+		var layers = [], l;
+		for (var i = 0; i < el.length; i++) {
+			if (!this._check_folder(el[i])) { continue; }
+			l = this.parseFolder(el[i], style);
+			if (l) { layers.push(l); }
+		}
+		el = xml.getElementsByTagName('Placemark');
+		for (var j = 0; j < el.length; j++) {
+			if (!this._check_folder(el[j])) { continue; }
+			l = this.parsePlacemark(el[j], xml, style);
+			if (l) { layers.push(l); }
+		}
+		return layers;
+	},
+
+	// Return false if e's first parent Folder is not [folder]
+	// - returns true if no parent Folders
+	_check_folder: function (e, folder) {
+		e = e.parentElement;
+		while (e && e.tagName !== "Folder")
+		{
+			e = e.parentElement;
+		}
+		return !e || e === folder;
+	},
+
+	parseStyle: function (xml) {
+		var style = {};
+		var sl = xml.getElementsByTagName("Style");
+
+		//for (var i = 0; i < sl.length; i++) {
+		var attributes = {color: true, width: true, Icon: true, href: true,
+						  hotSpot: true};
+
+		function _parse(xml) {
+			var options = {};
+			for (var i = 0; i < xml.childNodes.length; i++) {
+				var e = xml.childNodes[i];
+				var key = e.tagName;
+				if (!attributes[key]) { continue; }
+				if (key === 'hotSpot')
+				{
+					for (var j = 0; j < e.attributes.length; j++) {
+						options[e.attributes[j].name] = e.attributes[j].nodeValue;
+					}
+				} else {
+					var value = e.childNodes[0].nodeValue;
+					if (key === 'color') {
+						options.opacity = parseInt(value.substring(0, 2), 16) / 255.0;
+						options.color = "#" + value.substring(2, 8);
+					} else if (key === 'width') {
+						options.weight = value;
+					} else if (key === 'Icon') {
+						ioptions = _parse(e);
+						if (ioptions.href) { options.href = ioptions.href; }
+					} else if (key === 'href') {
+						options.href = value;
+					}
+				}
+			}
+			return options;
+		}
+
+		for (var i = 0; i < sl.length; i++) {
+			var e = sl[i], el;
+			var options = {}, poptions = {}, ioptions = {};
+			el = e.getElementsByTagName("LineStyle");
+			if (el && el[0]) { options = _parse(el[0]); }
+			el = e.getElementsByTagName("PolyStyle");
+			if (el && el[0]) { poptions = _parse(el[0]); }
+			if (poptions.color) { options.fillColor = poptions.color; }
+			if (poptions.opacity) { options.fillOpacity = poptions.opacity; }
+			el = e.getElementsByTagName("IconStyle");
+			if (el && el[0]) { ioptions = _parse(el[0]); }
+			if (ioptions.href) {
+				// save anchor info until the image is loaded
+				options.icon = new L.KMLIcon({
+					iconUrl: ioptions.href,
+					shadowUrl: null,
+					iconAnchorRef: {x: ioptions.x, y: ioptions.y},
+					iconAnchorType:	{x: ioptions.xunits, y: ioptions.yunits}
+				});
+			}
+			style['#' + e.getAttribute('id')] = options;
+		}
+		return style;
+	},
+
+	parseFolder: function (xml, style) {
+		var el, layers = [], l;
+		el = xml.getElementsByTagName('Folder');
+		for (var i = 0; i < el.length; i++) {
+			if (!this._check_folder(el[i], xml)) { continue; }
+			l = this.parseFolder(el[i], style);
+			if (l) { layers.push(l); }
+		}
+		el = xml.getElementsByTagName('Placemark');
+		for (var j = 0; j < el.length; j++) {
+			if (!this._check_folder(el[j], xml)) { continue; }
+			l = this.parsePlacemark(el[j], xml, style);
+			if (l) { layers.push(l); }
+		}
+		if (!layers.length) { return; }
+		if (layers.length === 1) { return layers[0]; }
+		return new L.FeatureGroup(layers);
+	},
+
+	parsePlacemark: function (place, xml, style) {
+		var i, j, el, options = {};
+		el = place.getElementsByTagName('styleUrl');
+		for (i = 0; i < el.length; i++) {
+			var url = el[i].childNodes[0].nodeValue;
+			for (var a in style[url])
+			{
+				// for jshint
+				if (true)
+				{
+					options[a] = style[url][a];
+				}
+			}
+		}
+		var layers = [];
+
+		var parse = ['LineString', 'Polygon', 'Point'];
+		for (j in parse) {
+			// for jshint
+			if (true)
+			{
+				var tag = parse[j];
+				el = place.getElementsByTagName(tag);
+				for (i = 0; i < el.length; i++) {
+					var l = this["parse" + tag](el[i], xml, options);
+					if (l) { layers.push(l); }
+				}
+			}
+		}
+
+		if (!layers.length) {
+			return;
+		}
+		var layer = layers[0];
+		if (layers.length > 1) {
+			layer = new L.FeatureGroup(layers);
+		}
+
+		var name, descr = "";
+		el = place.getElementsByTagName('name');
+		if (el.length) {
+			name = el[0].childNodes[0].nodeValue;
+		}
+		el = place.getElementsByTagName('description');
+		for (i = 0; i < el.length; i++) {
+			for (j = 0; j < el[i].childNodes.length; j++) {
+				descr = descr + el[i].childNodes[j].nodeValue;
+			}
+		}
+
+		if (name) {
+			layer.bindPopup("<h2>" + name + "</h2>" + descr);
+		}
+
+		return layer;
+	},
+
+	parseCoords: function (xml) {
+		var el = xml.getElementsByTagName('coordinates');
+		return this._read_coords(el[0]);
+	},
+
+	parseLineString: function (line, xml, options) {
+		var coords = this.parseCoords(line);
+		if (!coords.length) { return; }
+		return new L.Polyline(coords, options);
+	},
+
+	parsePoint: function (line, xml, options) {
+		var el = line.getElementsByTagName('coordinates');
+		if (!el.length) {
+			return;
+		}
+		var ll = el[0].childNodes[0].nodeValue.split(',');
+		return new L.KMLMarker(new L.LatLng(ll[1], ll[0]), options);
+	},
+
+	parsePolygon: function (line, xml, options) {
+		var el, polys = [], inner = [], i, coords;
+		el = line.getElementsByTagName('outerBoundaryIs');
+		for (i = 0; i < el.length; i++) {
+			coords = this.parseCoords(el[i]);
+			if (coords) {
+				polys.push(coords);
+			}
+		}
+		el = line.getElementsByTagName('innerBoundaryIs');
+		for (i = 0; i < el.length; i++) {
+			coords = this.parseCoords(el[i]);
+			if (coords) {
+				inner.push(coords);
+			}
+		}
+		if (!polys.length) {
+			return;
+		}
+		if (options.fillColor) {
+			options.fill = true;
+		}
+		if (polys.length === 1) {
+			return new L.Polygon(polys.concat(inner), options);
+		}
+		return new L.MultiPolygon(polys, options);
+	},
+
+	getLatLngs: function (xml) {
+		var el = xml.getElementsByTagName('coordinates');
+		var coords = [];
+		for (var j = 0; j < el.length; j++) {
+			// text might span many childnodes
+			coords = coords.concat(this._read_coords(el[j]));
+		}
+		return coords;
+	},
+
+	_read_coords: function (el) {
+		var text = "", coords = [], i;
+		for (i = 0; i < el.childNodes.length; i++) {
+			text = text + el.childNodes[i].nodeValue;
+		}
+		text = text.split(/[\s\n]+/);
+		for (i = 0; i < text.length; i++) {
+			var ll = text[i].split(',');
+			if (ll.length < 2) {
+				continue;
+			}
+			coords.push(new L.LatLng(ll[1], ll[0]));
+		}
+		return coords;
+	}
+
+});
+
+L.KMLIcon = L.Icon.extend({
+
+	createIcon: function () {
+		var img = this._createIcon('icon');
+		img.onload = function () {
+			var i = new Image();
+			i.src = this.src;
+			this.style.width = i.width + 'px';
+			this.style.height = i.height + 'px';
+
+			if (this.anchorType.x === 'UNITS_FRACTION' || this.anchorType.x === 'fraction') {
+				img.style.marginLeft = (-this.anchor.x * i.width) + 'px';
+			}
+			if (this.anchorType.y === 'UNITS_FRACTION' || this.anchorType.x === 'fraction') {
+				img.style.marginTop  = (-(1 - this.anchor.y) * i.height) + 'px';
+			}
+			this.style.display = "";
+		};
+		return img;
+	},
+
+	_setIconStyles: function (img, name) {
+		L.Icon.prototype._setIconStyles.apply(this, [img, name])
+		// save anchor information to the image
+		img.anchor = this.options.iconAnchorRef;
+		img.anchorType = this.options.iconAnchorType;
+	}
+});
+
+
+L.KMLMarker = L.Marker.extend({
+	options: {
+		icon: new L.KMLIcon.Default()
+	}
+});
