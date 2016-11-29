@@ -5,12 +5,30 @@ import (
 	"fmt"
 	//"html/template"
 	"net/http"
+	"strings"
 )
 
 func SearchTimetable(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	//TODO: kitálni, hogy hogyan legyen lekezelve a discount és a pótjegy nélkül majd az ár kiszámításánál
 	//TODO: valamint a helyi közlekedés nélkül és a kerékpárszállítással is
+	discount := r.FormValue("discount")
+	if(strings.HasSuffix(discount, ")")) {
+		id := strings.LastIndex(discount, "(")
+		if(discount[(id+1):(id+2)] == "d") {
+			d := "0"
+			fmt.Println(d)
+		}	else {
+			d := discount[(id+1):(id+3)]
+			fmt.Println(d)
+		}
+
+	} else {
+		d := "100"
+		fmt.Println(d)
+	}
+
+
 	result := Service.SearchTimetable(r.FormValue("from"), r.FormValue("to"), r.FormValue("date"),
 		r.FormValue("discount"), r.FormValue("withoutExtraTicket"), r.FormValue("withoutLocalTransportation"),
 		r.FormValue("withoutChange"), r.FormValue("withBicycleDelivery"))
