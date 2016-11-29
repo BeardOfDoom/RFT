@@ -143,7 +143,7 @@ func (this SQLConfig) MysqlRegistration(firstname, lastname, username, password,
 func (this SQLConfig) MysqlSearchTimetable(from, to, date, discount, potjegy, helyi, atszallas, kerekpar string) SQLData {
 	var result SQLData
 
-	inf := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", this.username, this.password, this.host, this.port, this.db)
+	/*inf := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", this.username, this.password, this.host, this.port, this.db)
 	db, err := sql.Open("mysql", inf)
 	if err != nil {
 		panic(err)
@@ -151,7 +151,7 @@ func (this SQLConfig) MysqlSearchTimetable(from, to, date, discount, potjegy, he
 	defer db.Close()
 
 	//TODO query megirasa a parameterek alapjan
-	rows, err := db.Query("SELECT NICKNAME FROM USERS")
+	rows, err := db.Query("")
 	if err != nil {
 		panic(err)
 	}
@@ -162,6 +162,6 @@ func (this SQLConfig) MysqlSearchTimetable(from, to, date, discount, potjegy, he
 		if err != nil {
 			panic(err)
 		}
-	}
+	}*/
 	return result
 }

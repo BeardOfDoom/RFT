@@ -13,13 +13,13 @@ func SearchTimetable(w http.ResponseWriter, r *http.Request) {
 	//TODO: kitálni, hogy hogyan legyen lekezelve a discount és a pótjegy nélkül majd az ár kiszámításánál
 	//TODO: valamint a helyi közlekedés nélkül és a kerékpárszállítással is
 	discount := r.FormValue("discount")
-	if(strings.HasSuffix(discount, ")")) {
+	if strings.HasSuffix(discount, ")") {
 		id := strings.LastIndex(discount, "(")
-		if(discount[(id+1):(id+2)] == "d") {
+		if discount[(id+1):(id+2)] == "d" {
 			d := "0"
 			fmt.Println(d)
-		}	else {
-			d := discount[(id+1):(id+3)]
+		} else {
+			d := discount[(id + 1):(id + 3)]
 			fmt.Println(d)
 		}
 
@@ -27,7 +27,6 @@ func SearchTimetable(w http.ResponseWriter, r *http.Request) {
 		d := "100"
 		fmt.Println(d)
 	}
-
 
 	result := Service.SearchTimetable(r.FormValue("from"), r.FormValue("to"), r.FormValue("date"),
 		r.FormValue("discount"), r.FormValue("withoutExtraTicket"), r.FormValue("withoutLocalTransportation"),
@@ -38,7 +37,7 @@ func SearchTimetable(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(r.FormValue("date"))
 	fmt.Println(r.FormValue("discount"))
 	fmt.Println(r.FormValue("withoutExtraTicket"))
-	fmt.Println(r.FormValue("withoutLocalTransportation"))
+	fmt.Println(r.FormValue("WiFi"))
 	fmt.Println(r.FormValue("withoutChange"))
 	fmt.Println(r.FormValue("withBicycleDelivery"))
 

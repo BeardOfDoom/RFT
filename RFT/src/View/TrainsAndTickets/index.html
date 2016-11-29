@@ -13,14 +13,16 @@
    <form action="/Search" method="post">
    <div class="row">
       <div class="col-xs-6 col-sm-4">
+        <div class="fromTo">
             <text>Honnan:</text>
             <li>
-               <input name="from" type="text" class="text" value="Induló Állomás" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Induló Állomás';}" >
+               <input name="from" type="text" class="text" pattern="[a-zA-Z0-9éáűőúöüóíÉÁŰŐÚÖÜÓÍ-]+" required oninvalid="this.setCustomValidity('Kérjük adja meg az induló állomást!')" oninput="setCustomValidity('')">
             </li>
             <text>Hova:</text>
             <li>
-               <input name="to" type="text" class="text" value="Célállomás" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Célállomás';}" >
+               <input name="to" type="text" class="text" pattern="[a-zA-Z0-9éáűőúöüóíÉÁŰŐÚÖÜÓÍ-]+" required oninvalid="this.setCustomValidity('Kérjük adja meg a célállomást!')" oninput="setCustomValidity('')">
             </li>
+          </div>
       </div>
       <div class="col-xs-6 col-sm-4">
          <div id="datepicker">
@@ -87,12 +89,12 @@
                   </td>
                   <td>
                      <div class="squaredTwo" style="margin-left: 60%;">
-                        <input type="checkbox" value="withoutLocalTransportation" id="withoutLocalTransportation" name="withoutLocalTransportation" />
-                        <label for="withoutLocalTransportation"></label>
+                        <input type="checkbox" value="WiFi" id="WiFi" name="WiFi" />
+                        <label for="WiFi"></label>
                      </div>
                   </td>
                   <td>
-                     <text style="margin-left: 10px; font-size:14px;">Helyi közlekedés nélkül</text>
+                     <text style="margin-left: 10px; font-size:14px;">WiFi elérés</text>
                   </td>
                </tr>
             </table>

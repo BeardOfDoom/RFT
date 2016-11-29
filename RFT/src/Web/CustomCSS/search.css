@@ -1,9 +1,9 @@
-
 .search-form {
 	background:rgba(0,0,0,0.8);
 	width: 90%;
 	margin-left: 5%;
-	margin-top: 3%;
+	margin-top: 6%;
+	height: 65%;
 }
 
 text {
@@ -18,21 +18,29 @@ text {
 	margin-left: 0;
 }
 
+.fromTo {
+	margin-top: -100px;
+}
+
+.submitButton {
+	margin-top: 100px;
+}
+
 #datepicker {
-	margin-top: 10%;
+	margin-top: -100px;
 	margin-left: -10%;
 }
 
 .options {
-	margin-top: 8%;
+	margin-top: -100px;
 	margin-left: -40%;
 }
 
 .styled-select {
-	 background: url(../Images/TrainsAndTickets/select.png) no-repeat 96% 0;
-   height: 5%;
+	 background: url(../Images/TrainsAndTickets/select.png) no-repeat 96%;
+   height: 8%;
    overflow: hidden;
-   width: 90%;
+   width: 100%;
 }
 
 .styled-select select {
@@ -79,7 +87,7 @@ form li{
 
 input[type="text"] {
 	font-family: 'Open Sans', sans-serif;
-	width:99%;
+	width:100%;
 	padding:0.7em 2em 0.7em 1.7em;
 	color:rgb(255,255,255);
 	font-size:16px;
@@ -118,8 +126,7 @@ input[type="submit"]{
 	cursor: pointer;
 	outline: none;
 	padding:15px 10px;
-	margin-top:-6%;
-	margin-right: 5%;
+	margin-top:20px;
 	font-family: 'Open Sans', sans-serif;
 	width:20%;
 	border:none;
