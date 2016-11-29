@@ -1,0 +1,280 @@
+{{define "content"}}
+<link href="Web/CustomCSS/result.css" rel='stylesheet' type='text/css' />
+<script>
+$(document).ready(function(){
+  $("action").click(function() {
+    var $this = $(this);
+    var $content = $this.parent().parent().next("tr#hidden");
+    var $action = $this.next("input[type=hidden]").val();
+    var $imgSrc = $this.children("img").attr("src");
+    var $width;
+
+    if ($action == "+") {
+      $content.fadeIn(600);
+      $action = "-";
+      $imgSrc = "/Web/Images/TrainsAndTickets/minus.png";
+      $width = "40px";
+    } else {
+      $content.fadeOut(600);
+      $action = "+";
+      $imgSrc = "/Web/Images/TrainsAndTickets/plus.png";
+      $width = "30px";
+    }
+
+    $this.next("input[type=hidden]").val($action);
+    $this.children("img").attr("src", $imgSrc);
+    $this.children("img").attr("width", $width);
+  });
+});
+</script>
+<style>
+   body {
+   background: url(Web/Images/TrainsAndTickets/train.jpg) no-repeat center center fixed;
+   -webkit-background-size: cover;
+   -moz-background-size: cover;
+   -o-background-size: cover;
+   background-size: cover;
+   }
+</style>
+<table align="center" class="header">
+  <tr align="center">
+    <td><h1><b>Debrecen -> Budapest-Keleti</b></h1></td>
+  </tr>
+</table>
+<table align="center" class="im">
+  <tr align="center" class="im">
+    <td><b>Részletek</b></td>
+    <td><b>Indulás</b></td>
+    <td><b>Érkezés</b></td>
+    <td><b>Átszállás</b></td>
+    <td><b>Időtartam</b></td>
+    <td><b>Összes km</b></td>
+    <td><b>Ár</b></td>
+  </tr>
+  <tr align="center" class="im">
+    <td><action><img src="/Web/Images/TrainsAndTickets/plus.png" width="30px" /></action><input type="hidden" value="+" /></td>
+    <td>02:36</td>
+    <td>06:11</td>
+    <td>1</td>
+    <td>3:35</td>
+    <td>221</td>
+    <td>3.950 Ft</td>
+  </tr>
+  <tr id="hidden">
+      <td colspan="7">
+        <table align="center" class="inner">
+          <tr>
+            <td>Állomás</td>
+            <td>Menetrend</td>
+            <td>Vonat</td>
+            <td>Vonat szolgáltatásai</td>
+          </tr>
+          <tr>
+            <td>Debrecen</td>
+            <td>02:36</td>
+            <td>6009 sebes (Budapest-Nyugati)</td>
+            <td>WiFi, Kerékpár szállítás, Légkondi</td>
+          </tr>
+          <tr>
+            <td>Kőbánya-Kispest</td>
+            <td>05:40</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Kőbánya-Kispest</td>
+            <td>05:57</td>
+            <td>3810 személy</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Budapest</td>
+            <td>06:11</td>
+            <td></td>
+            <td></td>
+          </tr>
+        </table>
+      </td>
+  </tr>
+  <tr align="center" class="im">
+    <td><action><img src="/Web/Images/TrainsAndTickets/plus.png" width="30px" /></action><input type="hidden" value="+" /></td>
+    <td>06:03</td>
+    <td>08:37</td>
+    <td>0</td>
+    <td>2:34</td>
+    <td>221</td>
+    <td>5.230 Ft</td>
+  </tr>
+  <tr id="hidden">
+      <td colspan="7">
+        <table align="center" class="inner">
+          <tr>
+            <td><b>Állomás</b></td>
+            <td><b>Menetrend</b></td>
+            <td><b>Vonat</b></td>
+            <td><b>Vonat szolgáltatásai</b></td>
+          </tr>
+          <tr>
+            <td>Debrecen</td>
+            <td>02:36</td>
+            <td>6009 sebes (Budapest-Nyugati)</td>
+            <td>WiFi, Kerékpár szállítás, Légkondi</td>
+          </tr>
+          <tr>
+            <td>Kőbánya-Kispest</td>
+            <td>05:40</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Kőbánya-Kispest</td>
+            <td>05:57</td>
+            <td>3810 személy</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Budapest</td>
+            <td>06:11</td>
+            <td></td>
+            <td></td>
+          </tr>
+        </table>
+      </td>
+  </tr>
+  <tr align="center" class="im">
+    <td><action><img src="/Web/Images/TrainsAndTickets/plus.png" width="30px" /></action><input type="hidden" value="+" /></td>
+    <td>10:03</td>
+    <td>12:37</td>
+    <td>1</td>
+    <td>2:34</td>
+    <td>221</td>
+    <td>4.000 Ft</td>
+  </tr>
+  <tr id="hidden">
+      <td colspan="7">
+        <table align="center" class="inner">
+          <tr>
+            <td>Állomás</td>
+            <td>Menetrend</td>
+            <td>Vonat</td>
+            <td>Vonat szolgáltatásai</td>
+          </tr>
+          <tr>
+            <td>Debrecen</td>
+            <td>02:36</td>
+            <td>6009 sebes (Budapest-Nyugati)</td>
+            <td>WiFi, Kerékpár szállítás, Légkondi</td>
+          </tr>
+          <tr>
+            <td>Kőbánya-Kispest</td>
+            <td>05:40</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Kőbánya-Kispest</td>
+            <td>05:57</td>
+            <td>3810 személy</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Budapest</td>
+            <td>06:11</td>
+            <td></td>
+            <td></td>
+          </tr>
+        </table>
+      </td>
+  </tr>
+  <tr align="center" class="im">
+    <td><action><img src="/Web/Images/TrainsAndTickets/plus.png" width="30px" /></action><input type="hidden" value="+" /></td>
+    <td>11:31</td>
+    <td>14:57</td>
+    <td>2</td>
+    <td>3:26</td>
+    <td>221</td>
+    <td>3.950 Ft</td>
+  </tr>
+  <tr id="hidden">
+      <td colspan="7">
+        <table align="center" class="inner">
+          <tr>
+            <td>Állomás</td>
+            <td>Menetrend</td>
+            <td>Vonat</td>
+            <td>Vonat szolgáltatásai</td>
+          </tr>
+          <tr>
+            <td>Debrecen</td>
+            <td>02:36</td>
+            <td>6009 sebes (Budapest-Nyugati)</td>
+            <td>WiFi, Kerékpár szállítás, Légkondi</td>
+          </tr>
+          <tr>
+            <td>Kőbánya-Kispest</td>
+            <td>05:40</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Kőbánya-Kispest</td>
+            <td>05:57</td>
+            <td>3810 személy</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Budapest</td>
+            <td>06:11</td>
+            <td></td>
+            <td></td>
+          </tr>
+        </table>
+      </td>
+  </tr>
+  <tr align="center" class="im">
+    <td><action><img src="/Web/Images/TrainsAndTickets/plus.png" width="30px" /></action><input type="hidden" value="+" /></td>
+    <td>15:31</td>
+    <td>17:57</td>
+    <td>0</td>
+    <td>2:26</td>
+    <td>221</td>
+    <td>7.350 Ft</td>
+  </tr>
+  <tr id="hidden">
+      <td colspan="7">
+        <table align="center" class="inner">
+          <tr>
+            <td>Állomás</td>
+            <td>Menetrend</td>
+            <td>Vonat</td>
+            <td>Vonat szolgáltatásai</td>
+          </tr>
+          <tr>
+            <td>Debrecen</td>
+            <td>02:36</td>
+            <td>6009 sebes (Budapest-Nyugati)</td>
+            <td>WiFi, Kerékpár szállítás, Légkondi</td>
+          </tr>
+          <tr>
+            <td>Kőbánya-Kispest</td>
+            <td>05:40</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Kőbánya-Kispest</td>
+            <td>05:57</td>
+            <td>3810 személy</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Budapest</td>
+            <td>06:11</td>
+            <td></td>
+            <td></td>
+          </tr>
+        </table>
+      </td>
+  </tr>
+</table>
+{{end}}

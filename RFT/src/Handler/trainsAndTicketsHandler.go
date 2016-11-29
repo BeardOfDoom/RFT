@@ -3,7 +3,7 @@ package Handler
 import (
 	"Service"
 	"fmt"
-	//"html/template"
+	"html/template"
 	"net/http"
 	"strings"
 )
@@ -32,19 +32,20 @@ func SearchTimetable(w http.ResponseWriter, r *http.Request) {
 		r.FormValue("discount"), r.FormValue("withoutExtraTicket"), r.FormValue("withoutLocalTransportation"),
 		r.FormValue("withoutChange"), r.FormValue("withBicycleDelivery"))
 	fmt.Println(result)
-	fmt.Println(r.FormValue("from"))
+	/*fmt.Println(r.FormValue("from"))
 	fmt.Println(r.FormValue("to"))
 	fmt.Println(r.FormValue("date"))
 	fmt.Println(r.FormValue("discount"))
 	fmt.Println(r.FormValue("withoutExtraTicket"))
 	fmt.Println(r.FormValue("WiFi"))
 	fmt.Println(r.FormValue("withoutChange"))
-	fmt.Println(r.FormValue("withBicycleDelivery"))
+	fmt.Println(r.FormValue("withBicycleDelivery"))*/
 
-	/*if TODO:feltétel? {
-
+	if true {
+		t, _ := template.ParseFiles("View/TrainsAndTickets/result.html", "View/Layout/main.html")
+		t.ExecuteTemplate(w, "layout", "")
 	} else {
 
-	}*/
+	}
 
 }
