@@ -44,6 +44,7 @@ func SearchTimetable(w http.ResponseWriter, r *http.Request) {
 	//TODO: kitálni, hogy hogyan legyen lekezelve a discount és a pótjegy nélkül majd az ár kiszámításánál
 	//TODO: valamint a helyi közlekedés nélkül és a kerékpárszállítással is
 
+	var withoutExtraTicket, withoutChange, withBicycleDelivery, withoutLocalTransportation bool
 	//d tartalmazza a kedvezmenyt
 	discount := r.FormValue("discount")
 	if strings.HasSuffix(discount, ")") {
@@ -68,18 +69,30 @@ func SearchTimetable(w http.ResponseWriter, r *http.Request) {
 	date = year + "-" + month + "-" + day
 	fmt.Println(date)
 
-	result := Service.SearchTimetable(r.FormValue("from"), r.FormValue("to"), r.FormValue("date"),
-		r.FormValue("discount"), r.FormValue("withoutExtraTicket"), r.FormValue("withoutLocalTransportation"),
-		r.FormValue("withoutChange"), r.FormValue("withBicycleDelivery"))
+	if r.FormValue("withoutExtraTicket") != "" {
+		withoutExtraTicket = true
+	}	else {
+		withoutExtraTicket = false
+	}
+	if r.FormValue("withoutLocalTransportation") != "" {
+		withoutLocalTransportation = true
+	}	else {
+		withoutLocalTransportation = false
+	}
+	if r.FormValue("withoutChange") != "" {
+		withoutChange = true
+	}	else {
+		withoutChange = false
+	}
+	if r.FormValue("withBicycleDelivery") != "" {
+		withBicycleDelivery = true
+	}	else {
+		withBicycleDelivery = false
+	}
+	result := Service.SearchTimetable(r.FormValue("from"), r.FormValue("to"), date,
+		discount, withoutExtraTicket, withoutLocalTransportation,
+		withoutChange, withBicycleDelivery)
 	fmt.Println(result)
-	/*fmt.Println(r.FormValue("from"))
-	fmt.Println(r.FormValue("to"))
-	fmt.Println(r.FormValue("date"))
-	fmt.Println(r.FormValue("discount"))
-	fmt.Println(r.FormValue("withoutExtraTicket"))
-	fmt.Println(r.FormValue("WiFi"))
-	fmt.Println(r.FormValue("withoutChange"))
-	fmt.Println(r.FormValue("withBicycleDelivery"))*/
 
 	if true {
 		t, _ := template.ParseFiles("View/TrainsAndTickets/result.html", "View/Layout/main.html")
