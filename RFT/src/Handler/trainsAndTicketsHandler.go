@@ -96,7 +96,7 @@ func SearchTimetable(w http.ResponseWriter, r *http.Request) {
 
 	if true {
 		t, _ := template.ParseFiles("View/TrainsAndTickets/result.html", "View/Layout/main.html")
-		t.ExecuteTemplate(w, "layout", "")
+		t.ExecuteTemplate(w, "layout", result)
 	} else {
 
 	}
