@@ -92,7 +92,6 @@ func SearchTimetable(w http.ResponseWriter, r *http.Request) {
 	result := Service.SearchTimetable(r.FormValue("from"), r.FormValue("to"), date,
 		discount, withoutExtraTicket, withoutLocalTransportation,
 		withoutChange, withBicycleDelivery)
-	fmt.Println(result)
 
 	if true {
 		t, _ := template.ParseFiles("View/TrainsAndTickets/result.html", "View/Layout/main.html")
