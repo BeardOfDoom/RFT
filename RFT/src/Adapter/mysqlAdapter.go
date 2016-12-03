@@ -7,8 +7,8 @@ import (
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"math/rand"
-	//"time"
-	//"strconv"
+	"time"
+	"strconv"
 )
 
 type SQLConfig struct {
