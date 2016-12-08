@@ -45,21 +45,19 @@ func SearchTimetable(w http.ResponseWriter, r *http.Request) {
 	//TODO: valamint a helyi közlekedés nélkül és a kerékpárszállítással is
 
 	var withoutExtraTicket, withoutChange, withBicycleDelivery, withoutLocalTransportation bool
+	var d string
 	//d tartalmazza a kedvezmenyt
 	discount := r.FormValue("discount")
 	if strings.HasSuffix(discount, ")") {
 		id := strings.LastIndex(discount, "(")
 		if discount[(id+1):(id+2)] == "d" {
-			d := "0"
-			fmt.Println(d)
+			d = "0"
 		} else {
-			d := discount[(id + 1):(id + 3)]
-			fmt.Println(d)
+			d = discount[(id + 1):(id + 3)]
 		}
 
 	} else {
-		d := "100"
-		fmt.Println(d)
+		d = "100"
 	}
 
 	date := r.FormValue("date")
@@ -90,9 +88,9 @@ func SearchTimetable(w http.ResponseWriter, r *http.Request) {
 		withBicycleDelivery = false
 	}
 	result := Service.SearchTimetable(r.FormValue("from"), r.FormValue("to"), date,
-		discount, withoutExtraTicket, withoutLocalTransportation,
+		d, withoutExtraTicket, withoutLocalTransportation,
 		withoutChange, withBicycleDelivery)
-
+	fmt.Println(result)
 	if true {
 		t, _ := template.ParseFiles("View/TrainsAndTickets/result.html", "View/Layout/main.html")
 		t.ExecuteTemplate(w, "layout", result)
