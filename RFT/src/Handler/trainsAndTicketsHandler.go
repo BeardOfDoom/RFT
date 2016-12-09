@@ -65,7 +65,6 @@ func SearchTimetable(w http.ResponseWriter, r *http.Request) {
 	month := convertMonth(date[4:7])
 	day := date[8:10]
 	date = year + "-" + month + "-" + day
-	fmt.Println(date)
 
 	if r.FormValue("withoutExtraTicket") != "" {
 		withoutExtraTicket = true

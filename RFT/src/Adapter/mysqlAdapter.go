@@ -26,20 +26,33 @@ type Authentification struct {
 	Lastname  string
 }
 
-/*type TrainInformation struct {
+type TrainServices struct {
+	S1_Toilet					bool
+	S1_DisabledToilet	bool
+	S1_DiaperChange		bool
+	S1_AirConditioner	bool
+	S1_Wifi						bool
+	S1_PowerConnector	bool
+	S1_Restaurant			bool
+	S1_BikeShed				bool
+	S1_Bed						bool
+	S2_Toilet					bool
+	S2_DisabledToilet	bool
+	S2_DiaperChange		bool
+	S2_AirConditioner	bool
+	S2_Wifi						bool
+	S2_PowerConnector	bool
+	S2_Restaurant			bool
+	S2_BikeShed				bool
+	S2_Bed						bool
+}
+
+type TrainInformation struct {
 	Station					[]string
 	Timetable				[]string
 	Train						[]string
-	Toilet					bool
-	DisabledToilet	bool
-	DiaperChange		bool
-	AirConditioner	bool
-	Wifi						bool
-	PowerConnector	bool
-	Restaurant			bool
-	BikeShed				bool
-	Bed							bool
-}*/
+	Services				[]TrainServices
+}
 
 type SQLData struct {
 	From      string
@@ -51,7 +64,7 @@ type SQLData struct {
 	Duration	string
 	Distance	string
 	Price			string
-	//Info			TrainInformation
+	Info			TrainInformation
 }
 
 type SQLDataSlice []SQLData
@@ -164,7 +177,7 @@ func (this SQLConfig) MysqlSearchTimetable(from, to, date, discount string, potj
 	var result SQLDataSlice
 	var data SQLData
 	var query string
-	var d1,d2,d3,d4,d5,d6,d7,d8 string
+	var d1,d2,d3,d4,d5,d6,d7,d8 string //adatbazis adatok
 	pricePerKM := 18
 
 	//baseQuery := "SELECT * FROM TRAINS INNER JOIN TRAIN_ROUTE_CONNECTION ON TRAINS.ID = TRAIN_ROUTE_CONNECTION.TRAINS_ID INNER JOIN (SELECT * FROM ROUTE_STATIONS_CONNECTION INNER JOIN STATIONS ON ROUTE_STATIONS_CONNECTION.STATIONS_ID = STATIONS.ID INNER JOIN (SELECT STATION_INDEX_IN_ROUTE AS 'TMP_STATION_INDEX_IN_ROUTE', ROUTES_ID AS 'TMP2_ROUTES_ID' FROM ROUTE_STATIONS_CONNECTION INNER JOIN STATIONS ON ROUTE_STATIONS_CONNECTION.STATIONS_ID = STATIONS.ID WHERE STATIONS.NAME = '"+ from +"') TMP2 ON ROUTE_STATIONS_CONNECTION.ROUTES_ID = TMP2.TMP2_ROUTES_ID WHERE STATIONS.NAME = '"+ to +"' AND TMP2.TMP_STATION_INDEX_IN_ROUTE > ROUTE_STATIONS_CONNECTION.STATION_INDEX_IN_ROUTE) TMP ON TRAIN_ROUTE_CONNECTION.ROUTES_ID = TMP.ROUTES_ID WHERE DATE(TRAIN_ROUTE_CONNECTION.START) = DATE('"+ date +"') AND TRAIN_ROUTE_CONNECTION.START > NOW();"
@@ -199,6 +212,7 @@ func (this SQLConfig) MysqlSearchTimetable(from, to, date, discount string, potj
 			panic(err)
 		}
 
+		var trainInfo TrainInformation
 		departure := d7[11:19]
 		arrival := d8[11:19]
 		changes := "0" //TODO querybol kiszedni majd
@@ -236,13 +250,46 @@ func (this SQLConfig) MysqlSearchTimetable(from, to, date, discount string, potj
 		} else {
 			duration = duration + fmt.Sprintf("%d",sec)
 		}
-		//duration := fmt.Sprintf("%s:%s:%s",h,min,sec)
 
 		distance := d3
 		km, err := strconv.Atoi(distance)
 		percent, err := strconv.Atoi(discount)
 		extra, err := strconv.Atoi(d6)
 		price := strconv.Itoa((km*pricePerKM + extra) * percent/100) // (distance*kmdij + plusprice) * discount/100
+
+		/*belso adatok*/
+		trainInfo.Station = append(trainInfo.Station, from)
+		trainInfo.Station = append(trainInfo.Station, to)
+		trainInfo.Timetable = append(trainInfo.Timetable, departure)
+		trainInfo.Timetable = append(trainInfo.Timetable, arrival)
+		trainInfo.Train = append(trainInfo.Train, d1)
+
+		var service TrainServices
+		str := d4
+		for i:=0; i<len(str); i+=2 {
+			if str[i] == '1' { service.S1_Toilet = true }
+			if str[i] == '2' { service.S1_DisabledToilet = true }
+			if str[i] == '3' { service.S1_DiaperChange = true }
+			if str[i] == '4' { service.S1_AirConditioner = true }
+			if str[i] == '5' { service.S1_Wifi = true }
+			if str[i] == '6' { service.S1_PowerConnector = true }
+			if str[i] == '7' { service.S1_Restaurant = true }
+			if str[i] == '8' { service.S1_BikeShed = true }
+			if str[i] == '9' { service.S1_Bed = true }
+		}
+		str = d5
+		for i:=0; i<len(str); i+=2 {
+			if str[i] == '1' { service.S2_Toilet = true }
+			if str[i] == '2' { service.S2_DisabledToilet = true }
+			if str[i] == '3' { service.S2_DiaperChange = true }
+			if str[i] == '4' { service.S2_AirConditioner = true }
+			if str[i] == '5' { service.S2_Wifi = true }
+			if str[i] == '6' { service.S2_PowerConnector = true }
+			if str[i] == '7' { service.S2_Restaurant = true }
+			if str[i] == '8' { service.S2_BikeShed = true }
+			if str[i] == '9' { service.S2_Bed = true }
+		}
+		trainInfo.Services = append(trainInfo.Services, service)
 
 		data.From = from
 		data.To = to
@@ -253,6 +300,7 @@ func (this SQLConfig) MysqlSearchTimetable(from, to, date, discount string, potj
 		data.Duration = duration
 		data.Distance = distance
 		data.Price = price
+		data.Info = trainInfo
 
 		result = append(result, data)
 	}
