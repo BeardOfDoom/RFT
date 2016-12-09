@@ -217,8 +217,26 @@ func (this SQLConfig) MysqlSearchTimetable(from, to, date, discount string, potj
 		h := int(delta.Seconds()/3600)
 		min := (int(delta.Seconds())%3600)/60
 		sec := (int(delta.Seconds())%3600)%60
-		duration := fmt.Sprintf("%d:%d:%d",h,min,sec)
-
+		var duration string
+		if h<10 {
+			h := "0"+strconv.Itoa(h)
+			duration = h + ":"
+		} else {
+			duration = fmt.Sprintf("%d:",h)
+		}
+		if min<10 {
+			min := "0"+strconv.Itoa(min)
+			duration = duration + min + ":"
+		} else {
+			duration = duration + fmt.Sprintf("%d:",min)
+		}
+		if sec<10 {
+			sec := "0"+strconv.Itoa(sec)
+			duration = duration + sec
+		} else {
+			duration = duration + fmt.Sprintf("%d",sec)
+		}
+		//duration := fmt.Sprintf("%s:%s:%s",h,min,sec)
 
 		distance := d3
 		km, err := strconv.Atoi(distance)
