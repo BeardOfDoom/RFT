@@ -40,7 +40,7 @@ $(document).ready(function(){
 </style>
 <table align="center" class="header">
   <tr align="center">
-    <td><h1><b>Debrecen <img src="/Web/Images/TrainsAndTickets/arrow.png" width="60px" /> Budapest-Keleti</b></h1></td>
+    <td><h1><b>{{ .From }}  <img src="/Web/Images/TrainsAndTickets/arrow.png" width="60px" />  {{ .To }}</b></h1></td>
   </tr>
 </table>
 <table align="center" class="im">
@@ -54,291 +54,221 @@ $(document).ready(function(){
     <td><b>Ár</b></td>
     <td><b>Jegy vásárlása</b></td>
   </tr>
+  {{ range $index, $data := .Data }}
   <tr align="center" class="im">
     <td><action><img src="/Web/Images/TrainsAndTickets/plus.png" width="30px" /></action><input type="hidden" value="+" /></td>
-    <td>02:36</td>
-    <td>06:11</td>
-    <td>1</td>
-    <td>3:35</td>
-    <td>221 km</td>
-    <td>3.950 Ft</td>
+    <td>{{$data.Departure}}</td>
+    <td>{{$data.Arrival}}</td>
+    <td>{{$data.Changes}}</td>
+    <td>{{$data.Duration}}</td>
+    <td>{{$data.Distance}} km</td>
+    <td>{{$data.Price}} Ft</td>
     <td><a href="#"><img src="/Web/Images/TrainsAndTickets/ticket.png" width="50px" /></a></td>
   </tr>
   <tr id="hidden">
       <td colspan="8">
         <table align="center" class="inner">
-          <tr>
+          <tr align="center">
             <td>Állomás</td>
             <td>Menetrend</td>
             <td>Vonat</td>
-            <td>Vonat szolgáltatásai</td>
+            <td align="center">Vonat szolgáltatásai</td>
           </tr>
-          <tr>
-            <td>Debrecen</td>
-            <td>02:36</td>
-            <td><a href="#">6009 sebes</a> (Budapest-Nyugati)</td>
-            <td>
-              <img src="/Web/Images/TrainsAndTickets/legkondi.png" width="40px" />
-              &nbsp;&nbsp;
-              <img src="/Web/Images/TrainsAndTickets/wifi.png" width="40px" />
-              &nbsp;&nbsp;
-              <img src="/Web/Images/TrainsAndTickets/bike.png" width="40px" />
-              &nbsp;&nbsp;
-            </td>
-          </tr>
-          <tr>
-            <td>Kőbánya-Kispest</td>
-            <td>05:40</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Kőbánya-Kispest</td>
-            <td>05:57</td>
-            <td><a href="#">3810</a> személy</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Budapest</td>
-            <td>06:11</td>
-            <td></td>
-            <td></td>
-          </tr>
+          <script>
+            var stations = {{$data.Info.Station}};
+            var timetable = {{$data.Info.Timetable}};
+            var trains = {{$data.Info.Train}};
+            var services = {{$data.Info.Services}};
+
+            len = stations.length;
+
+            for (i = 0; i < len; i++) {
+              document.write("<tr>");
+
+              if (typeof stations[i] !== "undefined") {
+                document.write("<td>" + stations[i] + "</td>");
+              } else {
+               document.write("<td></td>");
+              }
+
+              if (typeof timetable[i] !== "undefined") {
+                document.write("<td align='center'>" + timetable[i] + "</td>");
+              } else {
+               document.write("<td></td>");
+              }
+
+              if (typeof trains[i] !== "undefined") {
+                document.write("<td align='center'><a href='#'>" + trains[i] + "</a></td>");
+              } else {
+                document.write("<td></td>");
+              }
+
+              if (typeof services[i] !== "undefined") {
+                document.write("<td>");
+                document.write("<table align='center'>");
+                document.write("<tr>");
+                document.write("<td align='center'>Első Osztály</td>");
+                document.write("<td align='center'>Másod Osztály</td>");
+                document.write("</tr>");
+                document.write("<tr>");
+                var szamlalo = 0;
+                document.write("<td>");
+                  if (services[i].S1_Toilet == true) {
+                    szamlalo++;
+                    document.write('<img src="/Web/Images/TrainsAndTickets/wc.png" width="40px" /> &nbsp;&nbsp;');
+                    if (szamlalo%4 == 0) {
+                      document.write("<br/>");
+                    }
+                  }
+                  if (services[i].S1_DisabledToilet == true) {
+                    szamlalo++;
+                    document.write('<img src="/Web/Images/TrainsAndTickets/rokkant.jpg" width="40px" /> &nbsp;&nbsp;');
+                    if (szamlalo%4 == 0) {
+                      document.write("<br/>");
+                    }
+                  }
+                  if (services[i].S1_DiaperChange == true) {
+                    szamlalo++;
+                    document.write('<img src="/Web/Images/TrainsAndTickets/baby.png" width="40px" /> &nbsp;&nbsp;');
+                    if (szamlalo%4 == 0) {
+                      document.write("<br/>");
+                    }
+                  }
+                  if (services[i].S1_AirConditioner == true) {
+                    szamlalo++;
+                    document.write('<img src="/Web/Images/TrainsAndTickets/legkondi.png" width="40px" /> &nbsp;&nbsp;');
+                    if (szamlalo%4 == 0) {
+                      document.write("<br/>");
+                    }
+                  }
+                  if (services[i].S1_Wifi == true) {
+                    szamlalo++;
+                    document.write('<img src="/Web/Images/TrainsAndTickets/wifi.png" width="40px" /> &nbsp;&nbsp;');
+                    if (szamlalo%4 == 0) {
+                      document.write("<br/>");
+                    }
+                  }
+                  if (services[i].S1_PowerConnector == true) {
+                    szamlalo++;
+                    document.write('<img src="/Web/Images/TrainsAndTickets/plug.png" width="40px" /> &nbsp;&nbsp;');
+                    if (szamlalo%4 == 0) {
+                      document.write("<br/>");
+                    }
+                  }
+                  if (services[i].S1_Restaurant == true) {
+                    szamlalo++;
+                    document.write('<img src="/Web/Images/TrainsAndTickets/food.png" width="40px" /> &nbsp;&nbsp;');
+                    if (szamlalo%4 == 0) {
+                      document.write("<br/>");
+                    }
+                  }
+                  if (services[i].S1_BikeShed == true) {
+                    szamlalo++;
+                    document.write('<img src="/Web/Images/TrainsAndTickets/bike.png" width="40px" /> &nbsp;&nbsp;');
+                    if (szamlalo%4 == 0) {
+                      document.write("<br/>");
+                    }
+                  }
+                  if (services[i].S1_Bed == true) {
+                    szamlalo++;
+                    document.write('<img src="/Web/Images/TrainsAndTickets/sleep.png" width="40px" /> &nbsp;&nbsp;');
+                    if (szamlalo%4 == 0) {
+                      document.write("<br/>");
+                    }
+                  }
+
+                  if (szamlalo == 0) {
+                    document.write("<h3>Nem rendelkezik egyetlen szolgáltatással sem.</h3>");
+                  }
+
+                document.write("</td>");
+                szamlalo = 0;
+                document.write("<td>");
+                if (services[i].S2_Toilet == true) {
+                  szamlalo++;
+                  document.write('<img src="/Web/Images/TrainsAndTickets/wc.png" width="40px" /> &nbsp;&nbsp;');
+                  if (szamlalo%4 == 0) {
+                    document.write("<br/>");
+                  }
+                }
+                if (services[i].S2_DisabledToilet == true) {
+                  szamlalo++;
+                  document.write('<img src="/Web/Images/TrainsAndTickets/rokkant.jpg" width="40px" /> &nbsp;&nbsp;');
+                  if (szamlalo%4 == 0) {
+                    document.write("<br/>");
+                  }
+                }
+                if (services[i].S2_DiaperChange == true) {
+                  szamlalo++;
+                  document.write('<img src="/Web/Images/TrainsAndTickets/baby.png" width="40px" /> &nbsp;&nbsp;');
+                  if (szamlalo%4 == 0) {
+                    document.write("<br/>");
+                  }
+                }
+                if (services[i].S2_AirConditioner == true) {
+                  szamlalo++;
+                  document.write('<img src="/Web/Images/TrainsAndTickets/legkondi.png" width="40px" /> &nbsp;&nbsp;');
+                  if (szamlalo%4 == 0) {
+                    document.write("<br/>");
+                  }
+                }
+                if (services[i].S2_Wifi == true) {
+                  szamlalo++;
+                  document.write('<img src="/Web/Images/TrainsAndTickets/wifi.png" width="40px" /> &nbsp;&nbsp;');
+                  if (szamlalo%4 == 0) {
+                    document.write("<br/>");
+                  }
+                }
+                if (services[i].S2_PowerConnector == true) {
+                  szamlalo++;
+                  document.write('<img src="/Web/Images/TrainsAndTickets/plug.png" width="40px" /> &nbsp;&nbsp;');
+                  if (szamlalo%4 == 0) {
+                    document.write("<br/>");
+                  }
+                }
+                if (services[i].S2_Restaurant == true) {
+                  szamlalo++;
+                  document.write('<img src="/Web/Images/TrainsAndTickets/food.png" width="40px" /> &nbsp;&nbsp;');
+                  if (szamlalo%4 == 0) {
+                    document.write("<br/>");
+                  }
+                }
+                if (services[i].S2_BikeShed == true) {
+                  szamlalo++;
+                  document.write('<img src="/Web/Images/TrainsAndTickets/bike.png" width="40px" /> &nbsp;&nbsp;');
+                  if (szamlalo%4 == 0) {
+                    document.write("<br/>");
+                  }
+                }
+                if (services[i].S2_Bed == true) {
+                  szamlalo++;
+                  document.write('<img src="/Web/Images/TrainsAndTickets/sleep.png" width="40px" /> &nbsp;&nbsp;');
+                  if (szamlalo%4 == 0) {
+                    document.write("<br/>");
+                  }
+                }
+
+                if (szamlalo == 0) {
+                  document.write("<p align='center' style='font-size:40;'><b>-</b></p>");
+                }
+
+                document.write("</td>");
+
+                document.write("</tr>");
+                document.write("</table>");
+                document.write("</td>");
+              } else {
+                document.write("<td></td>");
+              }
+
+              document.write("</tr>");
+            }
+          </script>
         </table>
       </td>
   </tr>
-  <tr align="center" class="im">
-    <td><action><img src="/Web/Images/TrainsAndTickets/plus.png" width="30px" /></action><input type="hidden" value="+" /></td>
-    <td>02:36</td>
-    <td>06:11</td>
-    <td>3</td>
-    <td>2:34</td>
-    <td>221 km</td>
-    <td>5.230 Ft</td>
-    <td><a href="#"><img src="/Web/Images/TrainsAndTickets/ticket.png" width="50px" /></a></td>
-  </tr>
-  <tr id="hidden">
-      <td colspan="8">
-        <table align="center" class="inner">
-          <tr>
-            <td><b>Állomás</b></td>
-            <td><b>Menetrend</b></td>
-            <td><b>Vonat</b></td>
-            <td><b>Vonat szolgáltatásai</b></td>
-          </tr>
-          <tr>
-            <td>Debrecen</td>
-            <td>02:36</td>
-            <td><a href="#">6009</a> sebes (Budapest-Nyugati)</td>
-            <td>
-              <img src="/Web/Images/TrainsAndTickets/legkondi.png" width="40px" />
-              &nbsp;&nbsp;
-              <img src="/Web/Images/TrainsAndTickets/wifi.png" width="40px" />
-              &nbsp;&nbsp;
-              <img src="/Web/Images/TrainsAndTickets/bike.png" width="40px" />
-              &nbsp;&nbsp;
-            </td>
-          </tr>
-          <tr>
-            <td>Püspükladány</td>
-            <td>03:11</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Püspükladány</td>
-            <td>03:20</td>
-            <td><a href="#">1829</a> Hortobágy EC (-Wien)</td>
-            <td>
-              <img src="/Web/Images/TrainsAndTickets/wc.png" width="40px" />
-              &nbsp;&nbsp;
-              <img src="/Web/Images/TrainsAndTickets/rokkant.jpg" width="40px" />
-              &nbsp;&nbsp;
-              <img src="/Web/Images/TrainsAndTickets/baby.png" width="40px" />
-              <br/>
-              <img src="/Web/Images/TrainsAndTickets/legkondi.png" width="40px" />
-              &nbsp;&nbsp;
-              <img src="/Web/Images/TrainsAndTickets/wifi.png" width="40px" />
-              &nbsp;&nbsp;
-              <img src="/Web/Images/TrainsAndTickets/plug.png" width="40px" />
-              <br/>
-              <img src="/Web/Images/TrainsAndTickets/food.png" width="40px" />
-              &nbsp;&nbsp;
-              <img src="/Web/Images/TrainsAndTickets/bike.png" width="40px" />
-              &nbsp;&nbsp;
-              <img src="/Web/Images/TrainsAndTickets/sleep.png" width="40px" />
-            </td>
-          </tr>
-          <tr>
-            <td>Szolnok</td>
-            <td>04:14</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Szolnok</td>
-            <td>04:30</td>
-            <td><a href="#">3122</a> személy</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Kőbánya-Kispest</td>
-            <td>05:32</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Kőbánya-Kispest</td>
-            <td>05:57</td>
-            <td><a href="#">3810 személy</a></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Budapest</td>
-            <td>06:11</td>
-            <td></td>
-            <td></td>
-          </tr>
-        </table>
-      </td>
-  </tr>
-  <tr align="center" class="im">
-    <td><action><img src="/Web/Images/TrainsAndTickets/plus.png" width="30px" /></action><input type="hidden" value="+" /></td>
-    <td>10:03</td>
-    <td>12:37</td>
-    <td>1</td>
-    <td>2:34</td>
-    <td>221 km</td>
-    <td>4.000 Ft</td>
-    <td><a href="#"><img src="/Web/Images/TrainsAndTickets/ticket.png" width="50px" /></a></td>
-  </tr>
-  <tr id="hidden">
-      <td colspan="8">
-        <table align="center" class="inner">
-          <tr>
-            <td>Állomás</td>
-            <td>Menetrend</td>
-            <td>Vonat</td>
-            <td>Vonat szolgáltatásai</td>
-          </tr>
-          <tr>
-            <td>Debrecen</td>
-            <td>02:36</td>
-            <td>6009 sebes (Budapest-Nyugati)</td>
-            <td>WiFi, Kerékpár szállítás, Légkondi</td>
-          </tr>
-          <tr>
-            <td>Kőbánya-Kispest</td>
-            <td>05:40</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Kőbánya-Kispest</td>
-            <td>05:57</td>
-            <td>3810 személy</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Budapest</td>
-            <td>06:11</td>
-            <td></td>
-            <td></td>
-          </tr>
-        </table>
-      </td>
-  </tr>
-  <tr align="center" class="im">
-    <td><action><img src="/Web/Images/TrainsAndTickets/plus.png" width="30px" /></action><input type="hidden" value="+" /></td>
-    <td>11:31</td>
-    <td>14:57</td>
-    <td>2</td>
-    <td>3:26</td>
-    <td>221 km</td>
-    <td>3.950 Ft</td>
-    <td><a href="#"><img src="/Web/Images/TrainsAndTickets/ticket.png" width="50px" /></a></td>
-  </tr>
-  <tr id="hidden">
-      <td colspan="8">
-        <table align="center" class="inner">
-          <tr>
-            <td>Állomás</td>
-            <td>Menetrend</td>
-            <td>Vonat</td>
-            <td>Vonat szolgáltatásai</td>
-          </tr>
-          <tr>
-            <td>Debrecen</td>
-            <td>02:36</td>
-            <td>6009 sebes (Budapest-Nyugati)</td>
-            <td>WiFi, Kerékpár szállítás, Légkondi</td>
-          </tr>
-          <tr>
-            <td>Kőbánya-Kispest</td>
-            <td>05:40</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Kőbánya-Kispest</td>
-            <td>05:57</td>
-            <td>3810 személy</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Budapest</td>
-            <td>06:11</td>
-            <td></td>
-            <td></td>
-          </tr>
-        </table>
-      </td>
-  </tr>
-  <tr align="center" class="im">
-    <td><action><img src="/Web/Images/TrainsAndTickets/plus.png" width="30px" /></action><input type="hidden" value="+" /></td>
-    <td>15:31</td>
-    <td>17:57</td>
-    <td>0</td>
-    <td>2:26</td>
-    <td>221 km</td>
-    <td>7.350 Ft</td>
-    <td><a href="#"><img src="/Web/Images/TrainsAndTickets/ticket.png" width="50px" /></a></td>
-  </tr>
-  <tr id="hidden">
-      <td colspan="8">
-        <table align="center" class="inner">
-          <tr>
-            <td>Állomás</td>
-            <td>Menetrend</td>
-            <td>Vonat</td>
-            <td>Vonat szolgáltatásai</td>
-          </tr>
-          <tr>
-            <td>Debrecen</td>
-            <td>02:36</td>
-            <td>6009 sebes (Budapest-Nyugati)</td>
-            <td>WiFi, Kerékpár szállítás, Légkondi</td>
-          </tr>
-          <tr>
-            <td>Kőbánya-Kispest</td>
-            <td>05:40</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Kőbánya-Kispest</td>
-            <td>05:57</td>
-            <td>3810 személy</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Budapest</td>
-            <td>06:11</td>
-            <td></td>
-            <td></td>
-          </tr>
-        </table>
-      </td>
-  </tr>
+  {{ end }}
 </table>
+<br/><br/><br/><br/>
+<br/><br/><br/><br/>
 {{end}}

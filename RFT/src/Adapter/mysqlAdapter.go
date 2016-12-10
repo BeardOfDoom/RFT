@@ -69,6 +69,12 @@ type SQLData struct {
 
 type SQLDataSlice []SQLData
 
+type Data struct {
+	From		string
+	To			string
+	Data		SQLDataSlice
+}
+
 func SQLFactory(username, password, host, db string, port int) SQLConfig {
 	return SQLConfig{username, password, host, port, db}
 }
@@ -173,7 +179,8 @@ func (this SQLConfig) MysqlRegistration(firstname, lastname, username, password,
 	return 0
 }
 
-func (this SQLConfig) MysqlSearchTimetable(from, to, date, discount string, potjegy, helyi, atszallas, kerekpar bool) SQLDataSlice {
+func (this SQLConfig) MysqlSearchTimetable(from, to, date, discount string, potjegy, helyi, atszallas, kerekpar bool) Data {
+	var finalResult Data
 	var result SQLDataSlice
 	var data SQLData
 	var query string
@@ -304,5 +311,8 @@ func (this SQLConfig) MysqlSearchTimetable(from, to, date, discount string, potj
 
 		result = append(result, data)
 	}
-	return result
+	finalResult.From = from
+	finalResult.To = to
+	finalResult.Data = result
+	return finalResult
 }
