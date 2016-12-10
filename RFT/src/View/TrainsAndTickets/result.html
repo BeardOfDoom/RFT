@@ -59,7 +59,13 @@ $(document).ready(function(){
     <td><action><img src="/Web/Images/TrainsAndTickets/plus.png" width="30px" /></action><input type="hidden" value="+" /></td>
     <td>{{$data.Departure}}</td>
     <td>{{$data.Arrival}}</td>
-    <td>{{$data.Changes}}</td>
+    <script>
+      if ({{$data.Changes}} == 0) {
+        document.write('<td>-</td>');
+      } else {
+        document.write('<td>{{$data.Changes}}</td>');
+      }
+    </script>
     <td>{{$data.Duration}}</td>
     <td>{{$data.Distance}} km</td>
     <td>{{$data.Price}} Ft</td>
@@ -178,7 +184,7 @@ $(document).ready(function(){
                   }
 
                   if (szamlalo == 0) {
-                    document.write("<h3>Nem rendelkezik egyetlen szolgáltatással sem.</h3>");
+                    document.write("<p align='center' style='font-size:40;'><b>-</b></p>");
                   }
 
                 document.write("</td>");

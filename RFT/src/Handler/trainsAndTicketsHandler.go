@@ -68,22 +68,22 @@ func SearchTimetable(w http.ResponseWriter, r *http.Request) {
 
 	if r.FormValue("withoutExtraTicket") != "" {
 		withoutExtraTicket = true
-	}	else {
+	} else {
 		withoutExtraTicket = false
 	}
 	if r.FormValue("withoutLocalTransportation") != "" {
 		withoutLocalTransportation = true
-	}	else {
+	} else {
 		withoutLocalTransportation = false
 	}
 	if r.FormValue("withoutChange") != "" {
 		withoutChange = true
-	}	else {
+	} else {
 		withoutChange = false
 	}
 	if r.FormValue("withBicycleDelivery") != "" {
 		withBicycleDelivery = true
-	}	else {
+	} else {
 		withBicycleDelivery = false
 	}
 	result := Service.SearchTimetable(r.FormValue("from"), r.FormValue("to"), date,
