@@ -19,6 +19,16 @@ background-size: cover;
   padding: 20;
 }
 
+.se {
+  color: black;
+  text-shadow: 0 0 0.2em #fff, 0 0 0.2em #fff;
+}
+
+.se:hover {
+  color:red;
+  text-decoration: none;
+}
+
 .separator {
   padding: 10;
 }
@@ -48,6 +58,9 @@ table {
 </style>
 
 <script>
+
+  security();
+
   var numberOfSeats = 40;
   var sideOne = Math.floor(numberOfSeats / 2) + numberOfSeats % 2;
   var sideTwo = Math.floor(numberOfSeats / 2);
@@ -82,7 +95,7 @@ table {
                         color = "green";
                       }*/
                       color = "rgba(0, 255, 0, 0.5)";
-                      document.write("<td class=\"inner\" style=\"background-color: " + color + ";\">" + seat + "</td>");
+                      document.write("<td class=\"inner\" style=\"background-color: " + color + ";\"><a href='#' class='se'>" + seat + "</a></td>");
                       seat += 4;
                     }
                   </script>
@@ -97,7 +110,7 @@ table {
                         color = "green";
                       }*/
                       color = "rgba(255, 0, 0, 0.5)";
-                      document.write("<td class=\"inner\" style=\"background-color: " + color + ";\">" + seat + "</td>");
+                      document.write("<td class=\"inner\" style=\"background-color: " + color + ";\"><a href='#' class='se'>" + seat + "</a></td>");
                         seat += 4;
                     }
                   </script>
@@ -123,7 +136,7 @@ table {
                       color = "green";
                     }*/
                     color = "rgba(0, 255, 0, 0.5)";
-                    document.write("<td class=\"inner\" style=\"background-color: " + color + ";\">" + seat + "</td>");
+                    document.write("<td class=\"inner\" style=\"background-color: " + color + ";\"><a href='#' class='se'>" + seat + "</a></td>");
                     seat += 4;
                   }
                 </script>
@@ -138,7 +151,7 @@ table {
                       color = "green";
                     }*/
                     color = "rgba(255, 0, 0, 0.5)";
-                    document.write("<td class=\"inner\" style=\"background-color: " + color + ";\">" + seat + "</td>");
+                    document.write("<td class=\"inner\" style=\"background-color: " + color + ";\"><a href='#' class='se'>" + seat + "</a></td>");
                     if (sideOneA > sideOneB && sideTwoB > sideTwoA && i == sideTwoB - 1) {
                       seat += 2;
                     } else if (sideOneA == sideOneB && sideTwoB > sideTwoA && i == sideTwoB - 1) {
