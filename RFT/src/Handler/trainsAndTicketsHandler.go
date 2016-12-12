@@ -106,7 +106,7 @@ func GetTrainType(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("From: ", r.FormValue("from1"))
 	fmt.Println("To: ", r.FormValue("to1"))
 	fmt.Println("Departure: ", r.FormValue("departure1"))
-	fmt.Println("Arrival: ", r.FormValue("departure2"))
+	fmt.Println("Arrival: ", r.FormValue("arrival1"))
 	fmt.Println("Train: ", r.FormValue("train1ID"))
 	fmt.Println("")
 	fmt.Println("")
