@@ -25,5 +25,6 @@ func main() {
 	http.HandleFunc("/Search", Handler.SearchTimetable)
 	http.HandleFunc("/Web/", Handler.WebHandler)
 	http.HandleFunc("/Map", Handler.Map)
+	http.HandleFunc("/BuyTicket", Handler.BuyTicket)
 	http.ListenAndServe(":8000", nil)
 }
