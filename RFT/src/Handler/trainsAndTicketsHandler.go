@@ -97,3 +97,7 @@ func SearchTimetable(w http.ResponseWriter, r *http.Request) {
 	}
 
 }
+
+func BuyTicket(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("fasza")
+}

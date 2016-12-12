@@ -64,6 +64,7 @@ $(document).ready(function(){
         document.write('<td>-</td>');
       } else {
         document.write('<td>{{$data.Changes}}</td>');
+        var ch = 1;
       }
     </script>
     <td>{{$data.Duration}}</td>
@@ -75,7 +76,7 @@ $(document).ready(function(){
         document.write("<td>" + {{$data.Price}} + " Ft</td>");
       }
     </script>
-    <td><a href="#"><img src="/Web/Images/TrainsAndTickets/ticket.png" width="50px" /></a></td>
+    <td><a href="/BuyTicket"><img src="/Web/Images/TrainsAndTickets/ticket.png" width="50px" /></a></td>
   </tr>
   <tr id="hidden">
       <td colspan="8">
@@ -110,79 +111,156 @@ $(document).ready(function(){
                document.write("<td></td>");
               }
 
-              if (typeof trains[i] !== "undefined") {
-                document.write('<td align="center"><a href="#" onClick="post(\'' + stations[i] + '\', \'' + stations[i+1] + '\', \'' + timetable[i] + '\', \'' + timetable[i+1] + '\', \'' + trains[i] + '\', \'' + route[i] + '\');">' + trains[i] + ' ( ' + route[i] + ' ) </a></td>');
-              } else {
-                document.write("<td></td>");
+              if (ch == 1 && i == 1) {
+                document.write("<td></td><td></td></tr>");
+                continue;
               }
 
-              if (typeof services[i] !== "undefined") {
-                document.write("<td>");
-                document.write("<table align='center'>");
-                document.write("<tr>");
-                document.write("<td align='center'>Első Osztály</td>");
-                document.write("<td align='center'>Másod Osztály</td>");
-                document.write("</tr>");
-                document.write("<tr>");
-                var szamlalo = 0;
-                document.write("<td>");
-                  if (services[i].S1_Toilet == true) {
+              if (ch == 1 && i == 2) {
+                if (typeof trains[i-1] !== "undefined") {
+                  document.write('<td align="center"><a href="#" onClick="post(\'' + stations[i] + '\', \'' + stations[i+1] + '\', \'' + timetable[i] + '\', \'' + timetable[i+1] + '\', \'' + trains[i-1] + '\', \'' + route[i-1] + '\');">' + trains[i-1] + ' ( ' + route[i-1] + ' ) </a></td>');
+                } else {
+                  document.write("<td></td>");
+                }
+
+                if (typeof services[i-1] !== "undefined") {
+                  document.write("<td>");
+                  document.write("<table align='center'>");
+                  document.write("<tr>");
+                  document.write("<td align='center'>Első Osztály</td>");
+                  document.write("<td align='center'>Másod Osztály</td>");
+                  document.write("</tr>");
+                  document.write("<tr>");
+                  var szamlalo = 0;
+                  document.write("<td>");
+                    if (services[i-1].S1_Toilet == true) {
+                      szamlalo++;
+                      document.write('<img src="/Web/Images/TrainsAndTickets/wc.png" width="40px" /> &nbsp;&nbsp;');
+                      if (szamlalo%4 == 0) {
+                        document.write("<br/>");
+                      }
+                    }
+                    if (services[i-1].S1_DisabledToilet == true) {
+                      szamlalo++;
+                      document.write('<img src="/Web/Images/TrainsAndTickets/rokkant.jpg" width="40px" /> &nbsp;&nbsp;');
+                      if (szamlalo%4 == 0) {
+                        document.write("<br/>");
+                      }
+                    }
+                    if (services[i-1].S1_DiaperChange == true) {
+                      szamlalo++;
+                      document.write('<img src="/Web/Images/TrainsAndTickets/baby.png" width="40px" /> &nbsp;&nbsp;');
+                      if (szamlalo%4 == 0) {
+                        document.write("<br/>");
+                      }
+                    }
+                    if (services[i-1].S1_AirConditioner == true) {
+                      szamlalo++;
+                      document.write('<img src="/Web/Images/TrainsAndTickets/legkondi.png" width="40px" /> &nbsp;&nbsp;');
+                      if (szamlalo%4 == 0) {
+                        document.write("<br/>");
+                      }
+                    }
+                    if (services[i-1].S1_Wifi == true) {
+                      szamlalo++;
+                      document.write('<img src="/Web/Images/TrainsAndTickets/wifi.png" width="40px" /> &nbsp;&nbsp;');
+                      if (szamlalo%4 == 0) {
+                        document.write("<br/>");
+                      }
+                    }
+                    if (services[i-1].S1_PowerConnector == true) {
+                      szamlalo++;
+                      document.write('<img src="/Web/Images/TrainsAndTickets/plug.png" width="40px" /> &nbsp;&nbsp;');
+                      if (szamlalo%4 == 0) {
+                        document.write("<br/>");
+                      }
+                    }
+                    if (services[i-1].S1_Restaurant == true) {
+                      szamlalo++;
+                      document.write('<img src="/Web/Images/TrainsAndTickets/food.png" width="40px" /> &nbsp;&nbsp;');
+                      if (szamlalo%4 == 0) {
+                        document.write("<br/>");
+                      }
+                    }
+                    if (services[i-1].S1_BikeShed == true) {
+                      szamlalo++;
+                      document.write('<img src="/Web/Images/TrainsAndTickets/bike.png" width="40px" /> &nbsp;&nbsp;');
+                      if (szamlalo%4 == 0) {
+                        document.write("<br/>");
+                      }
+                    }
+                    if (services[i-1].S1_Bed == true) {
+                      szamlalo++;
+                      document.write('<img src="/Web/Images/TrainsAndTickets/sleep.png" width="40px" /> &nbsp;&nbsp;');
+                      if (szamlalo%4 == 0) {
+                        document.write("<br/>");
+                      }
+                    }
+
+                    if (szamlalo == 0) {
+                      document.write("<p align='center' style='font-size:40;'><b>-</b></p>");
+                    }
+
+                  document.write("</td>");
+                  szamlalo = 0;
+                  document.write("<td>");
+                  if (services[i-1].S2_Toilet == true) {
                     szamlalo++;
                     document.write('<img src="/Web/Images/TrainsAndTickets/wc.png" width="40px" /> &nbsp;&nbsp;');
                     if (szamlalo%4 == 0) {
                       document.write("<br/>");
                     }
                   }
-                  if (services[i].S1_DisabledToilet == true) {
+                  if (services[i-1].S2_DisabledToilet == true) {
                     szamlalo++;
                     document.write('<img src="/Web/Images/TrainsAndTickets/rokkant.jpg" width="40px" /> &nbsp;&nbsp;');
                     if (szamlalo%4 == 0) {
                       document.write("<br/>");
                     }
                   }
-                  if (services[i].S1_DiaperChange == true) {
+                  if (services[i-1].S2_DiaperChange == true) {
                     szamlalo++;
                     document.write('<img src="/Web/Images/TrainsAndTickets/baby.png" width="40px" /> &nbsp;&nbsp;');
                     if (szamlalo%4 == 0) {
                       document.write("<br/>");
                     }
                   }
-                  if (services[i].S1_AirConditioner == true) {
+                  if (services[i-1].S2_AirConditioner == true) {
                     szamlalo++;
                     document.write('<img src="/Web/Images/TrainsAndTickets/legkondi.png" width="40px" /> &nbsp;&nbsp;');
                     if (szamlalo%4 == 0) {
                       document.write("<br/>");
                     }
                   }
-                  if (services[i].S1_Wifi == true) {
+                  if (services[i-1].S2_Wifi == true) {
                     szamlalo++;
                     document.write('<img src="/Web/Images/TrainsAndTickets/wifi.png" width="40px" /> &nbsp;&nbsp;');
                     if (szamlalo%4 == 0) {
                       document.write("<br/>");
                     }
                   }
-                  if (services[i].S1_PowerConnector == true) {
+                  if (services[i-1].S2_PowerConnector == true) {
                     szamlalo++;
                     document.write('<img src="/Web/Images/TrainsAndTickets/plug.png" width="40px" /> &nbsp;&nbsp;');
                     if (szamlalo%4 == 0) {
                       document.write("<br/>");
                     }
                   }
-                  if (services[i].S1_Restaurant == true) {
+                  if (services[i-1].S2_Restaurant == true) {
                     szamlalo++;
                     document.write('<img src="/Web/Images/TrainsAndTickets/food.png" width="40px" /> &nbsp;&nbsp;');
                     if (szamlalo%4 == 0) {
                       document.write("<br/>");
                     }
                   }
-                  if (services[i].S1_BikeShed == true) {
+                  if (services[i-1].S2_BikeShed == true) {
                     szamlalo++;
                     document.write('<img src="/Web/Images/TrainsAndTickets/bike.png" width="40px" /> &nbsp;&nbsp;');
                     if (szamlalo%4 == 0) {
                       document.write("<br/>");
                     }
                   }
-                  if (services[i].S1_Bed == true) {
+                  if (services[i-1].S2_Bed == true) {
                     szamlalo++;
                     document.write('<img src="/Web/Images/TrainsAndTickets/sleep.png" width="40px" /> &nbsp;&nbsp;');
                     if (szamlalo%4 == 0) {
@@ -194,84 +272,179 @@ $(document).ready(function(){
                     document.write("<p align='center' style='font-size:40;'><b>-</b></p>");
                   }
 
-                document.write("</td>");
-                szamlalo = 0;
-                document.write("<td>");
-                if (services[i].S2_Toilet == true) {
-                  szamlalo++;
-                  document.write('<img src="/Web/Images/TrainsAndTickets/wc.png" width="40px" /> &nbsp;&nbsp;');
-                  if (szamlalo%4 == 0) {
-                    document.write("<br/>");
-                  }
-                }
-                if (services[i].S2_DisabledToilet == true) {
-                  szamlalo++;
-                  document.write('<img src="/Web/Images/TrainsAndTickets/rokkant.jpg" width="40px" /> &nbsp;&nbsp;');
-                  if (szamlalo%4 == 0) {
-                    document.write("<br/>");
-                  }
-                }
-                if (services[i].S2_DiaperChange == true) {
-                  szamlalo++;
-                  document.write('<img src="/Web/Images/TrainsAndTickets/baby.png" width="40px" /> &nbsp;&nbsp;');
-                  if (szamlalo%4 == 0) {
-                    document.write("<br/>");
-                  }
-                }
-                if (services[i].S2_AirConditioner == true) {
-                  szamlalo++;
-                  document.write('<img src="/Web/Images/TrainsAndTickets/legkondi.png" width="40px" /> &nbsp;&nbsp;');
-                  if (szamlalo%4 == 0) {
-                    document.write("<br/>");
-                  }
-                }
-                if (services[i].S2_Wifi == true) {
-                  szamlalo++;
-                  document.write('<img src="/Web/Images/TrainsAndTickets/wifi.png" width="40px" /> &nbsp;&nbsp;');
-                  if (szamlalo%4 == 0) {
-                    document.write("<br/>");
-                  }
-                }
-                if (services[i].S2_PowerConnector == true) {
-                  szamlalo++;
-                  document.write('<img src="/Web/Images/TrainsAndTickets/plug.png" width="40px" /> &nbsp;&nbsp;');
-                  if (szamlalo%4 == 0) {
-                    document.write("<br/>");
-                  }
-                }
-                if (services[i].S2_Restaurant == true) {
-                  szamlalo++;
-                  document.write('<img src="/Web/Images/TrainsAndTickets/food.png" width="40px" /> &nbsp;&nbsp;');
-                  if (szamlalo%4 == 0) {
-                    document.write("<br/>");
-                  }
-                }
-                if (services[i].S2_BikeShed == true) {
-                  szamlalo++;
-                  document.write('<img src="/Web/Images/TrainsAndTickets/bike.png" width="40px" /> &nbsp;&nbsp;');
-                  if (szamlalo%4 == 0) {
-                    document.write("<br/>");
-                  }
-                }
-                if (services[i].S2_Bed == true) {
-                  szamlalo++;
-                  document.write('<img src="/Web/Images/TrainsAndTickets/sleep.png" width="40px" /> &nbsp;&nbsp;');
-                  if (szamlalo%4 == 0) {
-                    document.write("<br/>");
-                  }
+                  document.write("</td>");
+
+                  document.write("</tr>");
+                  document.write("</table>");
+                  document.write("</td>");
+                } else {
+                  document.write("<td></td>");
                 }
 
-                if (szamlalo == 0) {
-                  document.write("<p align='center' style='font-size:40;'><b>-</b></p>");
-                }
-
-                document.write("</td>");
-
-                document.write("</tr>");
-                document.write("</table>");
-                document.write("</td>");
               } else {
-                document.write("<td></td>");
+                if (typeof trains[i] !== "undefined") {
+                  document.write('<td align="center"><a href="#" onClick="post(\'' + stations[i] + '\', \'' + stations[i+1] + '\', \'' + timetable[i] + '\', \'' + timetable[i+1] + '\', \'' + trains[i] + '\', \'' + route[i] + '\');">' + trains[i] + ' ( ' + route[i] + ' ) </a></td>');
+                } else {
+                  document.write("<td></td>");
+                }
+
+                if (typeof services[i] !== "undefined") {
+                  document.write("<td>");
+                  document.write("<table align='center'>");
+                  document.write("<tr>");
+                  document.write("<td align='center'>Első Osztály</td>");
+                  document.write("<td align='center'>Másod Osztály</td>");
+                  document.write("</tr>");
+                  document.write("<tr>");
+                  var szamlalo = 0;
+                  document.write("<td>");
+                    if (services[i].S1_Toilet == true) {
+                      szamlalo++;
+                      document.write('<img src="/Web/Images/TrainsAndTickets/wc.png" width="40px" /> &nbsp;&nbsp;');
+                      if (szamlalo%4 == 0) {
+                        document.write("<br/>");
+                      }
+                    }
+                    if (services[i].S1_DisabledToilet == true) {
+                      szamlalo++;
+                      document.write('<img src="/Web/Images/TrainsAndTickets/rokkant.jpg" width="40px" /> &nbsp;&nbsp;');
+                      if (szamlalo%4 == 0) {
+                        document.write("<br/>");
+                      }
+                    }
+                    if (services[i].S1_DiaperChange == true) {
+                      szamlalo++;
+                      document.write('<img src="/Web/Images/TrainsAndTickets/baby.png" width="40px" /> &nbsp;&nbsp;');
+                      if (szamlalo%4 == 0) {
+                        document.write("<br/>");
+                      }
+                    }
+                    if (services[i].S1_AirConditioner == true) {
+                      szamlalo++;
+                      document.write('<img src="/Web/Images/TrainsAndTickets/legkondi.png" width="40px" /> &nbsp;&nbsp;');
+                      if (szamlalo%4 == 0) {
+                        document.write("<br/>");
+                      }
+                    }
+                    if (services[i].S1_Wifi == true) {
+                      szamlalo++;
+                      document.write('<img src="/Web/Images/TrainsAndTickets/wifi.png" width="40px" /> &nbsp;&nbsp;');
+                      if (szamlalo%4 == 0) {
+                        document.write("<br/>");
+                      }
+                    }
+                    if (services[i].S1_PowerConnector == true) {
+                      szamlalo++;
+                      document.write('<img src="/Web/Images/TrainsAndTickets/plug.png" width="40px" /> &nbsp;&nbsp;');
+                      if (szamlalo%4 == 0) {
+                        document.write("<br/>");
+                      }
+                    }
+                    if (services[i].S1_Restaurant == true) {
+                      szamlalo++;
+                      document.write('<img src="/Web/Images/TrainsAndTickets/food.png" width="40px" /> &nbsp;&nbsp;');
+                      if (szamlalo%4 == 0) {
+                        document.write("<br/>");
+                      }
+                    }
+                    if (services[i].S1_BikeShed == true) {
+                      szamlalo++;
+                      document.write('<img src="/Web/Images/TrainsAndTickets/bike.png" width="40px" /> &nbsp;&nbsp;');
+                      if (szamlalo%4 == 0) {
+                        document.write("<br/>");
+                      }
+                    }
+                    if (services[i].S1_Bed == true) {
+                      szamlalo++;
+                      document.write('<img src="/Web/Images/TrainsAndTickets/sleep.png" width="40px" /> &nbsp;&nbsp;');
+                      if (szamlalo%4 == 0) {
+                        document.write("<br/>");
+                      }
+                    }
+
+                    if (szamlalo == 0) {
+                      document.write("<p align='center' style='font-size:40;'><b>-</b></p>");
+                    }
+
+                  document.write("</td>");
+                  szamlalo = 0;
+                  document.write("<td>");
+                  if (services[i].S2_Toilet == true) {
+                    szamlalo++;
+                    document.write('<img src="/Web/Images/TrainsAndTickets/wc.png" width="40px" /> &nbsp;&nbsp;');
+                    if (szamlalo%4 == 0) {
+                      document.write("<br/>");
+                    }
+                  }
+                  if (services[i].S2_DisabledToilet == true) {
+                    szamlalo++;
+                    document.write('<img src="/Web/Images/TrainsAndTickets/rokkant.jpg" width="40px" /> &nbsp;&nbsp;');
+                    if (szamlalo%4 == 0) {
+                      document.write("<br/>");
+                    }
+                  }
+                  if (services[i].S2_DiaperChange == true) {
+                    szamlalo++;
+                    document.write('<img src="/Web/Images/TrainsAndTickets/baby.png" width="40px" /> &nbsp;&nbsp;');
+                    if (szamlalo%4 == 0) {
+                      document.write("<br/>");
+                    }
+                  }
+                  if (services[i].S2_AirConditioner == true) {
+                    szamlalo++;
+                    document.write('<img src="/Web/Images/TrainsAndTickets/legkondi.png" width="40px" /> &nbsp;&nbsp;');
+                    if (szamlalo%4 == 0) {
+                      document.write("<br/>");
+                    }
+                  }
+                  if (services[i].S2_Wifi == true) {
+                    szamlalo++;
+                    document.write('<img src="/Web/Images/TrainsAndTickets/wifi.png" width="40px" /> &nbsp;&nbsp;');
+                    if (szamlalo%4 == 0) {
+                      document.write("<br/>");
+                    }
+                  }
+                  if (services[i].S2_PowerConnector == true) {
+                    szamlalo++;
+                    document.write('<img src="/Web/Images/TrainsAndTickets/plug.png" width="40px" /> &nbsp;&nbsp;');
+                    if (szamlalo%4 == 0) {
+                      document.write("<br/>");
+                    }
+                  }
+                  if (services[i].S2_Restaurant == true) {
+                    szamlalo++;
+                    document.write('<img src="/Web/Images/TrainsAndTickets/food.png" width="40px" /> &nbsp;&nbsp;');
+                    if (szamlalo%4 == 0) {
+                      document.write("<br/>");
+                    }
+                  }
+                  if (services[i].S2_BikeShed == true) {
+                    szamlalo++;
+                    document.write('<img src="/Web/Images/TrainsAndTickets/bike.png" width="40px" /> &nbsp;&nbsp;');
+                    if (szamlalo%4 == 0) {
+                      document.write("<br/>");
+                    }
+                  }
+                  if (services[i].S2_Bed == true) {
+                    szamlalo++;
+                    document.write('<img src="/Web/Images/TrainsAndTickets/sleep.png" width="40px" /> &nbsp;&nbsp;');
+                    if (szamlalo%4 == 0) {
+                      document.write("<br/>");
+                    }
+                  }
+
+                  if (szamlalo == 0) {
+                    document.write("<p align='center' style='font-size:40;'><b>-</b></p>");
+                  }
+
+                  document.write("</td>");
+
+                  document.write("</tr>");
+                  document.write("</table>");
+                  document.write("</td>");
+                } else {
+                  document.write("<td></td>");
+                }
               }
 
               document.write("</tr>");
