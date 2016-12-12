@@ -588,6 +588,7 @@ func (this SQLConfig) MysqlSeatReserve(id string) WagonData {
 
 	var result WagonData
 	var wagon Wagon
+	wagon.Seats = make(map[string]bool)
 	query := "SELECT SEATS_NUMBER, CLASS, SERVICES, WAGONS_ID, RESERVED ,NUMBER FROM WAGONS INNER JOIN WAGON_SEAT_CONNECTION ON WAGONS_ID = WAGONS.ID INNER JOIN SEATS ON SEATS.ID = WAGON_SEAT_CONNECTION.SEATS_ID WHERE TRAINS_ID = " + id
 	var numOfSeats, class, services, wagonId, reserved, seatNumber string
 	inf := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", this.username, this.password, this.host, this.port, this.db)
