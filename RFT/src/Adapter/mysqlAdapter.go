@@ -275,7 +275,7 @@ func (this SQLConfig) MysqlSearchTimetable(from, to, date, discount string, extr
 		}
 
 		var priceNUM float64
-		priceNUM = (float64(km)*float64(pricePerKM) + float64(extra)) * (float64(percent) / 100.0)
+		priceNUM = (float64(km)*float64(pricePerKM) + float64(extra)) * ((100.0 - float64(percent)) / 100.0)
 		price := strconv.FormatFloat(priceNUM, 'f', 0, 64)
 
 		/*belso adatok*/
