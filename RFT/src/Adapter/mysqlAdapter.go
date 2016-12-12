@@ -584,7 +584,7 @@ func (this SQLConfig) MysqlGetTrainType(from1, to1, departure1, arrival1, train1
 	return result
 }
 
-func (this SQLConfig) MysqlBuyTicket(id string) WagonData {
+func (this SQLConfig) MysqlSeatReserve(id string) WagonData {
 
 	var result WagonData
 	var wagon Wagon

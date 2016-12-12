@@ -23,8 +23,8 @@ func GetTrainType(from1, to1, departure1, arrival1, train1ID, from2, to2, depart
 	return result
 }
 
-func BuyTicket(id string) Adapter.WagonData {
+func SeatReserve(id string) Adapter.WagonData {
 	SQLAdapter := Adapter.SQLFactory(Settings.DBUSERNAME, Settings.DBPASSWORD, Settings.DBHOST, Settings.DBNAME, Settings.DBPORT)
-	result := SQLAdapter.MysqlBuyTicket(id)
+	result := SQLAdapter.MysqlSeatReserve(id)
 	return result
 }

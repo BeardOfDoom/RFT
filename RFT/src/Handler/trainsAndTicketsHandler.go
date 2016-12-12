@@ -109,10 +109,10 @@ func GetTrainType(w http.ResponseWriter, r *http.Request) {
 	t.ExecuteTemplate(w, "layout", result)
 }
 
-func BuyTicket(w http.ResponseWriter, r *http.Request) {
+func SeatReserve(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
-	result := Service.BuyTicket(r.FormValue("train_id"))
+	result := Service.SeatReserve(r.FormValue("trainID"))
 	fmt.Println(result)
 
 	t, _ := template.ParseFiles("", "View/Layout/main.html")
