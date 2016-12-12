@@ -1,4 +1,50 @@
 
+  function post(from, to, departure, arrival, train, route) {
+
+    var form = document.createElement("form");
+    form.setAttribute("method", "post");
+    form.setAttribute("action", "/Map");
+
+    var hiddenField1 = document.createElement("input");
+    hiddenField1.setAttribute("type", "hidden");
+    hiddenField1.setAttribute("name", "from");
+    hiddenField1.setAttribute("value", from);
+    form.appendChild(hiddenField1);
+
+    var hiddenField2 = document.createElement("input");
+    hiddenField2.setAttribute("type", "hidden");
+    hiddenField2.setAttribute("name", "to");
+    hiddenField2.setAttribute("value", to);
+    form.appendChild(hiddenField2);
+
+    var hiddenField3 = document.createElement("input");
+    hiddenField3.setAttribute("type", "hidden");
+    hiddenField3.setAttribute("name", "departure");
+    hiddenField3.setAttribute("value", departure);
+    form.appendChild(hiddenField3);
+
+    var hiddenField4 = document.createElement("input");
+    hiddenField4.setAttribute("type", "hidden");
+    hiddenField4.setAttribute("name", "arrival");
+    hiddenField4.setAttribute("value", arrival);
+    form.appendChild(hiddenField4);
+
+    var hiddenField5 = document.createElement("input");
+    hiddenField5.setAttribute("type", "hidden");
+    hiddenField5.setAttribute("name", "train");
+    hiddenField5.setAttribute("value", train);
+    form.appendChild(hiddenField5);
+
+    var hiddenField6 = document.createElement("input");
+    hiddenField6.setAttribute("type", "hidden");
+    hiddenField6.setAttribute("name", "route");
+    hiddenField6.setAttribute("value", route);
+    form.appendChild(hiddenField6);
+
+    document.body.appendChild(form);
+    form.submit();
+  }
+
   function logout() {
     deleteCookie("validLogin");
     deleteCookie("username");
@@ -37,6 +83,8 @@
     } else if (url.indexOf("Authentificate") != -1) {
       return 0;
     } else if (url.indexOf("Search") != -1) {
+      return 0;
+    } else if (url.indexOf("Map") != -1) {
       return 0;
     } else {
       $("#1").addClass('active');

@@ -68,7 +68,13 @@ $(document).ready(function(){
     </script>
     <td>{{$data.Duration}}</td>
     <td>{{$data.Distance}} km</td>
-    <td>{{$data.Price}} Ft</td>
+    <script>
+      if ({{$data.Price}} == 0) {
+        document.write("<td>Díjmentes</td>");
+      } else {
+        document.write("<td>" + {{$data.Price}} + " Ft</td>");
+      }
+    </script>
     <td><a href="#"><img src="/Web/Images/TrainsAndTickets/ticket.png" width="50px" /></a></td>
   </tr>
   <tr id="hidden">
@@ -84,6 +90,7 @@ $(document).ready(function(){
             var stations = {{$data.Info.Station}};
             var timetable = {{$data.Info.Timetable}};
             var trains = {{$data.Info.Train}};
+            var route = {{$data.Info.RouteID}};
             var services = {{$data.Info.Services}};
 
             len = stations.length;
@@ -104,7 +111,7 @@ $(document).ready(function(){
               }
 
               if (typeof trains[i] !== "undefined") {
-                document.write("<td align='center'><a href='#'>" + trains[i] + "</a></td>");
+                document.write('<td align="center"><a href="#" onClick="post(\'' + stations[i] + '\', \'' + stations[i+1] + '\', \'' + timetable[i] + '\', \'' + timetable[i+1] + '\', \'' + trains[i] + '\', \'' + route[i] + '\');">' + trains[i] + ' ( ' + route[i] + ' ) </a></td>');
               } else {
                 document.write("<td></td>");
               }
