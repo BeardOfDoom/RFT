@@ -77,11 +77,11 @@ type Data struct {
 }
 
 type MapData struct {
-	From			string
-	To				string
-	Departure	string
-	Arrival		string
-	Stations	[]string
+	From      string
+	To        string
+	Departure string
+	Arrival   string
+	Stations  []string
 }
 
 func SQLFactory(username, password, host, db string, port int) SQLConfig {
@@ -455,12 +455,11 @@ func (this SQLConfig) MysqlSearchTimetable(from, to, date, discount string, extr
 	return finalResult
 }
 
-
 func (this SQLConfig) MysqlListStationsByRouteID(from, to, departure, arrival, route_id string) MapData {
 
 	var d string
 	var mapData MapData
-	query := "SELECT NAME FROM ROUTE_STATIONS_CONNECTION INNER JOIN STATIONS ON STATIONS_ID = ID WHERE ROUTES_ID = "+route_id+" ORDER BY STATION_INDEX_IN_ROUTE"
+	query := "SELECT NAME FROM ROUTE_STATIONS_CONNECTION INNER JOIN STATIONS ON STATIONS_ID = ID WHERE ROUTES_ID = " + route_id + " ORDER BY STATION_INDEX_IN_ROUTE"
 	inf := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", this.username, this.password, this.host, this.port, this.db)
 	db, err := sql.Open("mysql", inf)
 	if err != nil {
