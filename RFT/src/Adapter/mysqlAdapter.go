@@ -95,6 +95,23 @@ type WagonData struct {
 	Wagons []Wagon
 }
 
+type TrainType struct {
+	From1				string
+	To1					string
+	Departure1	string
+	Arrival1		string
+	Train1ID		string
+	Type1				bool
+	From2				string
+	To2					string
+	Departure2	string
+	Arrival2		string
+	Train2ID		string
+	Type2				bool
+	Price				string
+	Km					string
+}
+
 func SQLFactory(username, password, host, db string, port int) SQLConfig {
 	return SQLConfig{username, password, host, port, db}
 }
@@ -500,9 +517,11 @@ func (this SQLConfig) MysqlListStationsByRouteID(from, to, departure, arrival, r
 	return mapData
 }
 
-func (this SQLConfig) MysqlGetTrainType(id string) bool {
-	query := "SELECT TYPE FROM TRAINS WHERE ID = " + id
+func (this SQLConfig) MysqlGetTrainType(from1, to1, departure1, arrival1, train1ID, from2, to2, departure2, arrival2, train2ID, price, km string) TrainType {
+	query1 := "SELECT TYPE FROM TRAINS WHERE ID = " + train1ID
+	query2 := "SELECT TYPE FROM TRAINS WHERE ID = " + train2ID
 	var d string
+	var result TrainType
 	inf := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", this.username, this.password, this.host, this.port, this.db)
 	db, err := sql.Open("mysql", inf)
 	if err != nil {
@@ -510,7 +529,7 @@ func (this SQLConfig) MysqlGetTrainType(id string) bool {
 	}
 	defer db.Close()
 
-	rows, err := db.Query(query)
+	rows, err := db.Query(query1)
 	if err != nil {
 		panic(err)
 	}
@@ -522,12 +541,47 @@ func (this SQLConfig) MysqlGetTrainType(id string) bool {
 			panic(err)
 		}
 		if d == "IC" {
-			return true
+			result.Type1 = true
 		} else {
-			return false
+			result.Type1 = false
 		}
 	}
-	return false
+
+	result.From1 = from1
+	result.To1 = to1
+	result.Departure1 = departure1
+	result.Arrival1 = arrival1
+	result.Train1ID = train1ID
+	result.Price = price
+	result.Km = km
+
+	result.From2 = from2
+	result.To2 = to2
+	result.Departure2 = departure2
+	result.Arrival2 = arrival2
+	result.Train2ID = train2ID
+	if from2 == "0" {
+		result.Type2 = false
+	} else {
+		rows, err := db.Query(query2)
+		if err != nil {
+			panic(err)
+		}
+		defer rows.Close()
+
+		for rows.Next() {
+			err := rows.Scan(&d)
+			if err != nil {
+				panic(err)
+			}
+			if d == "IC" {
+				result.Type2 = true
+			} else {
+				result.Type2 = false
+			}
+		}
+	}
+	return result
 }
 
 func (this SQLConfig) MysqlBuyTicket(id string) WagonData {

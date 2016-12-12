@@ -100,28 +100,11 @@ func SearchTimetable(w http.ResponseWriter, r *http.Request) {
 func GetTrainType(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
-	fmt.Println("")
-	fmt.Println("")
-	fmt.Println("Ticket 1")
-	fmt.Println("From: ", r.FormValue("from1"))
-	fmt.Println("To: ", r.FormValue("to1"))
-	fmt.Println("Departure: ", r.FormValue("departure1"))
-	fmt.Println("Arrival: ", r.FormValue("arrival1"))
-	fmt.Println("Train: ", r.FormValue("train1ID"))
-	fmt.Println("")
-	fmt.Println("")
-	fmt.Println("Ticket 2")
-	fmt.Println("From: ", r.FormValue("from2"))
-	fmt.Println("To: ", r.FormValue("to2"))
-	fmt.Println("Departure: ", r.FormValue("departure2"))
-	fmt.Println("Arrival: ", r.FormValue("arrival2"))
-	fmt.Println("Train: ", r.FormValue("train2ID"))
-	fmt.Println("")
-	fmt.Println("Price: ", r.FormValue("price"))
-	fmt.Println("km: ", r.FormValue("km"))
-
-	//result := Service.GetTrainType(r.FormValue("train_id"))
-	//fmt.Println(result)
+	result := Service.GetTrainType(r.FormValue("from1"), r.FormValue("to1"), r.FormValue("departure1"),
+													r.FormValue("arrival1"), r.FormValue("train1ID"), r.FormValue("from2"),
+													r.FormValue("to2"), r.FormValue("departure2"), r.FormValue("arrival2"),
+													r.FormValue("train2ID"), r.FormValue("price"), r.FormValue("km"))
+	fmt.Println(result)
 
 	//t, _ := template.ParseFiles("View/TrainsAndTickets/?.html", "View/Layout/main.html")
 	//t.ExecuteTemplate(w, "layout", result)
