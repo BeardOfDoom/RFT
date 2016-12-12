@@ -51,13 +51,13 @@ func SearchTimetable(w http.ResponseWriter, r *http.Request) {
 	if strings.HasSuffix(discount, ")") {
 		id := strings.LastIndex(discount, "(")
 		if discount[(id+1):(id+2)] == "d" {
-			d = "0"
+			d = "100"
 		} else {
 			d = discount[(id + 1):(id + 3)]
 		}
 
 	} else {
-		d = "100"
+		d = "0"
 	}
 
 	date := r.FormValue("date")
