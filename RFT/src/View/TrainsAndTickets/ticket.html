@@ -1,0 +1,227 @@
+{{define "content"}}
+<style>
+   body {
+   background: url(Web/Images/TrainsAndTickets/trainBlur.jpg) no-repeat center center fixed;
+   -webkit-background-size: cover;
+   -moz-background-size: cover;
+   -o-background-size: cover;
+   background-size: cover;
+   }
+
+   .main {
+     font-family: 'Open Sans', sans-serif;
+     background-color: rgba(0, 0, 0, 0.8);
+     color: white;
+     width: 98%;
+   }
+
+   .inner {
+     font-family: 'Open Sans', sans-serif;
+     color: white;
+     width: 100%;
+     font-size:20px;
+   }
+
+   .inner2 {
+     font-family: 'Open Sans', sans-serif;
+     color: white;
+     width: 100%;
+     font-size:16px;
+     border-color: rgba(0, 0, 0, 0);
+   }
+
+   .inner3 {
+     font-size: 14px;
+   }
+
+   td {
+     padding: 10;
+   }
+
+   .title {
+     font-size:28px;
+   }
+
+   .red {
+     color:red;
+   }
+
+   a:active, a:visited, a {
+     color: rgb(255, 0, 0);
+   }
+
+   a:hover {
+     color: rgb(255, 255, 255);
+     text-decoration: none;
+   }
+
+   input[type="submit"]:hover{
+   box-shadow: 0 0 2em #fff;
+   -webkit-box-shadow: 0 0 2em #fff;
+   -o-box-shadow: 0 0 2em #fff;
+   -moz-box-shadow: 0 0 2em #fff;
+   }
+
+   input[type="submit"]{
+   	float:right;
+   	font-size:18px;
+   	display: inline-block;
+   	font-weight:600;
+   	color: #fff;
+   	transition: 0.1s all;
+   	-webkit-transition: 0.1s all;
+   	-moz-transition: 0.1s all;
+   	-o-transition: 0.1s all;
+   	cursor: pointer;
+   	outline: none;
+   	padding:15px 10px;
+   	margin-top:3px;
+   	font-family: 'Open Sans', sans-serif;
+   	width:20%;
+   	border:none;
+   	border-radius: 0.3em;
+   	-webkit-border-radius: 0.3em;
+   	-o-	border-radius: 0.3em;
+   	-moz-border-radius: 0.3em;
+   	background-color: rgba(0,0,0,0.9);
+   }
+
+</style>
+
+<script>
+  if ({{.From2}} == 0) {
+    document.write('<table align="center" class="main">');
+    document.write('<tr>');
+    document.write('<td align="center" class="title" colspan="10"><b>Jegyvásárlással Kapcsolatos Információk</b></td>');
+    document.write('</tr>');
+    document.write('<tr>');
+    document.write('<td>');
+    document.write('<table border="2" align="center" class="inner2">');
+    document.write('<tr align="center" style="font-size: 22px;">');
+    document.write('<td><b>Honnan</b></td>');
+    document.write('<td><b>Hova</b></td>');
+    document.write('<td><b>Indulás</b></td>');
+    document.write('<td><b>Érkezés</b></td>');
+    document.write('<td><b>Vonat</b></td>');
+    document.write('<td><b>Helyjegy</b></td>');
+    document.write('</tr>');
+    document.write('<tr align="center" class="inner2">');
+    document.write('<td>{{ .From1 }}</td>');
+    document.write('<td>{{ .To1 }}</td>');
+    document.write('<td>{{ .Departure1 }}</td>');
+    document.write('<td>{{ .Arrival1 }}</td>');
+    document.write('<td>{{ .Train1ID }}</td>');
+
+                      if ({{ .Type1 }} == true) {
+                        document.write("<td class='red'><a href='#'>Hely választása</a></td>");
+                      } else {
+                        document.write("<td>Nem kell váltani</td>");
+                      }
+
+    document.write('</tr>');
+    document.write('</table>');
+    document.write('</td>');
+    document.write('</tr>');
+    document.write('<tr>');
+    document.write('<td colspan="10" class="inner" align="right"><br/><br/>Ár: {{ .Price }} Ft</td>');
+    document.write('</tr>');
+    document.write('<tr>');
+    document.write('<td colspan="10" class="inner" align="right">Távolság: {{ .Km }} km</td>');
+    document.write('</tr>');
+    document.write('<tr>');
+    document.write('<td colspan="10" class="inner" align="right">Fizetési mód: Jegy Átvételénél</td>');
+    document.write('</tr>');
+    document.write('<tr>');
+    document.write('<td colspan="10" align="right"><input type="submit" value="Vásárlás" /></td>');
+    document.write('</tr>');
+    document.write('</table>');
+    document.write('</td>');
+    document.write('</tr>');
+    document.write('</table>');
+  } else {
+    document.write('<table align="center" class="main">');
+      document.write('<tr>');
+        document.write('<td align="center" class="title" colspan="10"><b>Jegyvásárlással Kapcsolatos Információk</b></td>');
+      document.write('</tr>');
+      document.write('<tr>');
+        document.write('<td>');
+          document.write('<table align="center" class="inner">');
+            document.write('<tr align="center">');
+              document.write('<td><b>Jegy az első vonatra</b></td>');
+              document.write('<td><b>Jegy a második vonatra</b></td>');
+            document.write('</tr>');
+            document.write('<tr>');
+              document.write('<td>');
+                document.write('<table border="2" align="center" class="inner2">');
+                  document.write('<tr align="center">');
+                    document.write('<td><b>Honnan</b></td>');
+                    document.write('<td><b>Hova</b></td>');
+                    document.write('<td><b>Indulás</b></td>');
+                    document.write('<td><b>Érkezés</b></td>');
+                    document.write('<td><b>Vonat</b></td>');
+                    document.write('<td><b>Helyjegy</b></td>');
+                  document.write('</tr>');
+                  document.write('<tr align="center" class="inner3">');
+                    document.write('<td>{{ .From1 }}</td>');
+                    document.write('<td>{{ .To1 }}</td>');
+                    document.write('<td>{{ .Departure1 }}</td>');
+                    document.write('<td>{{ .Arrival1 }}</td>');
+                    document.write('<td>{{ .Train1ID }}</td>');
+
+                      if ({{ .Type1 }} == true) {
+                        document.write("<td class='red'><a href='#'>Hely választása</a></td>");
+                      } else {
+                        document.write("<td>Nem kell váltani</td>");
+                      }
+
+                  document.write('</tr>');
+                document.write('</table>');
+              document.write('</td>');
+              document.write('<td>');
+                document.write('<table border="2" align="center" class="inner2">');
+                  document.write('<tr align="center">');
+                    document.write('<td><b>Honnan</b></td>');
+                    document.write('<td><b>Hova</b></td>');
+                    document.write('<td><b>Indulás</b></td>');
+                    document.write('<td><b>Érkezés</b></td>');
+                    document.write('<td><b>Vonat</b></td>');
+                    document.write('<td><b>Helyjegy</b></td>');
+                  document.write('</tr>');
+                  document.write('<tr align="center" class="inner3">');
+                    document.write('<td>{{ .From2 }}</td>');
+                    document.write('<td>{{ .To2 }}</td>');
+                    document.write('<td>{{ .Departure2 }}</td>');
+                    document.write('<td>{{ .Arrival2 }}</td>');
+                    document.write('<td>{{ .Train2ID }}</td>');
+
+                      if ({{ .Type2 }} == true) {
+                        document.write("<td class='red'><a href='#'>Hely választása</a></td>");
+                      } else {
+                        document.write("<td>Nem kell váltani</td>");
+                      }
+
+                  document.write('</tr>');
+                document.write('</table>');
+              document.write('</td>');
+            document.write('</tr>');
+            document.write('<tr>');
+              document.write('<td colspan="10" align="right"><br/><br/>Ár: {{ .Price }} Ft</td>');
+            document.write('</tr>');
+            document.write('<tr>');
+              document.write('<td colspan="10" align="right">Távolság: {{ .Km }} km</td>');
+            document.write('</tr>');
+            document.write('<tr>');
+            document.write('<td colspan="10" align="right">Fizetési mód: Jegy Átvételénél</td>');
+            document.write('</tr>');
+            document.write('<tr>');
+              document.write('<td colspan="10" align="right"><input type="submit" value="Vásárlás" /></td>');
+            document.write('</tr>');
+          document.write('</table>');
+        document.write('</td>');
+      document.write('</tr>');
+    document.write('</table>');
+  }
+</script>
+
+
+{{end}}

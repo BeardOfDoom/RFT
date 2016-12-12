@@ -101,13 +101,12 @@ func GetTrainType(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	result := Service.GetTrainType(r.FormValue("from1"), r.FormValue("to1"), r.FormValue("departure1"),
-													r.FormValue("arrival1"), r.FormValue("train1ID"), r.FormValue("from2"),
-													r.FormValue("to2"), r.FormValue("departure2"), r.FormValue("arrival2"),
-													r.FormValue("train2ID"), r.FormValue("price"), r.FormValue("km"))
-	fmt.Println(result)
+		r.FormValue("arrival1"), r.FormValue("train1ID"), r.FormValue("from2"),
+		r.FormValue("to2"), r.FormValue("departure2"), r.FormValue("arrival2"),
+		r.FormValue("train2ID"), r.FormValue("price"), r.FormValue("km"))
 
-	//t, _ := template.ParseFiles("View/TrainsAndTickets/?.html", "View/Layout/main.html")
-	//t.ExecuteTemplate(w, "layout", result)
+	t, _ := template.ParseFiles("View/TrainsAndTickets/ticket.html", "View/Layout/main.html")
+	t.ExecuteTemplate(w, "layout", result)
 }
 
 func BuyTicket(w http.ResponseWriter, r *http.Request) {
