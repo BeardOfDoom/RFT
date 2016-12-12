@@ -112,8 +112,7 @@ func GetTrainType(w http.ResponseWriter, r *http.Request) {
 func SeatReserve(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
-	//result := Service.SeatReserve(r.FormValue("trainID"))
-	result := ""
+	result := Service.SeatReserve(r.FormValue("trainID"))
 	fmt.Println(result)
 
 	t, _ := template.ParseFiles("View/TrainsAndTickets/reservation.html", "View/Layout/main.html")

@@ -10,7 +10,7 @@ background-size: cover;
 }
 
 .mainT {
-  margin-top: -8%;
+  margin-top: 6%;
 }
 
 .inner {
@@ -61,7 +61,31 @@ table {
 
   security();
 
-  var numberOfSeats = 40;
+  var wagons = {{ .Wagons }};
+  var len = wagons.length;
+
+  //document.cookie = "seat=0";
+  //var seats = wagons[getCookie("seat")].Seats;
+
+  //TODO:BEFEJEZNI A SELECTET
+
+  $(document).ready(function(){
+    var select = document.getElementById("wagonsSelect");
+
+    for (i = 0; i < len; i++) {
+      var option = document.createElement("option");
+      option.text = wagons[i].WagonID + " ( " + wagons[i].Class + " osztály )";
+      option.value = i;
+      select.add(option);
+    }
+
+    $("#wagonsSelect").on('change', function(e) {
+      window.alert( this.value );
+      document.cookie = "seat=" + this.value;
+    })
+  });
+
+  var numberOfSeats = wagons[0].NumberOfSeats;
   var sideOne = Math.floor(numberOfSeats / 2) + numberOfSeats % 2;
   var sideTwo = Math.floor(numberOfSeats / 2);
   var sideOneA = Math.floor(sideOne / 2) + sideOne % 2;
@@ -71,7 +95,10 @@ table {
   var seat;
 </script>
 
-<br/><br/><br/><br/><br/><br/><br/><br/>
+<select id="wagonsSelect">
+
+</select>
+
 <table align="center" border="0" class="mainT">
   <tr>
     <td colspan="3" align="center" class="title">Helyjegy Választás</td>
@@ -89,12 +116,12 @@ table {
                   <script>
                     seat = 1;
                     for (i = 1; i <= sideOneA; i++) {
-                      /*if ( == foglalt) {
-                        color = "red";
+                      if (seats[seat]) {
+                        color = "rgba(255, 0, 0, 0.5)";
                       } else {
-                        color = "green";
-                      }*/
-                      color = "rgba(0, 255, 0, 0.5)";
+                        color = "rgba(0, 255, 0, 0.5)";
+                      }
+
                       document.write("<td class=\"inner\" style=\"background-color: " + color + ";\"><a href='#' class='se'>" + seat + "</a></td>");
                       seat += 4;
                     }
@@ -104,12 +131,12 @@ table {
                   <script>
                     seat = 2;
                     for (i = 1; i <= sideOneB; i++) {
-                      /*if ( == foglalt) {
-                        color = "red";
+                      if (seats[seat]) {
+                        color = "rgba(255, 0, 0, 0.5)";
                       } else {
-                        color = "green";
-                      }*/
-                      color = "rgba(255, 0, 0, 0.5)";
+                        color = "rgba(0, 255, 0, 0.5)";
+                      }
+
                       document.write("<td class=\"inner\" style=\"background-color: " + color + ";\"><a href='#' class='se'>" + seat + "</a></td>");
                         seat += 4;
                     }
@@ -130,12 +157,12 @@ table {
                 <script>
                   seat = 3;
                   for (i = 1; i <= sideTwoA; i++) {
-                    /*if ( == foglalt) {
-                      color = "red";
+                    if (seats[seat]) {
+                      color = "rgba(255, 0, 0, 0.5)";
                     } else {
-                      color = "green";
-                    }*/
-                    color = "rgba(0, 255, 0, 0.5)";
+                      color = "rgba(0, 255, 0, 0.5)";
+                    }
+
                     document.write("<td class=\"inner\" style=\"background-color: " + color + ";\"><a href='#' class='se'>" + seat + "</a></td>");
                     seat += 4;
                   }
@@ -145,12 +172,12 @@ table {
                 <script>
                   seat = 4;
                   for (i = 1; i <= sideTwoB; i++) {
-                    /*if ( == foglalt) {
-                      color = "red";
+                    if (seats[seat]) {
+                      color = "rgba(255, 0, 0, 0.5)";
                     } else {
-                      color = "green";
-                    }*/
-                    color = "rgba(255, 0, 0, 0.5)";
+                      color = "rgba(0, 255, 0, 0.5)";
+                    }
+
                     document.write("<td class=\"inner\" style=\"background-color: " + color + ";\"><a href='#' class='se'>" + seat + "</a></td>");
                     if (sideOneA > sideOneB && sideTwoB > sideTwoA && i == sideTwoB - 1) {
                       seat += 2;
