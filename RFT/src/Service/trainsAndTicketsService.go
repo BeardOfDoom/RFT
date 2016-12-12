@@ -17,9 +17,9 @@ func ListStationsByRouteID(from, to, departure, arrival, route_id string) Adapte
 	return result
 }
 
-func GetTrainType(id string) bool {
+func GetTrainType(from1, to1, departure1, arrival1, train1ID, from2, to2, departure2, arrival2, train2ID, price, km string) Adapter.TrainType {
 	SQLAdapter := Adapter.SQLFactory(Settings.DBUSERNAME, Settings.DBPASSWORD, Settings.DBHOST, Settings.DBNAME, Settings.DBPORT)
-	result := SQLAdapter.MysqlGetTrainType(id)
+	result := SQLAdapter.MysqlGetTrainType(from1, to1, departure1, arrival1, train1ID, from2, to2, departure2, arrival2, train2ID, price, km)
 	return result
 }
 
