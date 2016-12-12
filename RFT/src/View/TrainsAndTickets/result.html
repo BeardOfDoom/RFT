@@ -75,8 +75,20 @@ $(document).ready(function(){
       } else {
         document.write("<td>" + {{$data.Price}} + " Ft</td>");
       }
+
+      var stations = {{$data.Info.Station}};
+      var timetable = {{$data.Info.Timetable}};
+      var services = {{$data.Info.Services}};
+      var trains = {{$data.Info.Train}};
+      var route = {{$data.Info.RouteID}};
+
+      if ({{$data.Changes}} == 0) {
+        document.write('<td><a href="#" onClick="buyTicket(\'' + stations[0] + '\',\'' + stations[1] + '\',\'0\',\'0\',\'' + timetable[0] + '\',\'' + timetable[1] + '\',\'0\',\'0\',\'' + trains[0] + '\',\'0\', \'' + {{$data.Price}} + '\', \'' + {{$data.Distance}} + '\');"><img src="/Web/Images/TrainsAndTickets/ticket.png" width="50px" /></a></td>');
+      } else {
+        document.write('<td><a href="#" onClick="buyTicket(\'' + stations[0] + '\',\'' + stations[1] + '\',\'' + stations[2] + '\',\'' + stations[3] + '\',\'' + timetable[0] + '\',\'' + timetable[1] + '\',\'' + timetable[2] + '\',\'' + timetable[3] + '\',\'' + trains[0] + '\',\'' + trains[1] + '\', \'' + {{$data.Price}} + '\', \'' + {{$data.Distance}} + '\');"><img src="/Web/Images/TrainsAndTickets/ticket.png" width="50px" /></a></td>');
+      }
     </script>
-    <td><a href="/BuyTicket"><img src="/Web/Images/TrainsAndTickets/ticket.png" width="50px" /></a></td>
+
   </tr>
   <tr id="hidden">
       <td colspan="8">
@@ -88,12 +100,6 @@ $(document).ready(function(){
             <td align="center">Vonat szolgáltatásai</td>
           </tr>
           <script>
-            var stations = {{$data.Info.Station}};
-            var timetable = {{$data.Info.Timetable}};
-            var trains = {{$data.Info.Train}};
-            var route = {{$data.Info.RouteID}};
-            var services = {{$data.Info.Services}};
-
             len = stations.length;
 
             for (i = 0; i < len; i++) {
