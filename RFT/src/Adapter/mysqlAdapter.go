@@ -84,6 +84,16 @@ type MapData struct {
 	Stations  []string
 }
 
+type Wagon struct {
+	NumberOfSeats	string
+	Class					string
+	Seats					map[string]bool
+}
+
+type WagonData struct {
+	Wagons		[]Wagon
+}
+
 func SQLFactory(username, password, host, db string, port int) SQLConfig {
 	return SQLConfig{username, password, host, port, db}
 }
@@ -487,4 +497,62 @@ func (this SQLConfig) MysqlListStationsByRouteID(from, to, departure, arrival, r
 	mapData.Arrival = arrival
 
 	return mapData
+}
+
+func (this SQLConfig) MysqlGetTrainType(id string) bool {
+	query := "SELECT TYPE FROM TRAINS WHERE ID = "+id
+	var d string
+	inf := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", this.username, this.password, this.host, this.port, this.db)
+	db, err := sql.Open("mysql", inf)
+	if err != nil {
+		panic(err)
+	}
+	defer db.Close()
+
+	rows, err := db.Query(query)
+	if err != nil {
+		panic(err)
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		err := rows.Scan(&d)
+		if err != nil {
+			panic(err)
+		}
+		if d == "IC" {
+			return true
+		} else {
+			return false
+		}
+	}
+	return false
+}
+
+func (this SQLConfig) MysqlBuyTicket(id string) WagonData {
+
+	var result WagonData
+	query := "SELECT SEATS_NUMBER, CLASS, SERVICES, WAGONS_ID, NUMBER FROM WAGONS INNER JOIN WAGON_SEAT_CONNECTION ON WAGONS_ID = WAGONS.ID INNER JOIN SEATS ON SEATS.ID = WAGON_SEAT_CONNECTION.SEATS_ID WHERE TRAINS_ID = "+id+" AND SEATS.RESERVED = 0"
+	var numOfSeats, class, services, wagonId, seatNumber string
+	inf := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", this.username, this.password, this.host, this.port, this.db)
+	db, err := sql.Open("mysql", inf)
+	if err != nil {
+		panic(err)
+	}
+	defer db.Close()
+
+	rows, err := db.Query(query)
+	if err != nil {
+		panic(err)
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		err := rows.Scan(&numOfSeats, &class, &services, &wagonId, &seatNumber)
+		if err != nil {
+			panic(err)
+		}
+
+	}
+	return result
 }

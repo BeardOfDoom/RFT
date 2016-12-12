@@ -97,6 +97,22 @@ func SearchTimetable(w http.ResponseWriter, r *http.Request) {
 
 }
 
+func GetTrainType(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+
+  result := Service.GetTrainType(r.FormValue("train_id"))
+ 	fmt.Println(result)
+
+ 	t, _ := template.ParseFiles("View/TrainsAndTickets/result.html", "View/Layout/main.html")
+ 	t.ExecuteTemplate(w, "layout", result)
+}
+
 func BuyTicket(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("fasza")
+	r.ParseForm()
+
+	result := Service.BuyTicket(r.FormValue("train_id"))
+	fmt.Println(result)
+
+	t, _ := template.ParseFiles("", "View/Layout/main.html")
+	t.ExecuteTemplate(w, "layout", result)
 }
