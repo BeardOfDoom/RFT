@@ -16,3 +16,15 @@ func ListStationsByRouteID(from, to, departure, arrival, route_id string) Adapte
 	result := SQLAdapter.MysqlListStationsByRouteID(from, to, departure, arrival, route_id)
 	return result
 }
+
+func GetTrainType(id string) bool {
+	SQLAdapter := Adapter.SQLFactory(Settings.DBUSERNAME, Settings.DBPASSWORD, Settings.DBHOST, Settings.DBNAME, Settings.DBPORT)
+	result := SQLAdapter.MysqlGetTrainType(id)
+	return result
+}
+
+func BuyTicket(id string) Adapter.WagonData {
+	SQLAdapter := Adapter.SQLFactory(Settings.DBUSERNAME, Settings.DBPASSWORD, Settings.DBHOST, Settings.DBNAME, Settings.DBPORT)
+	result := SQLAdapter.MysqlBuyTicket(id)
+	return result
+}
