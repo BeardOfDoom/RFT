@@ -1,0 +1,114 @@
+<style type="text/css">
+
+.inner {
+  color: white;
+  padding: 20;
+}
+
+.separator {
+  padding: 10;
+}
+
+table {
+  border: black;
+}
+
+</style>
+
+<script>
+  var numberOfSeats = 22;
+  var sideOne = Math.floor(numberOfSeats / 2) + numberOfSeats % 2;
+  var sideTwo = Math.floor(numberOfSeats / 2);
+  var sideOneA = Math.floor(sideOne / 2) + sideOne % 2;
+  var sideOneB = Math.floor(sideOne / 2);
+  var sideTwoA = Math.floor(sideTwo / 2);
+  var sideTwoB = Math.floor(sideTwo / 2) + sideTwo % 2;
+  var seat;
+</script>
+
+<br/><br/><br/><br/><br/><br/><br/><br/>
+<table border="1" align="center">
+  <tr>
+    <td>
+      <table border="1">
+          <tr align="center">
+            <script>
+              seat = 1;
+              for (i = 1; i <= sideOneA; i++) {
+                /*if ( == foglalt) {
+                  color = "red";
+                } else {
+                  color = "green";
+                }*/
+                color = "green";
+                document.write("<td class=\"inner\" style=\"background-color: " + color + ";\">" + seat + "</td>");
+                seat += 4;
+              }
+            </script>
+          </tr>
+          <tr  align="center">
+            <script>
+              seat = 2;
+              for (i = 1; i <= sideOneB; i++) {
+                /*if ( == foglalt) {
+                  color = "red";
+                } else {
+                  color = "green";
+                }*/
+                color = "red";
+                document.write("<td class=\"inner\" style=\"background-color: " + color + ";\">" + seat + "</td>");
+                  seat += 4;
+              }
+            </script>
+          </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td class="separator">
+      <br/>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <table border="1">
+        <tr align="center">
+          <script>
+            seat = 3;
+            for (i = 1; i <= sideTwoA; i++) {
+              /*if ( == foglalt) {
+                color = "red";
+              } else {
+                color = "green";
+              }*/
+              color = "green";
+              document.write("<td class=\"inner\" style=\"background-color: " + color + ";\">" + seat + "</td>");
+              seat += 4;
+            }
+          </script>
+        </tr>
+        <tr align="center">
+          <script>
+            seat = 4;
+            for (i = 1; i <= sideTwoB; i++) {
+              /*if ( == foglalt) {
+                color = "red";
+              } else {
+                color = "green";
+              }*/
+              color = "red";
+              document.write("<td class=\"inner\" style=\"background-color: " + color + ";\">" + seat + "</td>");
+              if (sideOneA > sideOneB && sideTwoB > sideTwoA && i == sideTwoB - 1) {
+                seat += 2;
+              } else if (sideOneA == sideOneB && sideTwoB > sideTwoA && i == sideTwoB - 1) {
+                seat += 3;
+              } else {
+                seat += 4;
+              }
+            }
+          </script>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
