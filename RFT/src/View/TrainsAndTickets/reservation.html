@@ -1,22 +1,66 @@
 {{define "content"}}
 <style type="text/css">
 
+body {
+background: url(Web/Images/TrainsAndTickets/trainBlur.jpg) no-repeat center center fixed;
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
+}
+
+.mainT {
+  margin-top: -8%;
+}
+
 .inner {
-  color: white;
+  color: black;
+  text-shadow: 0 0 0.2em #fff, 0 0 0.2em #fff;
   padding: 20;
+}
+
+.se {
+  color: black;
+  text-shadow: 0 0 0.2em #fff, 0 0 0.2em #fff;
+}
+
+.se:hover {
+  color:red;
+  text-decoration: none;
 }
 
 .separator {
   padding: 10;
 }
 
+.title {
+  font-family: 'Open Sans', sans-serif;
+  color: black;
+  font-size: 28px;
+  font-weight: bold;
+  text-shadow: 0 0 0.2em #fff, 0 0 0.2em #fff;
+}
+
+.description {
+  font-family: 'Open Sans', sans-serif;
+  color: black;
+  text-shadow: 0 0 0.2em #fff, 0 0 0.2em #fff;
+  font-size: 20px;
+  vertical-align: top;
+}
+
 table {
-  border: black;
+  font-family: 'Open Sans', sans-serif;
+  border-width: thick;
+  border-color: black;
 }
 
 </style>
 
 <script>
+
+  security();
+
   var numberOfSeats = 40;
   var sideOne = Math.floor(numberOfSeats / 2) + numberOfSeats % 2;
   var sideTwo = Math.floor(numberOfSeats / 2);
@@ -28,7 +72,10 @@ table {
 </script>
 
 <br/><br/><br/><br/><br/><br/><br/><br/>
-<table align="center" border="0">
+<table align="center" border="0" class="mainT">
+  <tr>
+    <td colspan="3" align="center" class="title">Helyjegy Választás</td>
+  </tr>
   <tr>
     <td>
       <img src="Web/Images/TrainsAndTickets/train2.png" height="400px"/>
@@ -47,8 +94,8 @@ table {
                       } else {
                         color = "green";
                       }*/
-                      color = "green";
-                      document.write("<td class=\"inner\" style=\"background-color: " + color + ";\">" + seat + "</td>");
+                      color = "rgba(0, 255, 0, 0.5)";
+                      document.write("<td class=\"inner\" style=\"background-color: " + color + ";\"><a href='#' class='se'>" + seat + "</a></td>");
                       seat += 4;
                     }
                   </script>
@@ -62,8 +109,8 @@ table {
                       } else {
                         color = "green";
                       }*/
-                      color = "red";
-                      document.write("<td class=\"inner\" style=\"background-color: " + color + ";\">" + seat + "</td>");
+                      color = "rgba(255, 0, 0, 0.5)";
+                      document.write("<td class=\"inner\" style=\"background-color: " + color + ";\"><a href='#' class='se'>" + seat + "</a></td>");
                         seat += 4;
                     }
                   </script>
@@ -88,8 +135,8 @@ table {
                     } else {
                       color = "green";
                     }*/
-                    color = "green";
-                    document.write("<td class=\"inner\" style=\"background-color: " + color + ";\">" + seat + "</td>");
+                    color = "rgba(0, 255, 0, 0.5)";
+                    document.write("<td class=\"inner\" style=\"background-color: " + color + ";\"><a href='#' class='se'>" + seat + "</a></td>");
                     seat += 4;
                   }
                 </script>
@@ -103,8 +150,8 @@ table {
                     } else {
                       color = "green";
                     }*/
-                    color = "red";
-                    document.write("<td class=\"inner\" style=\"background-color: " + color + ";\">" + seat + "</td>");
+                    color = "rgba(255, 0, 0, 0.5)";
+                    document.write("<td class=\"inner\" style=\"background-color: " + color + ";\"><a href='#' class='se'>" + seat + "</a></td>");
                     if (sideOneA > sideOneB && sideTwoB > sideTwoA && i == sideTwoB - 1) {
                       seat += 2;
                     } else if (sideOneA == sideOneB && sideTwoB > sideTwoA && i == sideTwoB - 1) {
@@ -119,6 +166,10 @@ table {
           </td>
         </tr>
       </table>
+    </td>
+    <td class="description" align="right">
+      Zöld  - szabad hely<br/>
+      Piros - foglalt hely
     </td>
   </tr>
 </table>
