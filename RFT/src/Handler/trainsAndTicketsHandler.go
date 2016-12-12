@@ -115,6 +115,6 @@ func SeatReserve(w http.ResponseWriter, r *http.Request) {
 	result := Service.SeatReserve(r.FormValue("trainID"))
 	fmt.Println(result)
 
-	t, _ := template.ParseFiles("", "View/Layout/main.html")
+	t, _ := template.ParseFiles("View/TrainsAndTickets/reservation.html", "View/Layout/main.html")
 	t.ExecuteTemplate(w, "layout", result)
 }

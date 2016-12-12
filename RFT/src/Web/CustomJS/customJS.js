@@ -6,6 +6,21 @@
       }
   }
 
+  function seatReserve(trainID) {
+    var form3 = document.createElement("form");
+    form3.setAttribute("method", "post");
+    form3.setAttribute("action", "/SeatReserve");
+
+    var hiddenField1 = document.createElement("input");
+    hiddenField1.setAttribute("type", "hidden");
+    hiddenField1.setAttribute("name", "trainID");
+    hiddenField1.setAttribute("value", trainID);
+    form3.appendChild(hiddenField1);
+
+    document.body.appendChild(form3);
+    form3.submit();
+  }
+
   function post(from, to, departure, arrival, train, route) {
 
     var form = document.createElement("form");
