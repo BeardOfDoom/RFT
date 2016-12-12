@@ -85,10 +85,10 @@ type MapData struct {
 }
 
 type Wagon struct {
-	WagonID				string
-	NumberOfSeats	string
-	Class					string
-	Seats					map[string]bool
+	WagonID       string
+	NumberOfSeats string
+	Class         string
+	Seats         map[string]bool
 }
 
 type WagonData struct {
@@ -551,7 +551,7 @@ func (this SQLConfig) MysqlBuyTicket(id string) WagonData {
 
 	wagonID := ""
 	for rows.Next() {
-		err := rows.Scan(&numOfSeats, &class, &services, &wagonId, &reserved ,&seatNumber)
+		err := rows.Scan(&numOfSeats, &class, &services, &wagonId, &reserved, &seatNumber)
 		if err != nil {
 			panic(err)
 		}

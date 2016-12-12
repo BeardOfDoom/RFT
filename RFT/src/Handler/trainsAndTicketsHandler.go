@@ -100,6 +100,26 @@ func SearchTimetable(w http.ResponseWriter, r *http.Request) {
 func GetTrainType(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
+	fmt.Println("")
+	fmt.Println("")
+	fmt.Println("Ticket 1")
+	fmt.Println("From: ", r.FormValue("from1"))
+	fmt.Println("To: ", r.FormValue("to1"))
+	fmt.Println("Departure: ", r.FormValue("departure1"))
+	fmt.Println("Arrival: ", r.FormValue("departure2"))
+	fmt.Println("Train: ", r.FormValue("train1ID"))
+	fmt.Println("")
+	fmt.Println("")
+	fmt.Println("Ticket 2")
+	fmt.Println("From: ", r.FormValue("from2"))
+	fmt.Println("To: ", r.FormValue("to2"))
+	fmt.Println("Departure: ", r.FormValue("departure2"))
+	fmt.Println("Arrival: ", r.FormValue("arrival2"))
+	fmt.Println("Train: ", r.FormValue("train2ID"))
+	fmt.Println("")
+	fmt.Println("Price: ", r.FormValue("price"))
+	fmt.Println("km: ", r.FormValue("km"))
+
 	//result := Service.GetTrainType(r.FormValue("train_id"))
 	//fmt.Println(result)
 
