@@ -76,6 +76,14 @@ type Data struct {
 	Data SQLDataSlice
 }
 
+type MapData struct {
+	From			string
+	To				string
+	Departure	string
+	Arrival		string
+	Stations	[]string
+}
+
 func SQLFactory(username, password, host, db string, port int) SQLConfig {
 	return SQLConfig{username, password, host, port, db}
 }
@@ -445,4 +453,39 @@ func (this SQLConfig) MysqlSearchTimetable(from, to, date, discount string, extr
 	finalResult.To = to
 	finalResult.Data = result
 	return finalResult
+}
+
+
+func (this SQLConfig) MysqlListStationsByRouteID(from, to, departure, arrival, route_id string) MapData {
+
+	var d string
+	var mapData MapData
+	query := "SELECT NAME FROM ROUTE_STATIONS_CONNECTION INNER JOIN STATIONS ON STATIONS_ID = ID WHERE ROUTES_ID = "+route_id+" ORDER BY STATION_INDEX_IN_ROUTE"
+	inf := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", this.username, this.password, this.host, this.port, this.db)
+	db, err := sql.Open("mysql", inf)
+	if err != nil {
+		panic(err)
+	}
+	defer db.Close()
+
+	rows, err := db.Query(query)
+	if err != nil {
+		panic(err)
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		err := rows.Scan(&d)
+		if err != nil {
+			panic(err)
+		}
+		mapData.Stations = append(mapData.Stations, d)
+	}
+
+	mapData.From = from
+	mapData.To = to
+	mapData.Departure = departure
+	mapData.Arrival = arrival
+
+	return mapData
 }
