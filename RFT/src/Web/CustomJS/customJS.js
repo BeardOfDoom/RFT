@@ -189,6 +189,8 @@
       return 0;
     } else if (url.indexOf("Map") != -1) {
       return 0;
+    } else if (url.indexOf("SeatReserve") != -1) {
+      return 0;
     } else if (url.indexOf("BuyTicket1") != -1) {
       return 0;
     } else {
