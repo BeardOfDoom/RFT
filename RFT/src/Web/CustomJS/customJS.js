@@ -1,4 +1,11 @@
 
+  function security() {
+      if (getCookie("username") == undefined) {
+        window.alert("Bö kéne jelentkezni, kurwa szuka bljat.");
+        window.location = "/TrainsAndTickets";
+      }
+  }
+
   function post(from, to, departure, arrival, train, route) {
 
     var form = document.createElement("form");
