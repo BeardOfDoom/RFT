@@ -2,8 +2,8 @@ package Settings
 
 const (
   DBHOST = "sql7.freemysqlhosting.net"
-  DBUSERNAME = "sql7147869"
-  DBPASSWORD = "97UtFvxYej"
-  DBNAME = "sql7147869"
+  DBUSERNAME = "sql7149018"
+  DBPASSWORD = "QMKZLRFdgY"
+  DBNAME = "sql7149018"
   DBPORT = 3306
 )
