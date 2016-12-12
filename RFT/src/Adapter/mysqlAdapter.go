@@ -85,6 +85,7 @@ type MapData struct {
 }
 
 type Wagon struct {
+	WagonID				string
 	NumberOfSeats	string
 	Class					string
 	Seats					map[string]bool
@@ -532,8 +533,9 @@ func (this SQLConfig) MysqlGetTrainType(id string) bool {
 func (this SQLConfig) MysqlBuyTicket(id string) WagonData {
 
 	var result WagonData
-	query := "SELECT SEATS_NUMBER, CLASS, SERVICES, WAGONS_ID, NUMBER FROM WAGONS INNER JOIN WAGON_SEAT_CONNECTION ON WAGONS_ID = WAGONS.ID INNER JOIN SEATS ON SEATS.ID = WAGON_SEAT_CONNECTION.SEATS_ID WHERE TRAINS_ID = "+id+" AND SEATS.RESERVED = 0"
-	var numOfSeats, class, services, wagonId, seatNumber string
+	var wagon Wagon
+	query := "SELECT SEATS_NUMBER, CLASS, SERVICES, WAGONS_ID, RESERVED ,NUMBER FROM WAGONS INNER JOIN WAGON_SEAT_CONNECTION ON WAGONS_ID = WAGONS.ID INNER JOIN SEATS ON SEATS.ID = WAGON_SEAT_CONNECTION.SEATS_ID WHERE TRAINS_ID = " + id
+	var numOfSeats, class, services, wagonId, reserved, seatNumber string
 	inf := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", this.username, this.password, this.host, this.port, this.db)
 	db, err := sql.Open("mysql", inf)
 	if err != nil {
@@ -547,12 +549,38 @@ func (this SQLConfig) MysqlBuyTicket(id string) WagonData {
 	}
 	defer rows.Close()
 
+	wagonID := ""
 	for rows.Next() {
-		err := rows.Scan(&numOfSeats, &class, &services, &wagonId, &seatNumber)
+		err := rows.Scan(&numOfSeats, &class, &services, &wagonId, &reserved ,&seatNumber)
 		if err != nil {
 			panic(err)
 		}
+		if wagonID == "" {
+			wagonID = wagonId
+			wagon.WagonID = wagonID
+			wagon.NumberOfSeats = numOfSeats
+			wagon.Class = class
+		}
+		if wagonID == wagonId {
+			if reserved == "1" {
+				wagon.Seats[seatNumber] = true
+			} else {
+				wagon.Seats[seatNumber] = false
+			}
+		} else {
+			result.Wagons = append(result.Wagons, wagon)
+			wagonID = wagonId
+			wagon.WagonID = wagonID
+			wagon.NumberOfSeats = numOfSeats
+			wagon.Class = class
 
+			if reserved == "1" {
+				wagon.Seats[seatNumber] = true
+			} else {
+				wagon.Seats[seatNumber] = false
+			}
+		}
 	}
+	result.Wagons = append(result.Wagons, wagon)
 	return result
 }
