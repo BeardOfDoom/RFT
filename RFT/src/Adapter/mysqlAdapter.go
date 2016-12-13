@@ -624,6 +624,8 @@ func (this SQLConfig) MysqlSeatReserve(id string) WagonData {
 			}
 		} else {
 			result.Wagons = append(result.Wagons, wagon)
+
+			wagon.Seats = make(map[string]bool, 0)
 			wagonID = wagonId
 			wagon.WagonID = wagonID
 			wagon.NumberOfSeats = numOfSeats
