@@ -21,8 +21,7 @@
     form3.submit();
   }
 
-  function post(from, to, departure, arrival, train, route) {
-
+  function post(from, to, departure, arrival, train, route, username) {
     var form = document.createElement("form");
     form.setAttribute("method", "post");
     form.setAttribute("action", "/Map");
@@ -62,6 +61,12 @@
     hiddenField6.setAttribute("name", "route");
     hiddenField6.setAttribute("value", route);
     form.appendChild(hiddenField6);
+
+    var hiddenField7 = document.createElement("input");
+    hiddenField7.setAttribute("type", "hidden");
+    hiddenField7.setAttribute("name", "username");
+    hiddenField7.setAttribute("value", username);
+    form.appendChild(hiddenField7);
 
     document.body.appendChild(form);
     form.submit();
