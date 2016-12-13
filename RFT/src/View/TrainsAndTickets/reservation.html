@@ -56,7 +56,6 @@ table {
 }
 
 </style>
-
 <script>
 
   security();
@@ -64,8 +63,9 @@ table {
   var wagons = {{ .Wagons }};
   var len = wagons.length;
 
-  //document.cookie = "seat=0";
+  var seats = wagons[2].Seats;
   //var seats = wagons[getCookie("seat")].Seats;
+  //window.alert(getCookie("seat"));
 
   //TODO:BEFEJEZNI A SELECTET
 
@@ -78,14 +78,13 @@ table {
       option.value = i;
       select.add(option);
     }
-
     $("#wagonsSelect").on('change', function(e) {
-      window.alert( this.value );
-      document.cookie = "seat=" + this.value;
+      document.cookie="seat=" + this.value;
+
     })
   });
 
-  var numberOfSeats = wagons[0].NumberOfSeats;
+  var numberOfSeats = wagons[2].NumberOfSeats;
   var sideOne = Math.floor(numberOfSeats / 2) + numberOfSeats % 2;
   var sideTwo = Math.floor(numberOfSeats / 2);
   var sideOneA = Math.floor(sideOne / 2) + sideOne % 2;
@@ -93,11 +92,11 @@ table {
   var sideTwoA = Math.floor(sideTwo / 2);
   var sideTwoB = Math.floor(sideTwo / 2) + sideTwo % 2;
   var seat;
+
+
 </script>
 
-<select id="wagonsSelect">
-
-</select>
+<select id="wagonsSelect"></select>
 
 <table align="center" border="0" class="mainT">
   <tr>
@@ -200,4 +199,6 @@ table {
     </td>
   </tr>
 </table>
+
+
 {{end}}
