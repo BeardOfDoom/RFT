@@ -753,3 +753,19 @@ func (this SQLConfig) MysqlCheckReservation(wagonID, seat string) bool {
 	}
 	return false
 }
+
+func (this SQLConfig) MysqlUpdateWagonReservation(wagonID, seat string) {
+	query := "UPDATE SEATS INNER JOIN WAGON_SEAT_CONNECTION ON SEATS.ID = SEATS_ID INNER JOIN WAGONS ON WAGONS.ID = WAGONS_ID SET SEATS.RESERVED=1 WHERE SEATS.NUMBER=" + seat + " AND WAGONS.ID = '" + wagonID + "'"
+	inf := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", this.username, this.password, this.host, this.port, this.db)
+	db, err := sql.Open("mysql", inf)
+	if err != nil {
+		panic(err)
+	}
+	defer db.Close()
+
+	_, err = db.Exec(query)
+
+	if err != nil {
+		panic(err)
+	}
+}
