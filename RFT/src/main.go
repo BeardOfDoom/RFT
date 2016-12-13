@@ -27,5 +27,6 @@ func main() {
 	http.HandleFunc("/Map", Handler.Map)
 	http.HandleFunc("/BuyTicket1", Handler.GetTrainType)
 	http.HandleFunc("/SeatReserve", Handler.SeatReserve)
+	http.HandleFunc("/CheckReservation", Handler.CheckReservation)
 	http.ListenAndServe(":8000", nil)
 }

@@ -6,6 +6,27 @@
       }
   }
 
+  function sendSelectedSeat(selectedVagon, selectedSeat) {
+    var form4 = document.createElement("form");
+    form4.setAttribute("method", "post");
+    form4.setAttribute("action", "/CheckReservation");
+
+    var hiddenField1 = document.createElement("input");
+    hiddenField1.setAttribute("type", "hidden");
+    hiddenField1.setAttribute("name", "wagonID");
+    hiddenField1.setAttribute("value", selectedVagon);
+    form4.appendChild(hiddenField1);
+
+    var hiddenField2 = document.createElement("input");
+    hiddenField2.setAttribute("type", "hidden");
+    hiddenField2.setAttribute("name", "seat");
+    hiddenField2.setAttribute("value", selectedSeat);
+    form4.appendChild(hiddenField2);
+
+    document.body.appendChild(form4);
+    form4.submit();
+  }
+
   function seatReserve(trainID) {
     var form3 = document.createElement("form");
     form3.setAttribute("method", "post");

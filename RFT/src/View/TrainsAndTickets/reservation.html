@@ -9,10 +9,6 @@ background: url(Web/Images/TrainsAndTickets/trainBlur.jpg) no-repeat center cent
 background-size: cover;
 }
 
-.mainT {
-  margin-top: 6%;
-}
-
 .inner {
   color: black;
   text-shadow: 0 0 0.2em #fff, 0 0 0.2em #fff;
@@ -29,6 +25,12 @@ background-size: cover;
   text-decoration: none;
 }
 
+a:visited, a:active {
+  color: black;
+  text-shadow: 0 0 0.2em #fff, 0 0 0.2em #fff;
+  text-decoration: none;
+}
+
 .separator {
   padding: 10;
 }
@@ -37,6 +39,14 @@ background-size: cover;
   font-family: 'Open Sans', sans-serif;
   color: black;
   font-size: 28px;
+  font-weight: bold;
+  text-shadow: 0 0 0.2em #fff, 0 0 0.2em #fff;
+}
+
+.text {
+  font-family: 'Open Sans', sans-serif;
+  color: black;
+  font-size: 20px;
   font-weight: bold;
   text-shadow: 0 0 0.2em #fff, 0 0 0.2em #fff;
 }
@@ -55,10 +65,105 @@ table {
   border-color: black;
 }
 
+.styled-select {
+	 background: url(../Web/Images/TrainsAndTickets/select.png) no-repeat 96%;
+   height: 8%;
+   overflow: hidden;
+   width: 500px;
+}
+
+.styled-select select {
+   background: transparent;
+   border: none;
+	 font-family: 'Open Sans', sans-serif;
+	 color:rgb(255,255,255);
+	 font-size:12px;
+	 font-weight:600;
+   height: 100%;
+   padding: 5px;
+   width: 102%;
+}
+
+.rounded {
+   -webkit-border-radius: 10px;
+   -moz-border-radius: 10px;
+   border-radius: 10px;
+}
+
+.black   {
+	background-color: rgba(0, 0, 0, 0.6);
+}
+
+.black select   {
+	color: #fff;
+}
+
+.main {
+  width: 94%;
+}
+
+.main td {
+  padding: 8;
+}
+
+input[type="button"]:hover{
+box-shadow: 0 0 2em #fff;
+-webkit-box-shadow: 0 0 2em #fff;
+-o-box-shadow: 0 0 2em #fff;
+-moz-box-shadow: 0 0 2em #fff;
+}
+
+input[type="button"]{
+  float: right;
+	font-size:18px;
+	display: inline-block;
+	font-weight:600;
+	color: #000;
+	transition: 0.1s all;
+	-webkit-transition: 0.1s all;
+	-moz-transition: 0.1s all;
+	-o-transition: 0.1s all;
+	cursor: pointer;
+	outline: none;
+	text-shadow: 0 0 0.2em #fff, 0 0 0.2em #fff;
+	margin-top:3px;
+	font-family: 'Open Sans', sans-serif;
+	width:100%;
+	border:none;
+	border-radius: 0.3em;
+	-webkit-border-radius: 0.3em;
+	-o-	border-radius: 0.3em;
+	-moz-border-radius: 0.3em;
+	background-color: rgba(0,0,0,0.9);
+  height: 40px;
+}
+
 </style>
+
 <script>
 
   security();
+
+  var selectedVagon, selectedSeat;
+
+  function submit() {
+    sendSelectedSeat(selectedVagon, selectedSeat);
+  }
+
+  function resetColors() {
+    $(".se").each(function() {
+        $(this).closest('td').attr("style", "background-color: rgba(0, 255, 0, 0.5);");
+    });
+  }
+
+  $( document ).on( 'click', '.se', function() {
+     document.getElementById("ok").disabled = false;
+     resetColors();
+     $this = $(this);
+     $this.closest('td').attr("style", "background-color: rgba(255,165,0,0.5);");
+     selectedSeat = $this.text();
+     selectedVagon = $('#wagonsSelect').find(":selected").text();
+  });
 
   var wagons = {{ .Wagons }};
   var len = wagons.length;
@@ -83,12 +188,27 @@ table {
 
 </script>
 
-<select id="wagonsSelect">
-  <option value="" disabled selected>Kérem válasszon...</option>
-</select>
+<table align="center" class="main">
+  <tr>
+    <td colspan="3" align="center" class="title">Helyjegy Választás</td>
+  </tr>
+  <tr>
+    <td class="text" align="right">Vagon kiválasztása:</td>
+    <td>
+      <div class="styled-select black rounded">
+        <select id="wagonsSelect" >
+          <option value="" disabled selected>Kérem válasszon...</option>
+        </select>
+      </div>
+    </td>
+    <td>
+      <input type="button" id="ok" onClick="submit()" value="Kiválasztás" disabled></button>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="3">
 
 <script>
-
   function buildReservationForm(wIndex) {
 
     var wagonIndex = wIndex;
@@ -106,16 +226,13 @@ table {
     var sideOneB = Math.floor(sideOne / 2);
     var sideTwoA = Math.floor(sideTwo / 2);
     var sideTwoB = Math.floor(sideTwo / 2) + sideTwo % 2;
-    var seat;
 
     document.getElementById('reservationForm').innerHTML = getContent(sideOneA, sideOneB, sideTwoA, sideTwoB, seats);
   }
 
   function getContent(sideOneA, sideOneB, sideTwoA, sideTwoB, seats) {
-    var result =  '<table align="center" border="0" class="mainT">'+
-      '<tr>' +
-        '<td colspan="3" align="center" class="title">Helyjegy Választás</td>'+
-      '</tr>'+
+    var seat, reserved;
+    var result =  '<table align="center" class="mainT">'+
       '<tr>'+
         '<td>'+
           '<img src="Web/Images/TrainsAndTickets/train2.png" height="400px"/>'+
@@ -124,18 +241,24 @@ table {
           '<table border="1" align="center">'+
             '<tr>'+
               '<td>'+
-                '<table border="1">'+
+                '<table border="1" id="inh">'+
                     '<tr align="center">';
 
                     seat = 1;
                     for (i = 1; i <= sideOneA; i++) {
                       if (seats[seat]) {
                         color = "rgba(255, 0, 0, 0.5)";
+                        reserved = true;
                       } else {
                         color = "rgba(0, 255, 0, 0.5)";
+                        reserved = false;
                       }
 
-                      result += "<td class=\"inner\" style=\"background-color: " + color + ";\"><a href='#' class='se'>" + seat + "</a></td>";
+                      if (reserved) {
+                        result += "<td class=\"inner\" style=\"background-color: " + color + ";\">" + seat + "</td>";
+                      } else {
+                        result += "<td class=\"inner\" style=\"background-color: " + color + ";\"><a href='#' class='se'>" + seat + "</a></td>";
+                      }
                       seat += 4;
                     }
 
@@ -146,12 +269,19 @@ table {
                     for (i = 1; i <= sideOneB; i++) {
                       if (seats[seat]) {
                         color = "rgba(255, 0, 0, 0.5)";
+                        reserved = true;
                       } else {
                         color = "rgba(0, 255, 0, 0.5)";
+                        reserved = false;
                       }
 
-                      result += "<td class=\"inner\" style=\"background-color: " + color + ";\"><a href='#' class='se'>" + seat + "</a></td>";
-                        seat += 4;
+                      if (reserved) {
+                        result += "<td class=\"inner\" style=\"background-color: " + color + ";\">" + seat + "</td>";
+                      } else {
+                        result += "<td class=\"inner\" style=\"background-color: " + color + ";\"><a href='#' class='se'>" + seat + "</a></td>";
+                      }
+
+                      seat += 4;
                     }
 
                     result += '</tr>'+
@@ -172,11 +302,18 @@ table {
                   for (i = 1; i <= sideTwoA; i++) {
                     if (seats[seat]) {
                       color = "rgba(255, 0, 0, 0.5)";
+                      reserved = true;
                     } else {
                       color = "rgba(0, 255, 0, 0.5)";
+                      reserved = false;
                     }
 
-                    result += "<td class=\"inner\" style=\"background-color: " + color + ";\"><a href='#' class='se'>" + seat + "</a></td>";
+                    if (reserved) {
+                      result += "<td class=\"inner\" style=\"background-color: " + color + ";\">" + seat + "</td>";
+                    } else {
+                      result += "<td class=\"inner\" style=\"background-color: " + color + ";\"><a href='#' class='se'>" + seat + "</a></td>";
+                    }
+
                     seat += 4;
                   }
 
@@ -187,11 +324,18 @@ table {
                   for (i = 1; i <= sideTwoB; i++) {
                     if (seats[seat]) {
                       color = "rgba(255, 0, 0, 0.5)";
+                      reserved = true;
                     } else {
                       color = "rgba(0, 255, 0, 0.5)";
+                      reserved = false;
                     }
 
-                    result += "<td class=\"inner\" style=\"background-color: " + color + ";\"><a href='#' class='se'>" + seat + "</a></td>";
+                    if (reserved) {
+                      result += "<td class=\"inner\" style=\"background-color: " + color + ";\">" + seat + "</td>";
+                    } else {
+                      result += "<td class=\"inner\" style=\"background-color: " + color + ";\"><a href='#' class='se'>" + seat + "</a></td>";
+                    }
+
                     if (sideOneA > sideOneB && sideTwoB > sideTwoA && i == sideTwoB - 1) {
                       seat += 2;
                     } else if (sideOneA == sideOneB && sideTwoB > sideTwoA && i == sideTwoB - 1) {
@@ -218,5 +362,9 @@ table {
 </script>
 
 <div id="reservationForm"></div>
+
+</td>
+  </tr>
+    </table>
 
 {{end}}
