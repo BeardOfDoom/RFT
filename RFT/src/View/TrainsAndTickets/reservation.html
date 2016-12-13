@@ -63,13 +63,8 @@ table {
   var wagons = {{ .Wagons }};
   var len = wagons.length;
 
-  var seats = wagons[2].Seats;
-  //var seats = wagons[getCookie("seat")].Seats;
-  //window.alert(getCookie("seat"));
-
-  //TODO:BEFEJEZNI A SELECTET
-
   $(document).ready(function(){
+
     var select = document.getElementById("wagonsSelect");
 
     for (i = 0; i < len; i++) {
@@ -78,127 +73,143 @@ table {
       option.value = i;
       select.add(option);
     }
-    $("#wagonsSelect").on('change', function(e) {
-      document.cookie="seat=" + this.value;
 
-    })
   });
-
-  var numberOfSeats = wagons[2].NumberOfSeats;
-  var sideOne = Math.floor(numberOfSeats / 2) + numberOfSeats % 2;
-  var sideTwo = Math.floor(numberOfSeats / 2);
-  var sideOneA = Math.floor(sideOne / 2) + sideOne % 2;
-  var sideOneB = Math.floor(sideOne / 2);
-  var sideTwoA = Math.floor(sideTwo / 2);
-  var sideTwoB = Math.floor(sideTwo / 2) + sideTwo % 2;
-  var seat;
 
 
 </script>
 
 <select id="wagonsSelect"></select>
 
-<table align="center" border="0" class="mainT">
-  <tr>
-    <td colspan="3" align="center" class="title">Helyjegy Választás</td>
-  </tr>
-  <tr>
-    <td>
-      <img src="Web/Images/TrainsAndTickets/train2.png" height="400px"/>
-    </td>
-    <td>
-      <table border="1" align="center">
-        <tr>
-          <td>
-            <table border="1">
-                <tr align="center">
-                  <script>
-                    seat = 1;
-                    for (i = 1; i <= sideOneA; i++) {
-                      if (seats[seat]) {
-                        color = "rgba(255, 0, 0, 0.5)";
-                      } else {
-                        color = "rgba(0, 255, 0, 0.5)";
-                      }
+<script>
 
-                      document.write("<td class=\"inner\" style=\"background-color: " + color + ";\"><a href='#' class='se'>" + seat + "</a></td>");
-                      seat += 4;
-                    }
-                  </script>
-                </tr>
-                <tr  align="center">
-                  <script>
-                    seat = 2;
-                    for (i = 1; i <= sideOneB; i++) {
-                      if (seats[seat]) {
-                        color = "rgba(255, 0, 0, 0.5)";
-                      } else {
-                        color = "rgba(0, 255, 0, 0.5)";
-                      }
+$("#wagonsSelect").on('change', function() {
+  document.cookie="seat=" + this.value;
+  buildReservationForm();
+})
 
-                      document.write("<td class=\"inner\" style=\"background-color: " + color + ";\"><a href='#' class='se'>" + seat + "</a></td>");
+  function buildReservationForm() {
+
+    var wagonIndex = getCookie("seat");
+
+    if (wagonIndex == undefined) {
+      wagonIndex = 0;
+    }
+
+    var seats = wagons[wagonIndex].Seats;
+
+    var numberOfSeats = wagons[wagonIndex].NumberOfSeats;
+    var sideOne = Math.floor(numberOfSeats / 2) + numberOfSeats % 2;
+    var sideTwo = Math.floor(numberOfSeats / 2);
+    var sideOneA = Math.floor(sideOne / 2) + sideOne % 2;
+    var sideOneB = Math.floor(sideOne / 2);
+    var sideTwoA = Math.floor(sideTwo / 2);
+    var sideTwoB = Math.floor(sideTwo / 2) + sideTwo % 2;
+    var seat;
+
+
+    document.write('<table align="center" border="0" class="mainT">');
+      document.write('<tr>');
+        document.write('<td colspan="3" align="center" class="title">Helyjegy Választás</td>');
+      document.write('</tr>');
+      document.write('<tr>');
+        document.write('<td>');
+          document.write('<img src="Web/Images/TrainsAndTickets/train2.png" height="400px"/>');
+        document.write('</td>');
+        document.write('<td>');
+          document.write('<table border="1" align="center">');
+            document.write('<tr>');
+              document.write('<td>');
+                document.write('<table border="1">');
+                    document.write('<tr align="center">');
+
+                        seat = 1;
+                        for (i = 1; i <= sideOneA; i++) {
+                          if (seats[seat]) {
+                            color = "rgba(255, 0, 0, 0.5)";
+                          } else {
+                            color = "rgba(0, 255, 0, 0.5)";
+                          }
+
+                          document.write("<td class=\"inner\" style=\"background-color: " + color + ";\"><a href='#' class='se'>" + seat + "</a></td>");
+                          seat += 4;
+                        }
+
+                    document.write('</tr>');
+                  document.write('<tr  align="center">');
+
+                        seat = 2;
+                        for (i = 1; i <= sideOneB; i++) {
+                          if (seats[seat]) {
+                            color = "rgba(255, 0, 0, 0.5)";
+                          } else {
+                            color = "rgba(0, 255, 0, 0.5)";
+                          }
+
+                          document.write("<td class=\"inner\" style=\"background-color: " + color + ";\"><a href='#' class='se'>" + seat + "</a></td>");
+                            seat += 4;
+                        }
+
+                    document.write('</tr>');
+                document.write('</table>');
+              document.write('</td>');
+            document.write('</tr>');
+            document.write('<tr>');
+              document.write('<td class="separator">');
+                document.write('<br/>');
+              document.write('</td>');
+            document.write('</tr>');
+            document.write('<tr>');
+              document.write('<td>');
+                document.write('<table border="1">');
+                  document.write('<tr align="center">');
+
+                      seat = 3;
+                      for (i = 1; i <= sideTwoA; i++) {
+                        if (seats[seat]) {
+                          color = "rgba(255, 0, 0, 0.5)";
+                        } else {
+                          color = "rgba(0, 255, 0, 0.5)";
+                        }
+
+                        document.write("<td class=\"inner\" style=\"background-color: " + color + ";\"><a href='#' class='se'>" + seat + "</a></td>");
                         seat += 4;
-                    }
-                  </script>
-                </tr>
-            </table>
-          </td>
-        </tr>
-        <tr>
-          <td class="separator">
-            <br/>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <table border="1">
-              <tr align="center">
-                <script>
-                  seat = 3;
-                  for (i = 1; i <= sideTwoA; i++) {
-                    if (seats[seat]) {
-                      color = "rgba(255, 0, 0, 0.5)";
-                    } else {
-                      color = "rgba(0, 255, 0, 0.5)";
-                    }
+                      }
 
-                    document.write("<td class=\"inner\" style=\"background-color: " + color + ";\"><a href='#' class='se'>" + seat + "</a></td>");
-                    seat += 4;
-                  }
-                </script>
-              </tr>
-              <tr align="center">
-                <script>
-                  seat = 4;
-                  for (i = 1; i <= sideTwoB; i++) {
-                    if (seats[seat]) {
-                      color = "rgba(255, 0, 0, 0.5)";
-                    } else {
-                      color = "rgba(0, 255, 0, 0.5)";
-                    }
+                  document.write('</tr>');
+                  document.write('<tr align="center">');
 
-                    document.write("<td class=\"inner\" style=\"background-color: " + color + ";\"><a href='#' class='se'>" + seat + "</a></td>");
-                    if (sideOneA > sideOneB && sideTwoB > sideTwoA && i == sideTwoB - 1) {
-                      seat += 2;
-                    } else if (sideOneA == sideOneB && sideTwoB > sideTwoA && i == sideTwoB - 1) {
-                      seat += 3;
-                    } else {
-                      seat += 4;
-                    }
-                  }
-                </script>
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </table>
-    </td>
-    <td class="description" align="right">
-      Zöld  - szabad hely<br/>
-      Piros - foglalt hely
-    </td>
-  </tr>
-</table>
+                      seat = 4;
+                      for (i = 1; i <= sideTwoB; i++) {
+                        if (seats[seat]) {
+                          color = "rgba(255, 0, 0, 0.5)";
+                        } else {
+                          color = "rgba(0, 255, 0, 0.5)";
+                        }
 
+                        document.write("<td class=\"inner\" style=\"background-color: " + color + ";\"><a href='#' class='se'>" + seat + "</a></td>");
+                        if (sideOneA > sideOneB && sideTwoB > sideTwoA && i == sideTwoB - 1) {
+                          seat += 2;
+                        } else if (sideOneA == sideOneB && sideTwoB > sideTwoA && i == sideTwoB - 1) {
+                          seat += 3;
+                        } else {
+                          seat += 4;
+                        }
+                      }
+
+                  document.write('</tr>');
+                document.write('</table>');
+              document.write('</td>');
+            document.write('</tr>');
+          document.write('</table>');
+        document.write('</td>');
+        document.write('<td class="description" align="right">');
+          document.write('Zöld  - szabad hely<br/>');
+          document.write('Piros - foglalt hely');
+        document.write('</td>');
+      document.write('</tr>');
+    document.write('</table>');
+  }
+</script>
 
 {{end}}
