@@ -84,10 +84,23 @@ type MapData struct {
 	Stations  []string
 }
 
+type WagonServices struct {
+	Toilet         bool
+	DisabledToilet bool
+	DiaperChange   bool
+	AirConditioner bool
+	Wifi           bool
+	PowerConnector bool
+	Restaurant     bool
+	BikeShed       bool
+	Bed            bool
+}
+
 type Wagon struct {
 	WagonID       string
 	NumberOfSeats string
 	Class         string
+	Services      WagonServices
 	Seats         map[string]bool
 }
 
@@ -615,6 +628,37 @@ func (this SQLConfig) MysqlSeatReserve(id string) WagonData {
 			wagon.WagonID = wagonID
 			wagon.NumberOfSeats = numOfSeats
 			wagon.Class = class
+
+			str := services
+			for i := 0; i < len(str); i += 2 {
+				if str[i] == '1' {
+					wagon.Services.Toilet = true
+				}
+				if str[i] == '2' {
+					wagon.Services.DisabledToilet = true
+				}
+				if str[i] == '3' {
+					wagon.Services.DiaperChange = true
+				}
+				if str[i] == '4' {
+					wagon.Services.AirConditioner = true
+				}
+				if str[i] == '5' {
+					wagon.Services.Wifi = true
+				}
+				if str[i] == '6' {
+					wagon.Services.PowerConnector = true
+				}
+				if str[i] == '7' {
+					wagon.Services.Restaurant = true
+				}
+				if str[i] == '8' {
+					wagon.Services.BikeShed = true
+				}
+				if str[i] == '9' {
+					wagon.Services.Bed = true
+				}
+			}
 		}
 		if wagonID == wagonId {
 			if reserved == "1" {
@@ -626,10 +670,50 @@ func (this SQLConfig) MysqlSeatReserve(id string) WagonData {
 			result.Wagons = append(result.Wagons, wagon)
 
 			wagon.Seats = make(map[string]bool, 0)
+			wagon.Services.Toilet = false
+			wagon.Services.DisabledToilet = false
+			wagon.Services.DiaperChange = false
+			wagon.Services.AirConditioner = false
+			wagon.Services.Wifi = false
+			wagon.Services.PowerConnector = false
+			wagon.Services.Restaurant = false
+			wagon.Services.BikeShed = false
+			wagon.Services.Bed = false
+
 			wagonID = wagonId
 			wagon.WagonID = wagonID
 			wagon.NumberOfSeats = numOfSeats
 			wagon.Class = class
+			str := services
+			for i := 0; i < len(str); i += 2 {
+				if str[i] == '1' {
+					wagon.Services.Toilet = true
+				}
+				if str[i] == '2' {
+					wagon.Services.DisabledToilet = true
+				}
+				if str[i] == '3' {
+					wagon.Services.DiaperChange = true
+				}
+				if str[i] == '4' {
+					wagon.Services.AirConditioner = true
+				}
+				if str[i] == '5' {
+					wagon.Services.Wifi = true
+				}
+				if str[i] == '6' {
+					wagon.Services.PowerConnector = true
+				}
+				if str[i] == '7' {
+					wagon.Services.Restaurant = true
+				}
+				if str[i] == '8' {
+					wagon.Services.BikeShed = true
+				}
+				if str[i] == '9' {
+					wagon.Services.Bed = true
+				}
+			}
 
 			if reserved == "1" {
 				wagon.Seats[seatNumber] = true
@@ -658,7 +742,6 @@ func (this SQLConfig) MysqlCheckReservation(wagonID, seat string) bool {
 	}
 	defer rows.Close()
 
-	wagonID := ""
 	for rows.Next() {
 		err := rows.Scan(&reserved)
 		if err != nil {
