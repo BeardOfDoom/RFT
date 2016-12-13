@@ -28,3 +28,9 @@ func SeatReserve(id string) Adapter.WagonData {
 	result := SQLAdapter.MysqlSeatReserve(id)
 	return result
 }
+
+func CheckReservation(wagonID, seat string) bool {
+	SQLAdapter := Adapter.SQLFactory(Settings.DBUSERNAME, Settings.DBPASSWORD, Settings.DBHOST, Settings.DBNAME, Settings.DBPORT)
+	result := SQLAdapter.MysqlCheckReservation(wagonID, seat)
+	return result
+}

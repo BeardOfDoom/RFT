@@ -641,3 +641,32 @@ func (this SQLConfig) MysqlSeatReserve(id string) WagonData {
 	result.Wagons = append(result.Wagons, wagon)
 	return result
 }
+
+func (this SQLConfig) MysqlCheckReservation(wagonID, seat string) bool {
+	query := "SELECT RESERVED FROM SEATS INNER JOIN WAGON_SEAT_CONNECTION ON ID = SEATS_ID INNER JOIN WAGONS ON WAGONS.ID = WAGON_SEAT_CONNECTION.WAGONS_ID WHERE WAGONS.ID = '" + wagonID + "' AND SEATS.ID = " + seat
+	var reserved string
+	inf := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", this.username, this.password, this.host, this.port, this.db)
+	db, err := sql.Open("mysql", inf)
+	if err != nil {
+		panic(err)
+	}
+	defer db.Close()
+
+	rows, err := db.Query(query)
+	if err != nil {
+		panic(err)
+	}
+	defer rows.Close()
+
+	wagonID := ""
+	for rows.Next() {
+		err := rows.Scan(&reserved)
+		if err != nil {
+			panic(err)
+		}
+		if reserved == "1" {
+			return true
+		}
+	}
+	return false
+}
