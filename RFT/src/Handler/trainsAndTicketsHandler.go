@@ -112,7 +112,24 @@ func GetTrainType(w http.ResponseWriter, r *http.Request) {
 func SeatReserve(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
-	result := Service.SeatReserve(r.FormValue("trainID"))
+	fmt.Println(r.FormValue("from1"))
+	fmt.Println(r.FormValue("to1"))
+	fmt.Println(r.FormValue("departure1"))
+	fmt.Println(r.FormValue("arrival1"))
+	fmt.Println(r.FormValue("train1ID"))
+	fmt.Println(r.FormValue("from2"))
+	fmt.Println(r.FormValue("to2"))
+	fmt.Println(r.FormValue("departure2"))
+	fmt.Println(r.FormValue("arrival2"))
+	fmt.Println(r.FormValue("train2ID"))
+	fmt.Println(r.FormValue("price"))
+	fmt.Println(r.FormValue("km"))
+	fmt.Println(r.FormValue("trainID"))
+	result := Service.SeatReserve(r.FormValue("trainID"), r.FormValue("from1"), r.FormValue("to1"),
+												r.FormValue("departure1"), r.FormValue("arrival1"), r.FormValue("train1ID"),
+												r.FormValue("from2"),	r.FormValue("to2"), r.FormValue("departure2"),
+												r.FormValue("arrival2"), r.FormValue("train2ID"), r.FormValue("price"),
+												r.FormValue("km"))
 	fmt.Println(result)
 
 	t, _ := template.ParseFiles("View/TrainsAndTickets/reservation.html", "View/Layout/main.html")
@@ -122,16 +139,12 @@ func SeatReserve(w http.ResponseWriter, r *http.Request) {
 func CheckReservation(w http.ResponseWriter, r *http.Request) {
 	result := Service.CheckReservation(r.FormValue("wagonID"), r.FormValue("seat"))
 	fmt.Println(result)
+	if !result {
+			Service.UpdateWagonReservation(r.FormValue("wagonID"), r.FormValue("seat"))
+	} else {
+		//TODO Matyi ird oda
+		/*t, _ := template.ParseFiles("View/TrainsAndTickets/reservation.html", "View/Layout/main.html")
+		t.ExecuteTemplate(w, "layout", result)*/
+	}
 
-	/*t, _ := template.ParseFiles("View/TrainsAndTickets/reservation.html", "View/Layout/main.html")
-	t.ExecuteTemplate(w, "layout", result)*/
-}
-
-func UpdateWagonReservation(w http.ResponseWriter, r *http.Request) {
-	r.ParseForm()
-
-	Service.UpdateWagonReservation(r.FormValue("wagonID"), r.FormValue("seat"))
-
-	/*t, _ := template.ParseFiles("View/TrainsAndTickets/reservation.html", "View/Layout/main.html")
-	t.ExecuteTemplate(w, "layout", data)*/
 }

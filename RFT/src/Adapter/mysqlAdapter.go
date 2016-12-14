@@ -106,6 +106,7 @@ type Wagon struct {
 
 type WagonData struct {
 	Wagons []Wagon
+	Train		TrainType
 }
 
 type TrainType struct {
@@ -115,12 +116,14 @@ type TrainType struct {
 	Arrival1   string
 	Train1ID   string
 	Type1      bool
+	SeatNumber1	string
 	From2      string
 	To2        string
 	Departure2 string
 	Arrival2   string
 	Train2ID   string
 	Type2      bool
+	SeatNumber2	string
 	Price      string
 	Km         string
 }
@@ -565,6 +568,7 @@ func (this SQLConfig) MysqlGetTrainType(from1, to1, departure1, arrival1, train1
 	result.Departure1 = departure1
 	result.Arrival1 = arrival1
 	result.Train1ID = train1ID
+	result.SeatNumber1 = "0"
 	result.Price = price
 	result.Km = km
 
@@ -573,6 +577,7 @@ func (this SQLConfig) MysqlGetTrainType(from1, to1, departure1, arrival1, train1
 	result.Departure2 = departure2
 	result.Arrival2 = arrival2
 	result.Train2ID = train2ID
+	result.SeatNumber2 = "0"
 	if from2 == "0" {
 		result.Type2 = false
 	} else {
@@ -597,7 +602,7 @@ func (this SQLConfig) MysqlGetTrainType(from1, to1, departure1, arrival1, train1
 	return result
 }
 
-func (this SQLConfig) MysqlSeatReserve(id string) WagonData {
+func (this SQLConfig) MysqlSeatReserve(id, from1, to1, departure1, arrival1, train1ID, from2, to2, departure2, arrival2, train2ID, price, km string) WagonData {
 
 	var result WagonData
 	var wagon Wagon
@@ -723,6 +728,68 @@ func (this SQLConfig) MysqlSeatReserve(id string) WagonData {
 		}
 	}
 	result.Wagons = append(result.Wagons, wagon)
+
+	query1 := "SELECT TYPE FROM TRAINS WHERE ID = " + train1ID
+	query2 := "SELECT TYPE FROM TRAINS WHERE ID = " + train2ID
+	var d string
+	var traintype TrainType
+
+fmt.Println(query1)
+	rows1, err := db.Query(query1)
+	if err != nil {
+		panic(err)
+	}
+	defer rows1.Close()
+
+	for rows1.Next() {
+		err := rows1.Scan(&d)
+		if err != nil {
+			panic(err)
+		}
+		if d == "IC" {
+			traintype.Type1 = true
+		} else {
+			traintype.Type1 = false
+		}
+	}
+
+	traintype.From1 = from1
+	traintype.To1 = to1
+	traintype.Departure1 = departure1
+	traintype.Arrival1 = arrival1
+	traintype.Train1ID = train1ID
+	traintype.SeatNumber1 = "0"
+	traintype.Price = price
+	traintype.Km = km
+
+	traintype.From2 = from2
+	traintype.To2 = to2
+	traintype.Departure2 = departure2
+	traintype.Arrival2 = arrival2
+	traintype.Train2ID = train2ID
+	traintype.SeatNumber2 = "0"
+	if from2 == "0" {
+		traintype.Type2 = false
+	} else {
+		rows2, err := db.Query(query2)
+		if err != nil {
+			panic(err)
+		}
+		defer rows2.Close()
+
+		for rows2.Next() {
+			err = rows2.Scan(&d)
+			if err != nil {
+				panic(err)
+			}
+			if d == "IC" {
+				traintype.Type2 = true
+			} else {
+				traintype.Type2 = false
+			}
+		}
+	}
+	result.Train = traintype
 	return result
 }
 
