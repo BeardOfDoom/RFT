@@ -6,6 +6,10 @@
       }
   }
 
+  function sendEmail(email, id, pass) {
+
+  }
+
   function buyTheTicket(from1, to1, from2, to2, departure1, arrival1, departure2, arrival2, train1ID, train2ID, price, km, seat1, seat2, t1, t2) {
     if (seat2 == -1) {
       if ((t1 == "false") || (t1 == "true" && seat1 != "0")) {
@@ -567,13 +571,15 @@
     deleteCookie("username");
     deleteCookie("firstname");
     deleteCookie("lastname");
+    deleteCookie("email");
   }
 
-  function writeLoginInformation(username, fname, lname) {
+  function writeLoginInformation(username, fname, lname, email) {
       document.cookie = "validLogin=true";
       document.cookie = "username=" + username;
       document.cookie = "firstname=" + fname;
       document.cookie = "lastname=" + lname;
+      document.cookie = "email=" + email;
   }
 
   function deleteCookie(cookieName) {

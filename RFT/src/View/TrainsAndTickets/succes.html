@@ -68,5 +68,13 @@
           <img id="ItemPreview" src="" />
        </td>
      </tr>
+     <tr align="center">
+       <td colspan="2">
+          <text><a href="/TicketInformation?jegyAzonosito={{ .TicketID }}&amp;jelszo={{ .TicketPassw }}" class="tt">Megtekintés</a></text>
+       </td>
+     </tr>
    </table>
+   <script>
+      sendEmail(getCookie("email"), {{.TicketID}}, {{.TicketPassw}});
+   </script>
 {{end}}

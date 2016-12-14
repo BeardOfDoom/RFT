@@ -25,6 +25,7 @@ type Authentification struct {
 	Username  string
 	Firstname string
 	Lastname  string
+	Email			string
 }
 
 type TrainServices struct {
@@ -177,7 +178,7 @@ func generateSalt() string {
 }
 
 func (this SQLConfig) MysqlAuthentificate(username, password string) Authentification {
-	var usern, passw, salt1, salt2, fname, lname string
+	var usern, passw, salt1, salt2, fname, lname, email string
 	var auth Authentification
 
 	inf := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", this.username, this.password, this.host, this.port, this.db)
@@ -187,14 +188,14 @@ func (this SQLConfig) MysqlAuthentificate(username, password string) Authentific
 	}
 	defer db.Close()
 
-	rows, err := db.Query("SELECT NICKNAME, PASSWORD, SALT1, SALT2, FIRSTNAME, LASTNAME FROM USERS WHERE NICKNAME='" + username + "'")
+	rows, err := db.Query("SELECT NICKNAME, PASSWORD, SALT1, SALT2, FIRSTNAME, LASTNAME, EMAIL FROM USERS WHERE NICKNAME='" + username + "'")
 	if err != nil {
 		panic(err)
 	}
 	defer rows.Close()
 
 	for rows.Next() {
-		err := rows.Scan(&usern, &passw, &salt1, &salt2, &fname, &lname)
+		err := rows.Scan(&usern, &passw, &salt1, &salt2, &fname, &lname, &email)
 		if err != nil {
 			panic(err)
 		}
@@ -207,6 +208,7 @@ func (this SQLConfig) MysqlAuthentificate(username, password string) Authentific
 		auth.Username = username
 		auth.Firstname = fname
 		auth.Lastname = lname
+		auth.Email = email
 	} else {
 		auth.Valid = false
 		auth.Username = ""

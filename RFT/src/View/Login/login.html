@@ -4,8 +4,9 @@
   var username = {{ .Username }}
   var firstname = {{ .Firstname }}
   var lastname = {{ .Lastname }}
+  var email = {{ .Email }}
   if (validLogin) {
-    writeLoginInformation(username, firstname, lastname)
+    writeLoginInformation(username, firstname, lastname, email)
   }
 </script>
 <meta http-equiv="refresh" content="0; url=/" />
