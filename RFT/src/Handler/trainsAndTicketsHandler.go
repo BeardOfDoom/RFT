@@ -6,6 +6,8 @@ import (
 	"html/template"
 	"net/http"
 	"strings"
+	"QRCode"
+	"strconv"
 )
 
 func convertMonth(date string) string {
@@ -153,10 +155,19 @@ func BuyTicket(w http.ResponseWriter, r *http.Request) {
 												r.FormValue("to2"), r.FormValue("departure2"), r.FormValue("arrival2"),
 												r.FormValue("train2ID"), r.FormValue("seat2"), r.FormValue("price"),
 												r.FormValue("km"))
-											
+fmt.Println(result)
 	//TODO: kosz a vasarlast, itt a vasarlasi azon., jelszo es qr
 	//t, _ := template.ParseFiles("View/TrainsAndTickets/.html", "View/Layout/main.html")
 	//t.ExecuteTemplate(w, "layout", result)
+
+	var QR []byte
+	QR = QRCode.GenerateQR("8", "pASsWorD")
+	fmt.Println(QR)
+
+	w.Header().Set("Content-Type", "image/png")
+	w.Header().Set("Content-Length", strconv.Itoa(len(QR)))
+	w.Write(QR);
+
 }
 
 func TicketInformation(w http.ResponseWriter, r *http.Request) {

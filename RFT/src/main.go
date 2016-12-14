@@ -2,7 +2,6 @@ package main
 
 import (
 	"Handler"
-	"QRCode"
 	"fmt"
 	"net/http"
 )
@@ -31,6 +30,5 @@ func main() {
 	http.HandleFunc("/CheckReservation", Handler.CheckReservation)
 	http.HandleFunc("/BuyTicket", Handler.BuyTicket)
 	http.HandleFunc("/TicketInformation", Handler.TicketInformation)
-	http.HandleFunc("/GenerateQRCode", QRCode.GenerateQR)
 	http.ListenAndServe(":8000", nil)
 }
