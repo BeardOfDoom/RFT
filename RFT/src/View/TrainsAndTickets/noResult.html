@@ -1,3 +1,48 @@
 {{define "content"}}
-<h1 style="color:red; font-size:200px;">ALLAHU AHKBAR</h1>
+<style>
+   body {
+   background: url(Web/Images/TrainsAndTickets/trainBlur.jpg) no-repeat center center fixed;
+   -webkit-background-size: cover;
+   -moz-background-size: cover;
+   -o-background-size: cover;
+   background-size: cover;
+   }
+
+   text {
+     font-family: 'Open Sans', sans-serif;
+   	 color:rgb(255,255,255);
+   	 font-size:28px;
+   	 outline: none;
+   	 font-weight:600;
+     border:none;
+     text-shadow: 0 0 0.2em #000, 0 0 0.2em #000;
+   }
+
+   a.tt, a.login:active, a.tt:visited {
+     color:rgb(0, 0, 0);
+     border:none;
+     text-shadow: 0 0 0.2em #fff, 0 0 0.2em #fff;
+   }
+
+   a.tt:hover {
+     text-decoration: none;
+     text-shadow: 0 0 0.2em #737776, 0 0 0.2em #737776;
+   }
+
+   table {
+     margin-top: 15%;
+   }
+   </style>
+   <table align="center">
+     <tr align="center">
+       <td>
+         <text>Nem találtunk ilyen járatot.</text>
+       </td>
+     </tr>
+     <tr align="center">
+       <td>
+         <text><a href="/TrainsAndTickets" class="tt">Ide</a> kattintva megpróbálhatja újra.</text>
+       </td>
+     </tr>
+   </table>
 {{end}}
