@@ -602,7 +602,7 @@ func (this SQLConfig) MysqlGetTrainType(from1, to1, departure1, arrival1, train1
 	return result
 }
 
-func (this SQLConfig) MysqlSeatReserve(id, from1, to1, departure1, arrival1, train1ID, from2, to2, departure2, arrival2, train2ID, price, km string) WagonData {
+func (this SQLConfig) MysqlSeatReserve(id, from1, to1, departure1, arrival1, train1ID, from2, to2, departure2, arrival2, train2ID, price, km, seat1, seat2 string) WagonData {
 
 	var result WagonData
 	var wagon Wagon
@@ -758,7 +758,7 @@ fmt.Println(query1)
 	traintype.Departure1 = departure1
 	traintype.Arrival1 = arrival1
 	traintype.Train1ID = train1ID
-	traintype.SeatNumber1 = "0"
+	traintype.SeatNumber1 = seat1
 	traintype.Price = price
 	traintype.Km = km
 
@@ -767,7 +767,7 @@ fmt.Println(query1)
 	traintype.Departure2 = departure2
 	traintype.Arrival2 = arrival2
 	traintype.Train2ID = train2ID
-	traintype.SeatNumber2 = "0"
+	traintype.SeatNumber2 = seat2
 	if from2 == "0" {
 		traintype.Type2 = false
 	} else {

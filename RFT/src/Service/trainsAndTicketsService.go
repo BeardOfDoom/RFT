@@ -23,9 +23,9 @@ func GetTrainType(from1, to1, departure1, arrival1, train1ID, from2, to2, depart
 	return result
 }
 
-func SeatReserve(id, from1, to1, departure1, arrival1, train1ID, from2, to2, departure2, arrival2, train2ID, price, km string) Adapter.WagonData {
+func SeatReserve(id, from1, to1, departure1, arrival1, train1ID, from2, to2, departure2, arrival2, train2ID, price, km, seat1, seat2 string) Adapter.WagonData {
 	SQLAdapter := Adapter.SQLFactory(Settings.DBUSERNAME, Settings.DBPASSWORD, Settings.DBHOST, Settings.DBNAME, Settings.DBPORT)
-	result := SQLAdapter.MysqlSeatReserve(id, from1, to1, departure1, arrival1, train1ID, from2, to2, departure2, arrival2, train2ID, price, km)
+	result := SQLAdapter.MysqlSeatReserve(id, from1, to1, departure1, arrival1, train1ID, from2, to2, departure2, arrival2, train2ID, price, km, seat1, seat2)
 	return result
 }
 
