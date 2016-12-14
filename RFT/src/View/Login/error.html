@@ -10,14 +10,10 @@ body {
 
 text {
   font-family: 'Open Sans', sans-serif;
-	color:rgb(255,255,255);
-	font-size:28px;
-	outline: none;
-	font-weight:600;
-  position:absolute;
-  top:40%;
-  left:50%;
-  margin-left:-250px;
+  color:rgb(255,255,255);
+  font-size:28px;
+  outline: none;
+  font-weight:600;
   border:none;
   text-shadow: 0 0 0.2em #000, 0 0 0.2em #000;
 }
@@ -32,9 +28,21 @@ a.login:hover {
   text-decoration: none;
   text-shadow: 0 0 0.2em #737776, 0 0 0.2em #737776;
 }
+
+table {
+  margin-top: 15%;
+}
 </style>
-<text>
-  &nbsp;Hibás felhasználónév vagy jelszó!<br/>
-  <a href="/Login" class="login">Ide</a> kattintva megpróbálhatja újra.
-</text>
+<table align="center">
+  <tr align="center">
+    <td>
+      <text>Hibás felhasználónév vagy jelszó!</text>
+    </td>
+  </tr>
+  <tr align="center">
+    <td>
+      <text><a href="/Login" class="login">Ide</a> kattintva megpróbálhatja újra.</text>
+    </td>
+  </tr>
+</table>
 {{end}}
