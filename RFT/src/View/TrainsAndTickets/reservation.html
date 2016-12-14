@@ -147,8 +147,8 @@ input[type="button"]{
   var selectedVagon, selectedSeat;
 
   function submit() {
-    sendSelectedSeat(selectedVagon, selectedSeat, train);
-  }
+    sendSelectedSeat(selectedVagon, selectedSeat, train.From1, train.To1, train.From2, train.To2, train.Departure1, train.Arrival1, train.Departure2, train.Arrival2, train.Train1ID, train.Train2ID, train.Price, train.Km);
+  }//TODO:
 
   function resetColors() {
     $(".se").each(function() {

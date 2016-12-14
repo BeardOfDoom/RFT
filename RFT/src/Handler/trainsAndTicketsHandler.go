@@ -129,7 +129,7 @@ func CheckReservation(w http.ResponseWriter, r *http.Request) {
 	result := Service.CheckReservation(r.FormValue("wagonID"), r.FormValue("seat"))
 	fmt.Println(result)
 	if !result {
-			Service.UpdateWagonReservation(r.FormValue("wagonID"), r.FormValue("seat"))
+		Service.UpdateWagonReservation(r.FormValue("wagonID"), r.FormValue("seat"))
 	} else {
 		//TODO Matyi ird oda
 		/*t, _ := template.ParseFiles("View/TrainsAndTickets/reservation.html", "View/Layout/main.html")
