@@ -125,8 +125,11 @@ $(document).ready(function(){
               if (ch == 1 && i == 2) {
                 if (typeof trains[i-1] !== "undefined") {
                   var username = getCookie("username");
-                  document.write('<td align="center"><a href="#" onClick="post(\'' + stations[i] + '\', \'' + stations[i+1] + '\', \'' + timetable[i] + '\', \'' + timetable[i+1] + '\', \'' + trains[i-1] + '\', \''
-                  + route[i-1] + '\', \'' + username + '\');">' + trains[i-1] + ' ( ' + route[i-1] + ' ) </a></td>');
+                  if (username == undefined) {
+                    document.write('<td align="center">' + trains[i-1] + ' ( ' + route[i-1] + ' )</td>');
+                  } else {
+                    document.write('<td align="center"><a href="#" onClick="post(\'' + stations[i] + '\', \'' + stations[i+1] + '\', \'' + timetable[i] + '\', \'' + timetable[i+1] + '\', \'' + trains[i-1] + '\', \'' + route[i-1] + '\', \'' + username + '\');">' + trains[i-1] + ' ( ' + route[i-1] + ' ) </a></td>');
+                  }
                 } else {
                   document.write("<td></td>");
                 }
@@ -292,7 +295,11 @@ $(document).ready(function(){
               } else {
                 if (typeof trains[i] !== "undefined") {
                   var username = getCookie("username");
-                  document.write('<td align="center"><a href="#" onClick="post(\'' + stations[i] + '\', \'' + stations[i+1] + '\', \'' + timetable[i] + '\', \'' + timetable[i+1] + '\', \'' + trains[i] + '\', \'' + route[i] + '\', \'' + username + '\');">' + trains[i] + ' ( ' + route[i] + ' ) </a></td>');
+                  if (username == undefined) {
+                    document.write('<td align="center">' + trains[i] + ' ( ' + route[i] + ' )</td>');
+                  } else {
+                    document.write('<td align="center"><a href="#" onClick="post(\'' + stations[i] + '\', \'' + stations[i+1] + '\', \'' + timetable[i] + '\', \'' + timetable[i+1] + '\', \'' + trains[i] + '\', \'' + route[i] + '\', \'' + username + '\');">' + trains[i] + ' ( ' + route[i] + ' ) </a></td>');
+                  }
                 } else {
                   document.write("<td></td>");
                 }

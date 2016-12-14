@@ -1,2 +1,4 @@
 RFT/pkg
 RFT/src/github.com/
+RFT/src/Web/Plugins/Transit/*.json
+RFT/src/Web/Plugins/Transit/*.kml
