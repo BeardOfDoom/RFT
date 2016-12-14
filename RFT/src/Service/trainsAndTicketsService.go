@@ -46,3 +46,15 @@ func BuyTicket(firstname, lastname ,from1, to1, departure1, arrival1, train1ID, 
 	result := SQLAdapter.MysqlBuyTicket(firstname, lastname, from1, to1, departure1, arrival1, train1ID, seat1, from2, to2, departure2, arrival2, train2ID, seat2, price, km)
 	return result
 }
+
+func CheckTicket(ticketID, passw string) bool {
+	SQLAdapter := Adapter.SQLFactory(Settings.DBUSERNAME, Settings.DBPASSWORD, Settings.DBHOST, Settings.DBNAME, Settings.DBPORT)
+	result := SQLAdapter.MysqlCheckTicket(ticketID, passw)
+	return result
+}
+
+func SetTicketInformation(ticketID string) Adapter.Ticket {
+	SQLAdapter := Adapter.SQLFactory(Settings.DBUSERNAME, Settings.DBPASSWORD, Settings.DBHOST, Settings.DBNAME, Settings.DBPORT)
+	result := SQLAdapter.MysqlSetTicketInformation(ticketID)
+	return result
+}

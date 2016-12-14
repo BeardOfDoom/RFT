@@ -964,37 +964,76 @@ func (this SQLConfig) MysqlBuyTicket(firstname, lastname, from1, to1, departure1
 	return result
 }
 
-
-/*result.Firstname = firstname
-result.Lastname = lastname
-result.From1 = from1
-result.To1 = to1
-result.Departure1 = departure1
-result.Arrival1 = arrival1
-result.Train1ID = train1ID
-result.Seat1 = seat1
-result.From2 = from2
-result.To2 = to2
-result.Departure2 = departure2
-result.Arrival2 = arrival2
-result.Train2ID = train2ID
-result.Seat2 = seat2
-result.Price = price
-result.Km = km
-result.TicketID = strconv.FormatInt(id, 10)
-result.TicketPassw = passw
-
-query2 := "SELECT DATE FROM PURCHASES WHERE ID=" + strconv.FormatInt(id, 10)
-rows, err := db.Query(query2)
-if err != nil {
-	panic(err)
-}
-defer rows.Close()
-
-for rows.Next() {
-	err := rows.Scan(&d)
+func (this SQLConfig) MysqlCheckTicket(tickedID, passw string) bool {
+	query := "SELECT PASSW FROM PURCHASES WHERE ID="+tickedID
+	var password string
+	inf := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", this.username, this.password, this.host, this.port, this.db)
+	db, err := sql.Open("mysql", inf)
 	if err != nil {
 		panic(err)
 	}
-	result.Date = d[0:10]
-}*/
+	defer db.Close()
+
+	rows, err := db.Query(query)
+	if err != nil {
+		panic(err)
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		err := rows.Scan(&password)
+		if err != nil {
+			panic(err)
+		}
+		if password == passw {
+			return true
+		}
+	}
+	return false
+}
+
+func (this SQLConfig) MysqlSetTicketInformation(id string) Ticket {
+	var result Ticket
+	query := "SELECT * FROM PURCHASES WHERE ID= "+id
+	var firstname, lastname, date, from1, to1, departure1, arrival1, train1ID, seat1, from2, to2, departure2, arrival2, train2ID, seat2, price, km, ticketID, passw string
+	inf := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", this.username, this.password, this.host, this.port, this.db)
+	db, err := sql.Open("mysql", inf)
+	if err != nil {
+		panic(err)
+	}
+	defer db.Close()
+
+	rows, err := db.Query(query)
+	if err != nil {
+		panic(err)
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		err := rows.Scan(&ticketID, &firstname, &lastname, &from1, &to1, &departure1, &arrival1, &train1ID, &seat1, &from2, &to2, &departure2, &arrival2, &train2ID, &seat2, &price, &km, &passw, &date)
+		if err != nil {
+			panic(err)
+		}
+		result.Firstname = firstname
+		result.Lastname = lastname
+		result.Date = date[0:10]
+		result.From1 = from1
+		result.To1 = to1
+		result.Departure1 = departure1
+		result.Arrival1 = arrival1
+		result.Train1ID = train1ID
+		result.Seat1 = seat1
+		result.From2 = from2
+		result.To2 = to2
+		result.Departure2 = departure2
+		result.Arrival2 = arrival2
+		result.Train2ID = train2ID
+		result.Seat2 = seat2
+		result.Price = price
+		result.Km = km
+		result.TicketID = ticketID
+		result.TicketPassw = passw
+	}
+
+	return result
+}
