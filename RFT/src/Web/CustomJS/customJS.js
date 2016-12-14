@@ -1,8 +1,8 @@
 
   function security() {
       if (getCookie("username") == undefined) {
-        window.alert("Bö kéne jelentkezni, kurwa szuka bljat.");
-        window.location = "/TrainsAndTickets";
+        window.alert("Ezt a műveletet csak bejelentkezve lehet végrehajtani!\n                       Kérjük jelentkezzen be.");
+        window.location = "/Login";
       }
   }
 
