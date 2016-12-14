@@ -134,7 +134,7 @@ func CheckReservation(w http.ResponseWriter, r *http.Request) {
 																					r.FormValue("train1ID"), r.FormValue("from2"), r.FormValue("to2"),
 																					r.FormValue("departure2"), r.FormValue("arrival2"), r.FormValue("train2ID"),
 																					r.FormValue("price"), r.FormValue("km"), r.FormValue("seat1"),
-																					r.FormValue("seat2"))
+																					r.FormValue("seat2"), r.FormValue("selectedTrain"))
 		fmt.Println(data)
 	} else {
 		//TODO Matyi ird oda

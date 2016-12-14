@@ -35,8 +35,8 @@ func CheckReservation(wagonID, seat string) bool {
 	return result
 }
 
-func UpdateWagonReservation(wagonID, seat, from1, to1, departure1, arrival1, train1ID, from2, to2, departure2, arrival2, train2ID, price, km, seat1, seat2 string) Adapter.TrainType{
+func UpdateWagonReservation(wagonID, seat, from1, to1, departure1, arrival1, train1ID, from2, to2, departure2, arrival2, train2ID, price, km, seat1, seat2, selectedTrain string) Adapter.TrainType{
 	SQLAdapter := Adapter.SQLFactory(Settings.DBUSERNAME, Settings.DBPASSWORD, Settings.DBHOST, Settings.DBNAME, Settings.DBPORT)
-	result := SQLAdapter.MysqlUpdateWagonReservation(wagonID, seat, from1, to1, departure1, arrival1, train1ID, from2, to2, departure2, arrival2, train2ID, price, km, seat1, seat2)
+	result := SQLAdapter.MysqlUpdateWagonReservation(wagonID, seat, from1, to1, departure1, arrival1, train1ID, from2, to2, departure2, arrival2, train2ID, price, km, seat1, seat2, selectedTrain)
 	return result
 }

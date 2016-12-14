@@ -9,6 +9,7 @@ import (
 	"math/rand"
 	"strconv"
 	"time"
+	"strings"
 )
 
 type SQLConfig struct {
@@ -107,6 +108,7 @@ type Wagon struct {
 type WagonData struct {
 	Wagons []Wagon
 	Train  TrainType
+	SelectedTrain	string
 }
 
 type TrainType struct {
@@ -789,6 +791,7 @@ func (this SQLConfig) MysqlSeatReserve(id, from1, to1, departure1, arrival1, tra
 		}
 	}
 	result.Train = traintype
+	result.SelectedTrain = id
 	return result
 }
 
@@ -820,8 +823,11 @@ func (this SQLConfig) MysqlCheckReservation(wagonID, seat string) bool {
 	return false
 }
 
-func (this SQLConfig) MysqlUpdateWagonReservation(wagonID, seat, from1, to1, departure1, arrival1, train1ID, from2, to2, departure2, arrival2, train2ID, price, km, seat1, seat2 string) TrainType {
-	query := "UPDATE SEATS INNER JOIN WAGON_SEAT_CONNECTION ON SEATS.ID = SEATS_ID INNER JOIN WAGONS ON WAGONS.ID = WAGONS_ID SET SEATS.RESERVED=1 WHERE SEATS.NUMBER=" + seat + " AND WAGONS.ID = '" + wagonID + "'"
+func (this SQLConfig) MysqlUpdateWagonReservation(wagonID, seat, from1, to1, departure1, arrival1, train1ID, from2, to2, departure2, arrival2, train2ID, price, km, seat1, seat2, selectedTrain string) TrainType {
+	id := strings.Index(wagonID, " ")
+	wagonId := wagonID[0:id]
+
+	query := "UPDATE SEATS INNER JOIN WAGON_SEAT_CONNECTION ON SEATS.ID = SEATS_ID INNER JOIN WAGONS ON WAGONS.ID = WAGONS_ID SET SEATS.RESERVED=1 WHERE SEATS.NUMBER=" + seat + " AND WAGONS.ID = '" + wagonId + "'"
 	fmt.Println(query)
 	inf := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", this.username, this.password, this.host, this.port, this.db)
 	db, err := sql.Open("mysql", inf)
