@@ -61,7 +61,11 @@ td {
       document.write('</tr>');
       document.write('<tr>');
         document.write('<td align="right">Helyjegy</td>');
-        document.write('<td align="left">{{ .Seat1 }}</td>');
+        if ({{.Seat1}} == "0") {
+          document.write('<td align="left">Helyjegy nélküli járat.</td>');
+        } else {
+          document.write('<td align="left">{{ .Seat1 }}</td>');
+        }
       document.write('</tr>');
       document.write('<tr>');
         document.write('<td align="right">Távolság</td>');
@@ -123,9 +127,17 @@ td {
       document.write('</tr>');
       document.write('<tr>');
         document.write('<td align="right">Helyjegy</td>');
-        document.write('<td align="left">{{ .Seat1 }}</td>');
+        if ({{.Seat1}} == "0") {
+          document.write('<td align="left">Helyjegy nélküli járat.</td>');
+        } else {
+          document.write('<td align="left">{{ .Seat1 }}</td>');
+        }
         document.write('<td align="right">Helyjegy</td>');
-        document.write('<td align="left">{{ .Seat2 }}</td>');
+        if ({{.Seat2}} == "0") {
+          document.write('<td align="left">Helyjegy nélküli járat.</td>');
+        } else {
+          document.write('<td align="left">{{ .Seat2 }}</td>');
+        }
       document.write('</tr>');
       document.write('<tr>');
         document.write('<td align="right" colspan="2">Távolság</td>');
