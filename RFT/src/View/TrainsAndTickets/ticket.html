@@ -116,7 +116,7 @@
     document.write('<td>{{ .Train1ID }}</td>');
 
                       if ({{ .Type1 }} == true) {
-                        document.write("<td class='red'><a href='#' onClick=\"seatReserve('{{ .Train1ID }}')\">Hely választása</a></td>");
+                        document.write("<td class='red'><a href='#' onClick=\"seatReserve('{{ .From1 }}','{{ .To1 }}','0','0','{{ .Departure1 }}','{{ .Arrival1 }}','0','0','{{ .Train1ID }}','0','{{ .Price }}','{{ .Km }}','{{ .Train1ID }}')\">Hely választása</a></td>");
                       } else {
                         document.write("<td>Nem kell váltani</td>");
                       }
@@ -172,7 +172,7 @@
                     document.write('<td>{{ .Train1ID }}</td>');
 
                       if ({{ .Type1 }} == true) {
-                        document.write("<td class='red'><a href='#' onClick=\"seatReserve('{{ .Train1ID }}')\">Hely választása</a></td>");
+                        document.write("<td class='red'><a href='#' onClick=\"seatReserve('{{ .From1 }}','{{ .To1 }}','{{ .From2 }}','{{ .To2 }}','{{ .Departure1 }}','{{ .Arrival1 }}','{{ .Departure2 }}','{{ .Arrival2 }}','{{ .Train1ID }}','{{ .Train2ID }}','{{ .Price }}','{{ .Km }}','{{ .Train1ID }}')\">Hely választása</a></td>");
                       } else {
                         document.write("<td>Nem kell váltani</td>");
                       }
@@ -198,7 +198,7 @@
                     document.write('<td>{{ .Train2ID }}</td>');
 
                       if ({{ .Type2 }} == true) {
-                        document.write("<td class='red'><a href='#' onClick=\"seatReserve('{{ .Train2ID }}')\">Hely választása</a></td>");
+                        document.write("<td class='red'><a href='#' onClick=\"seatReserve('{{ .From1 }}','{{ .To1 }}','{{ .From2 }}','{{ .To2 }}','{{ .Departure1 }}','{{ .Arrival1 }}','{{ .Departure2 }}','{{ .Arrival2 }}','{{ .Train1ID }}','{{ .Train2ID }}','{{ .Price }}','{{ .Km }}','{{ .Train2ID }}')\">Hely választása</a></td>");
                       } else {
                         document.write("<td>Nem kell váltani</td>");
                       }

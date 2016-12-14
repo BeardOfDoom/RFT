@@ -27,16 +27,88 @@
     form4.submit();
   }
 
-  function seatReserve(trainID) {
+  function seatReserve(from1, to1, from2, to2, departure1, arrival1, departure2, arrival2, train1ID, train2ID, price, km, trainID) {
     var form3 = document.createElement("form");
     form3.setAttribute("method", "post");
     form3.setAttribute("action", "/SeatReserve");
 
     var hiddenField1 = document.createElement("input");
     hiddenField1.setAttribute("type", "hidden");
-    hiddenField1.setAttribute("name", "trainID");
-    hiddenField1.setAttribute("value", trainID);
+    hiddenField1.setAttribute("name", "from1");
+    hiddenField1.setAttribute("value", from1);
     form3.appendChild(hiddenField1);
+
+    var hiddenField2 = document.createElement("input");
+    hiddenField2.setAttribute("type", "hidden");
+    hiddenField2.setAttribute("name", "to1");
+    hiddenField2.setAttribute("value", to1);
+    form3.appendChild(hiddenField2);
+
+    var hiddenField3 = document.createElement("input");
+    hiddenField3.setAttribute("type", "hidden");
+    hiddenField3.setAttribute("name", "from2");
+    hiddenField3.setAttribute("value", from2);
+    form3.appendChild(hiddenField3);
+
+    var hiddenField4 = document.createElement("input");
+    hiddenField4.setAttribute("type", "hidden");
+    hiddenField4.setAttribute("name", "to2");
+    hiddenField4.setAttribute("value", to2);
+    form3.appendChild(hiddenField4);
+
+    var hiddenField5 = document.createElement("input");
+    hiddenField5.setAttribute("type", "hidden");
+    hiddenField5.setAttribute("name", "departure1");
+    hiddenField5.setAttribute("value", departure1);
+    form3.appendChild(hiddenField5);
+
+    var hiddenField6 = document.createElement("input");
+    hiddenField6.setAttribute("type", "hidden");
+    hiddenField6.setAttribute("name", "arrival1");
+    hiddenField6.setAttribute("value", arrival1);
+    form3.appendChild(hiddenField6);
+
+    var hiddenField7 = document.createElement("input");
+    hiddenField7.setAttribute("type", "hidden");
+    hiddenField7.setAttribute("name", "departure2");
+    hiddenField7.setAttribute("value", departure2);
+    form3.appendChild(hiddenField7);
+
+    var hiddenField8 = document.createElement("input");
+    hiddenField8.setAttribute("type", "hidden");
+    hiddenField8.setAttribute("name", "arrival2");
+    hiddenField8.setAttribute("value", arrival2);
+    form3.appendChild(hiddenField8);
+
+    var hiddenField9 = document.createElement("input");
+    hiddenField9.setAttribute("type", "hidden");
+    hiddenField9.setAttribute("name", "train1ID");
+    hiddenField9.setAttribute("value", train1ID);
+    form3.appendChild(hiddenField9);
+
+    var hiddenField10 = document.createElement("input");
+    hiddenField10.setAttribute("type", "hidden");
+    hiddenField10.setAttribute("name", "train2ID");
+    hiddenField10.setAttribute("value", train2ID);
+    form3.appendChild(hiddenField10);
+
+    var hiddenField11 = document.createElement("input");
+    hiddenField11.setAttribute("type", "hidden");
+    hiddenField11.setAttribute("name", "price");
+    hiddenField11.setAttribute("value", price);
+    form3.appendChild(hiddenField11);
+
+    var hiddenField12 = document.createElement("input");
+    hiddenField12.setAttribute("type", "hidden");
+    hiddenField12.setAttribute("name", "km");
+    hiddenField12.setAttribute("value", km);
+    form3.appendChild(hiddenField12);
+
+    var hiddenField13 = document.createElement("input");
+    hiddenField13.setAttribute("type", "hidden");
+    hiddenField13.setAttribute("name", "trainID");
+    hiddenField13.setAttribute("value", trainID);
+    form3.appendChild(hiddenField13);
 
     document.body.appendChild(form3);
     form3.submit();
