@@ -870,7 +870,11 @@ func (this SQLConfig) MysqlUpdateWagonReservation(wagonID, seat, from1, to1, dep
 	result.Departure1 = departure1
 	result.Arrival1 = arrival1
 	result.Train1ID = train1ID
-	result.SeatNumber1 = seat1
+	if selectedTrain == train1ID {
+		result.SeatNumber1 = wagonId + " / " + seat
+	} else {
+		result.SeatNumber1 = seat1
+	}
 	result.Price = price
 	result.Km = km
 
@@ -879,7 +883,11 @@ func (this SQLConfig) MysqlUpdateWagonReservation(wagonID, seat, from1, to1, dep
 	result.Departure2 = departure2
 	result.Arrival2 = arrival2
 	result.Train2ID = train2ID
-	result.SeatNumber2 = seat2
+	if selectedTrain == train2ID {
+		result.SeatNumber2 = wagonId + " / " + seat
+	} else {
+		result.SeatNumber2 = seat2
+	}
 	if from2 == "0" {
 		result.Type2 = false
 	} else {

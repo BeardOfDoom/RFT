@@ -136,6 +136,8 @@ func CheckReservation(w http.ResponseWriter, r *http.Request) {
 																					r.FormValue("price"), r.FormValue("km"), r.FormValue("seat1"),
 																					r.FormValue("seat2"), r.FormValue("selectedTrain"))
 		fmt.Println(data)
+		t, _ := template.ParseFiles("View/TrainsAndTickets/ticket.html", "View/Layout/main.html")
+		t.ExecuteTemplate(w, "layout", data)
 	} else {
 		//TODO Matyi ird oda
 		/*t, _ := template.ParseFiles("View/TrainsAndTickets/reservation.html", "View/Layout/main.html")
