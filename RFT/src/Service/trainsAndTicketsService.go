@@ -40,3 +40,9 @@ func UpdateWagonReservation(wagonID, seat, from1, to1, departure1, arrival1, tra
 	result := SQLAdapter.MysqlUpdateWagonReservation(wagonID, seat, from1, to1, departure1, arrival1, train1ID, from2, to2, departure2, arrival2, train2ID, price, km, seat1, seat2, selectedTrain)
 	return result
 }
+
+func BuyTicket(firstname, lastname ,from1, to1, departure1, arrival1, train1ID, seat1, from2, to2, departure2, arrival2, train2ID, seat2, price, km string) Adapter.Ticket {
+	SQLAdapter := Adapter.SQLFactory(Settings.DBUSERNAME, Settings.DBPASSWORD, Settings.DBHOST, Settings.DBNAME, Settings.DBPORT)
+	result := SQLAdapter.MysqlBuyTicket(firstname, lastname, from1, to1, departure1, arrival1, train1ID, seat1, from2, to2, departure2, arrival2, train2ID, seat2, price, km)
+	return result
+}
