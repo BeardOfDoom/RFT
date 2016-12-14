@@ -1,0 +1,99 @@
+{{define "content"}}
+<style>
+body {
+background: url(Web/Images/TrainsAndTickets/ticketInfo.jpg) no-repeat center center fixed;
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
+}
+
+td {
+  padding: 10;
+  font-family: 'Open Sans', sans-serif;
+  color: white;
+  font-size: 16px;
+}
+
+td.title {
+  font-size: 24px;
+}
+
+table {
+  background-color: rgba(0, 0, 0, 0.8);
+  margin-top: 10%;
+}
+
+input[type="submit"]:hover{
+box-shadow: 0 0 2em #fff;
+-webkit-box-shadow: 0 0 2em #fff;
+-o-box-shadow: 0 0 2em #fff;
+-moz-box-shadow: 0 0 2em #fff;
+}
+
+input[type="submit"]{
+	float:right;
+	font-size:18px;
+	display: inline-block;
+	font-weight:600;
+	transition: 0.1s all;
+	-webkit-transition: 0.1s all;
+	-moz-transition: 0.1s all;
+	-o-transition: 0.1s all;
+	cursor: pointer;
+	outline: none;
+	font-family: 'Open Sans', sans-serif;
+	width:40%;
+	border:none;
+	border-radius: 0.3em;
+	-webkit-border-radius: 0.3em;
+	-o-	border-radius: 0.3em;
+	-moz-border-radius: 0.3em;
+	background-color: rgba(0,0,0,0.9);
+  height: 34px;
+}
+
+input[type="text"], input[type="password"] {
+	font-family: 'Open Sans', sans-serif;
+	width:90%;
+	padding:0.7em 2em 0.7em 1.7em;
+	color:rgb(0,0,0);
+	font-size:18px;
+	outline: none;
+	background: none;
+	border:none;
+	font-weight:600;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+</style>
+<form name="form1" method="post" id="tiForm" action="">
+<table align="center">
+  <tr>
+    <td colspan="2" align="center" class="title">Kérem adja meg a jegyéről az alábbi információkat</td>
+  </tr>
+  <tr>
+    <td align="right">Jegy vásárlásakor kapott azonosító</td>
+    <td><input type="text" id="id" required pattern="[1-9][0-9]*" /></td>
+  </tr>
+  <tr>
+    <td align="right">Jegy vásárlásakor kapott jelszó</td>
+    <td><input type="password" id="pass" required pattern="[a-zA-Z]{10}" /></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="right">
+      <input type="submit" class="submit" value="Információk lekérése"/>
+    </td>
+  </tr>
+</table>
+</form>
+
+<script>
+$("#tiForm").on("submit", function(){
+   var id = document.getElementById('id').value;
+   var pass = document.getElementById('pass').value;
+   var link = "/TicketInformation?jegyAzonosito=" + id + "&amp;jelszo=" + pass;
+   $('#tiForm').attr('action', link).submit();
+ })
+</script>
+{{end}}

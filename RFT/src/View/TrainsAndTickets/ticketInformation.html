@@ -1,0 +1,142 @@
+{{define "content"}}
+<style>
+body {
+background: url(Web/Images/TrainsAndTickets/ticketInfo.jpg) no-repeat center center fixed;
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
+}
+
+table {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+td {
+  padding: 10;
+}
+</style>
+
+<script>
+  var jegyDB;
+  if ({{ .From2 }} == "-1") {
+    jegyDB = 1;
+  } else {
+    jegyDB = 2;
+  }
+
+  if (jegyDB == 1) {
+    document.write('<table border="2" align="center">');
+      document.write('<tr>');
+        document.write('<td colspan="2"><b>Információk a(z) {{ .TicketID }} azonosítójú jegyvásárlásról</b></td>');
+      document.write('</tr>');
+      document.write('<tr>');
+        document.write('<td align="right">Vásárló neve</td>');
+        document.write('<td align="left">{{ .Lastname }} {{ .Firstname }}</td>');
+      document.write('</tr>');
+      document.write('<tr>');
+        document.write('<td align="right">Honnan</td>');
+        document.write('<td align="left">{{ .From1 }}</td>');
+      document.write('</tr>');
+      document.write('<tr>');
+        document.write('<td align="right">Hova</td>');
+        document.write('<td align="left">{{ .To1 }}</td>');
+      document.write('</tr>');
+      document.write('<tr>');
+        document.write('<td align="right">Dátum</td>');
+        document.write('<td align="left">{{ .Date }}</td>');
+      document.write('</tr>');
+      document.write('<tr>');
+        document.write('<td align="right">Átszállás</td>');
+        document.write('<td align="left">-</td>');
+      document.write('</tr>');
+      document.write('<tr>');
+        document.write('<td align="right">Indulás / Érkezés</td>');
+        document.write('<td align="left">{{ .Departure1 }} / {{ .Arrival1 }}</td>');
+      document.write('</tr>');
+      document.write('<tr>');
+        document.write('<td align="right">Vonat</td>');
+        document.write('<td align="left">{{ .Train1ID }}</td>');
+      document.write('</tr>');
+      document.write('<tr>');
+        document.write('<td align="right">Helyjegy</td>');
+        document.write('<td align="left">{{ .Seat1 }}</td>');
+      document.write('</tr>');
+      document.write('<tr>');
+        document.write('<td align="right">Távolság</td>');
+        document.write('<td align="left">{{ .Km }} km</td>');
+      document.write('</tr>');
+      document.write('<tr>');
+        document.write('<td align="right">Ár</td>');
+        document.write('<td align="left">{{ .Price }} Ft</td>');
+      document.write('</tr>');
+    document.write('</table>');
+  } else {
+    document.write('<table border="2" align="center">');
+      document.write('<tr>');
+        document.write('<td colspan="4" align="center"><b>Információk a(z) {{ .TicketID }} azonosítójú jegyvásárlásról</b></td>');
+      document.write('</tr>');
+      document.write('<tr>');
+        document.write('<td colspan="2" align="right">Vásárló neve</td>');
+        document.write('<td colspan="2" align="left">{{ .Lastname }} {{ .Firstname }}</td>');
+      document.write('</tr>');
+      document.write('<tr>');
+        document.write('<td colspan="2" align="right">Honnan -> Hova</td>');
+        document.write('<td colspan="2" align="left">{{ .From1 }} -> {{ .To2 }}</td>');
+      document.write('</tr>');
+      document.write('<tr>');
+        document.write('<td colspan="2" align="right">Dátum</td>');
+        document.write('<td colspan="2" align="left">{{ .Date }}</td>');
+      document.write('</tr>');
+      document.write('<tr>');
+        document.write('<td colspan="2" align="right">Átszállás</td>');
+        document.write('<td colspan="2" align="left">1</td>');
+      document.write('</tr>');
+      document.write('<tr>');
+        document.write('<td colspan="2" align="center"><b>Jegy az első vonatra</b></td>');
+        document.write('<td colspan="2" align="center"><b>Jegy a második vonatra</b></td>');
+      document.write('</tr>');
+      document.write('<tr>');
+        document.write('<td align="right">Honnan</td>');
+        document.write('<td align="left">{{ .From1 }}</td>');
+        document.write('<td align="right">Honnan</td>');
+        document.write('<td align="left">{{ .From2 }}</td>');
+      document.write('</tr>');
+      document.write('<tr>');
+        document.write('<td align="right">Hova</td>');
+        document.write('<td align="left" align="left">{{ .To1 }}</td>');
+        document.write('<td align="right">Hova</td>');
+        document.write('<td align="left" align="left">{{ .To2 }}</td>');
+      document.write('</tr>');
+      document.write('<tr>');
+        document.write('<td align="right">Indulás / Érkezés</td>');
+        document.write('<td align="left">{{ .Departure1 }} / {{ .Arrival1 }}</td>');
+        document.write('<td align="right">Indulás / Érkezés</td>');
+        document.write('<td align="left">{{ .Departure2 }} / {{ .Arrival2 }}</td>');
+      document.write('</tr>');
+      document.write('<tr>');
+        document.write('<td align="right">Vonat</td>');
+        document.write('<td align="left">{{ .Train1ID }}</td>');
+        document.write('<td align="right">Vonat</td>');
+        document.write('<td align="left">{{ .Train2ID }}</td>');
+      document.write('</tr>');
+      document.write('<tr>');
+        document.write('<td align="right">Helyjegy</td>');
+        document.write('<td align="left">{{ .Seat1 }}</td>');
+        document.write('<td align="right">Helyjegy</td>');
+        document.write('<td align="left">{{ .Seat2 }}</td>');
+      document.write('</tr>');
+      document.write('<tr>');
+        document.write('<td align="right" colspan="2">Távolság</td>');
+        document.write('<td align="left" colspan="2">{{ .Km }} km</td>');
+      document.write('</tr>');
+      document.write('<tr>');
+        document.write('<td align="right" colspan="2">Ár</td>');
+        document.write('<td align="left" colspan="2">{{ .Price }} Ft</td>');
+      document.write('</tr>');
+    document.write('</table>');
+  }
+</script>
+
+{{end}}

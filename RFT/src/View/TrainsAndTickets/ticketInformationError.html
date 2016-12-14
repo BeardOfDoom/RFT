@@ -1,0 +1,48 @@
+{{define "content"}}
+<style>
+    body {
+    background: url(Web/Images/TrainsAndTickets/ticketInfo.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    }
+
+   text {
+     font-family: 'Open Sans', sans-serif;
+   	 color:rgb(255,255,255);
+   	 font-size:28px;
+   	 outline: none;
+   	 font-weight:600;
+     border:none;
+     text-shadow: 0 0 0.2em #000, 0 0 0.2em #000;
+   }
+
+   a.tt, a.tt:active, a.tt:visited {
+     color:rgb(0, 0, 0);
+     border:none;
+     text-shadow: 0 0 0.2em #fff, 0 0 0.2em #fff;
+   }
+
+   a.tt:hover {
+     text-decoration: none;
+     text-shadow: 0 0 0.2em #737776, 0 0 0.2em #737776;
+   }
+
+   table {
+     margin-top: 15%;
+   }
+   </style>
+   <table align="center">
+     <tr align="center">
+       <td>
+         <text>Sajnáljuk, vagy rosszul adott meg egy információt, vagy nem létezik ilyen jegy.</text>
+       </td>
+     </tr>
+     <tr align="center">
+       <td>
+         <text><a href="javascript:history.back()" class="tt">Ide</a> kattintva megpróbálhatja újra, vagy olvassa be ismét a QR kódot.</text>
+       </td>
+     </tr>
+   </table>
+{{end}}

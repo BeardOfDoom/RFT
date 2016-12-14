@@ -186,4 +186,21 @@ func BuyTicket(w http.ResponseWriter, r *http.Request) {
 }
 
 func TicketInformation(w http.ResponseWriter, r *http.Request) {
+	if (r.URL.Query().Get("jegyAzonosito") != "" && r.URL.Query().Get("jelszo") != "") {
+		//TODO: query hogy jok-e a dolgok
+
+		//IF HA IGEN akkor lekerjuk a foglalasrol az infokat es adjuk a frontendnek
+		if true {
+			data := ""
+			t, _ := template.ParseFiles("View/TrainsAndTickets/ticketInformation.html", "View/Layout/main.html")
+			t.ExecuteTemplate(w, "layout", data)
+		} else {
+			t, _ := template.ParseFiles("View/TrainsAndTickets/ticketInformationError.html", "View/Layout/main.html")
+			t.ExecuteTemplate(w, "layout", "")
+		}
+
+	} else {
+		t, _ := template.ParseFiles("View/TrainsAndTickets/getTicketInformation.html", "View/Layout/main.html")
+		t.ExecuteTemplate(w, "layout", "")
+	}
 }
