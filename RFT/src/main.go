@@ -29,6 +29,7 @@ func main() {
 	http.HandleFunc("/BuyTicket1", Handler.GetTrainType)
 	http.HandleFunc("/SeatReserve", Handler.SeatReserve)
 	http.HandleFunc("/CheckReservation", Handler.CheckReservation)
+	http.HandleFunc("/BuyTicket", Handler.BuyTicket)
 	http.HandleFunc("/GenerateQRCode", QRCode.GenerateQR)
 	http.ListenAndServe(":8000", nil)
 }

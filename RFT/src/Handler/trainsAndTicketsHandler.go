@@ -144,3 +144,40 @@ func CheckReservation(w http.ResponseWriter, r *http.Request) {
 	}
 
 }
+
+func BuyTicket(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+
+	fmt.Println("\n\nVásárló neve: " + r.FormValue("lastname") + " " + r.FormValue("firstname"))
+	if (r.FormValue("from2") == "-1") { //HA CSAK EGY JEGY VAN
+		fmt.Println("Honnan: " + r.FormValue("from1"))
+		fmt.Println("Hova: " + r.FormValue("to1"))
+	} else {
+		fmt.Println("Honnan: " + r.FormValue("from1"))
+		fmt.Println("Hova: " + r.FormValue("to2"))
+	}
+	fmt.Println("Ár: " + r.FormValue("price") + " Ft")
+	fmt.Println("Távolság: " + r.FormValue("km") + " km")
+
+	fmt.Println("\nTicket 1")
+	fmt.Println("----------------------------------------")
+	fmt.Println("Honnan: " + r.FormValue("from1"))
+	fmt.Println("Hova: " + r.FormValue("to1"))
+	fmt.Println("Indulás: " + r.FormValue("departure1"))
+	fmt.Println("Érkezés: " + r.FormValue("arrival1"))
+	fmt.Println("Vonat: " + r.FormValue("train1ID"))
+	fmt.Println("Helyjegy: " + r.FormValue("seat1")) //seat1 = 0, ha nem kell Helyjegy különben pl. vagon18 / 13
+	fmt.Println("----------------------------------------")
+
+	if (r.FormValue("from2") != "-1") {//HA VAN MASODIK JEGY (VONAT) IS
+		fmt.Println("\n\nTicket 2")
+		fmt.Println("----------------------------------------")
+		fmt.Println("Honnan: " + r.FormValue("from2"))
+		fmt.Println("Hova: " + r.FormValue("to2"))
+		fmt.Println("Indulás: " + r.FormValue("departure2"))
+		fmt.Println("Érkezés: " + r.FormValue("arrival2"))
+		fmt.Println("Vonat: " + r.FormValue("train2ID"))
+		fmt.Println("Helyjegy: " + r.FormValue("seat2")) //seat2 = 0, ha nem kell Helyjegy különben pl. vagon18 / 13
+		fmt.Println("----------------------------------------")
+	}
+}
