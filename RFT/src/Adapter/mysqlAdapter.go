@@ -734,7 +734,6 @@ func (this SQLConfig) MysqlSeatReserve(id, from1, to1, departure1, arrival1, tra
 	var d string
 	var traintype TrainType
 
-	fmt.Println(query1)
 	rows1, err := db.Query(query1)
 	if err != nil {
 		panic(err)
@@ -821,8 +820,9 @@ func (this SQLConfig) MysqlCheckReservation(wagonID, seat string) bool {
 	return false
 }
 
-func (this SQLConfig) MysqlUpdateWagonReservation(wagonID, seat string) {
+func (this SQLConfig) MysqlUpdateWagonReservation(wagonID, seat, from1, to1, departure1, arrival1, train1ID, from2, to2, departure2, arrival2, train2ID, price, km, seat1, seat2 string) TrainType {
 	query := "UPDATE SEATS INNER JOIN WAGON_SEAT_CONNECTION ON SEATS.ID = SEATS_ID INNER JOIN WAGONS ON WAGONS.ID = WAGONS_ID SET SEATS.RESERVED=1 WHERE SEATS.NUMBER=" + seat + " AND WAGONS.ID = '" + wagonID + "'"
+	fmt.Println(query)
 	inf := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", this.username, this.password, this.host, this.port, this.db)
 	db, err := sql.Open("mysql", inf)
 	if err != nil {
@@ -835,4 +835,65 @@ func (this SQLConfig) MysqlUpdateWagonReservation(wagonID, seat string) {
 	if err != nil {
 		panic(err)
 	}
+
+	query1 := "SELECT TYPE FROM TRAINS WHERE ID = " + train1ID
+	query2 := "SELECT TYPE FROM TRAINS WHERE ID = " + train2ID
+	var d string
+	var result TrainType
+
+	rows, err := db.Query(query1)
+	if err != nil {
+		panic(err)
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		err := rows.Scan(&d)
+		if err != nil {
+			panic(err)
+		}
+		if d == "IC" {
+			result.Type1 = true
+		} else {
+			result.Type1 = false
+		}
+	}
+
+	result.From1 = from1
+	result.To1 = to1
+	result.Departure1 = departure1
+	result.Arrival1 = arrival1
+	result.Train1ID = train1ID
+	result.SeatNumber1 = seat1
+	result.Price = price
+	result.Km = km
+
+	result.From2 = from2
+	result.To2 = to2
+	result.Departure2 = departure2
+	result.Arrival2 = arrival2
+	result.Train2ID = train2ID
+	result.SeatNumber2 = seat2
+	if from2 == "0" {
+		result.Type2 = false
+	} else {
+		rows, err := db.Query(query2)
+		if err != nil {
+			panic(err)
+		}
+		defer rows.Close()
+
+		for rows.Next() {
+			err := rows.Scan(&d)
+			if err != nil {
+				panic(err)
+			}
+			if d == "IC" {
+				result.Type2 = true
+			} else {
+				result.Type2 = false
+			}
+		}
+	}
+	return result
 }
