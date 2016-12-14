@@ -8,8 +8,8 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"math/rand"
 	"strconv"
-	"time"
 	"strings"
+	"time"
 )
 
 type SQLConfig struct {
@@ -106,9 +106,9 @@ type Wagon struct {
 }
 
 type WagonData struct {
-	Wagons []Wagon
-	Train  TrainType
-	SelectedTrain	string
+	Wagons        []Wagon
+	Train         TrainType
+	SelectedTrain string
 }
 
 type TrainType struct {
