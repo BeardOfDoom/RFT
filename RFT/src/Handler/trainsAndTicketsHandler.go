@@ -147,7 +147,8 @@ func CheckReservation(w http.ResponseWriter, r *http.Request) {
 
 func BuyTicket(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
-
+//TODO: generalni a jegynek egyedi azonositot, es egy pl 10 karakteres jelszot (pl. 34Bbdsfv4f)
+//majd berakni a tablaba
 	fmt.Println("\n\nVásárló neve: " + r.FormValue("lastname") + " " + r.FormValue("firstname"))
 	if (r.FormValue("from2") == "-1") { //HA CSAK EGY JEGY VAN
 		fmt.Println("Honnan: " + r.FormValue("from1"))
@@ -180,4 +181,9 @@ func BuyTicket(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("Helyjegy: " + r.FormValue("seat2")) //seat2 = 0, ha nem kell Helyjegy különben pl. vagon18 / 13
 		fmt.Println("----------------------------------------")
 	}
+
+	//TODO: kosz a vasarlast, itt a vasarlasi azon., jelszo es qr
+}
+
+func TicketInformation(w http.ResponseWriter, r *http.Request) {
 }
