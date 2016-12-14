@@ -111,8 +111,7 @@ func GetTrainType(w http.ResponseWriter, r *http.Request) {
 
 func SeatReserve(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
-	fmt.Println(r.FormValue("seat1"))
-	fmt.Println(r.FormValue("seat2"))
+
 	result := Service.SeatReserve(r.FormValue("trainID"), r.FormValue("from1"), r.FormValue("to1"),
 		r.FormValue("departure1"), r.FormValue("arrival1"), r.FormValue("train1ID"),
 		r.FormValue("from2"), r.FormValue("to2"), r.FormValue("departure2"),
@@ -127,7 +126,7 @@ func CheckReservation(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	result := Service.CheckReservation(r.FormValue("wagonID"), r.FormValue("seat"))
-	fmt.Println(result)
+
 	if !result {
 		data := Service.UpdateWagonReservation(r.FormValue("wagonID"), r.FormValue("seat"), r.FormValue("from1"),
 			r.FormValue("to1"), r.FormValue("departure1"), r.FormValue("arrival1"),
@@ -135,7 +134,7 @@ func CheckReservation(w http.ResponseWriter, r *http.Request) {
 			r.FormValue("departure2"), r.FormValue("arrival2"), r.FormValue("train2ID"),
 			r.FormValue("price"), r.FormValue("km"), r.FormValue("seat1"),
 			r.FormValue("seat2"), r.FormValue("selectedTrain"))
-		fmt.Println(data)
+
 		t, _ := template.ParseFiles("View/TrainsAndTickets/ticket.html", "View/Layout/main.html")
 		t.ExecuteTemplate(w, "layout", data)
 	} else {
@@ -147,42 +146,17 @@ func CheckReservation(w http.ResponseWriter, r *http.Request) {
 
 func BuyTicket(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
-//TODO: generalni a jegynek egyedi azonositot, es egy pl 10 karakteres jelszot (pl. 34Bbdsfv4f)
-//majd berakni a tablaba
-	fmt.Println("\n\nVásárló neve: " + r.FormValue("lastname") + " " + r.FormValue("firstname"))
-	if (r.FormValue("from2") == "-1") { //HA CSAK EGY JEGY VAN
-		fmt.Println("Honnan: " + r.FormValue("from1"))
-		fmt.Println("Hova: " + r.FormValue("to1"))
-	} else {
-		fmt.Println("Honnan: " + r.FormValue("from1"))
-		fmt.Println("Hova: " + r.FormValue("to2"))
-	}
-	fmt.Println("Ár: " + r.FormValue("price") + " Ft")
-	fmt.Println("Távolság: " + r.FormValue("km") + " km")
 
-	fmt.Println("\nTicket 1")
-	fmt.Println("----------------------------------------")
-	fmt.Println("Honnan: " + r.FormValue("from1"))
-	fmt.Println("Hova: " + r.FormValue("to1"))
-	fmt.Println("Indulás: " + r.FormValue("departure1"))
-	fmt.Println("Érkezés: " + r.FormValue("arrival1"))
-	fmt.Println("Vonat: " + r.FormValue("train1ID"))
-	fmt.Println("Helyjegy: " + r.FormValue("seat1")) //seat1 = 0, ha nem kell Helyjegy különben pl. vagon18 / 13
-	fmt.Println("----------------------------------------")
-
-	if (r.FormValue("from2") != "-1") {//HA VAN MASODIK JEGY (VONAT) IS
-		fmt.Println("\n\nTicket 2")
-		fmt.Println("----------------------------------------")
-		fmt.Println("Honnan: " + r.FormValue("from2"))
-		fmt.Println("Hova: " + r.FormValue("to2"))
-		fmt.Println("Indulás: " + r.FormValue("departure2"))
-		fmt.Println("Érkezés: " + r.FormValue("arrival2"))
-		fmt.Println("Vonat: " + r.FormValue("train2ID"))
-		fmt.Println("Helyjegy: " + r.FormValue("seat2")) //seat2 = 0, ha nem kell Helyjegy különben pl. vagon18 / 13
-		fmt.Println("----------------------------------------")
-	}
-
+	result := Service.BuyTicket(r.FormValue("firstname"), r.FormValue("lastname"), r.FormValue("from1"),
+												r.FormValue("to1"), r.FormValue("departure1"), r.FormValue("arrival1"),
+												r.FormValue("train1ID"), r.FormValue("seat1"), r.FormValue("from2"),
+												r.FormValue("to2"), r.FormValue("departure2"), r.FormValue("arrival2"),
+												r.FormValue("train2ID"), r.FormValue("seat2"), r.FormValue("price"),
+												r.FormValue("km"))
+											
 	//TODO: kosz a vasarlast, itt a vasarlasi azon., jelszo es qr
+	//t, _ := template.ParseFiles("View/TrainsAndTickets/.html", "View/Layout/main.html")
+	//t.ExecuteTemplate(w, "layout", result)
 }
 
 func TicketInformation(w http.ResponseWriter, r *http.Request) {

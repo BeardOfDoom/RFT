@@ -130,6 +130,33 @@ type TrainType struct {
 	Km          string
 }
 
+type Ticket struct {
+	Firstname		string
+	Lastname		string
+	Date				string
+	From1				string
+	To1					string
+	Departure1	string
+	Arrival1		string
+	Train1ID		string
+	Seat1				string
+	From2				string
+	To2					string
+	Departure2	string
+	Arrival2		string
+	Train2ID		string
+	Seat2				string
+	TicketID		string
+	TicketPassw	string
+	Price				string
+	Km					string
+}
+
+type PurchaseInfo struct {
+	TicketID		string
+	TicketPassw	string
+}
+
 func SQLFactory(username, password, host, db string, port int) SQLConfig {
 	return SQLConfig{username, password, host, port, db}
 }
@@ -828,7 +855,6 @@ func (this SQLConfig) MysqlUpdateWagonReservation(wagonID, seat, from1, to1, dep
 	wagonId := wagonID[0:id]
 
 	query := "UPDATE SEATS INNER JOIN WAGON_SEAT_CONNECTION ON SEATS.ID = SEATS_ID INNER JOIN WAGONS ON WAGONS.ID = WAGONS_ID SET SEATS.RESERVED=1 WHERE SEATS.NUMBER=" + seat + " AND WAGONS.ID = '" + wagonId + "'"
-	fmt.Println(query)
 	inf := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", this.username, this.password, this.host, this.port, this.db)
 	db, err := sql.Open("mysql", inf)
 	if err != nil {
@@ -911,3 +937,64 @@ func (this SQLConfig) MysqlUpdateWagonReservation(wagonID, seat, from1, to1, dep
 	}
 	return result
 }
+
+func (this SQLConfig) MysqlBuyTicket(firstname, lastname, from1, to1, departure1, arrival1, train1ID, seat1, from2, to2, departure2, arrival2, train2ID, seat2, price, km string) PurchaseInfo {
+	fmt.Println(seat1)
+	var result PurchaseInfo
+	passw := generateSalt()
+	query1 := "INSERT INTO PURCHASES (FIRSTNAME, LASTNAME, FROM1, TO1, DEPARTURE1, ARRIVAL1, TRAIN1_ID, SEAT1, FROM2, TO2, DEPARTURE2, ARRIVAL2, TRAIN2_ID, SEAT2, PRICE, KM, PASSW) VALUES ('"+ firstname +"', '"+ lastname +"', '"+ from1 +"', '"+ to1 +"', '"+ departure1 +"', '"+ arrival1 +"', '"+ train1ID +"', '"+ seat1 +"', '"+ from2 +"', '"+ to2 +"', '"+ departure2 +"', '"+ arrival2 +"', '"+ train2ID +"', '"+ seat2 +"', '"+ price +"', '"+ km +"', '"+passw+"')"
+
+
+	inf := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", this.username, this.password, this.host, this.port, this.db)
+	db, err := sql.Open("mysql", inf)
+	if err != nil {
+		panic(err)
+	}
+	defer db.Close()
+
+	res, err := db.Exec(query1)
+	id, err := res.LastInsertId()
+
+	if err != nil {
+		panic(err)
+	}
+
+	result.TicketID = strconv.FormatInt(id, 10)
+	result.TicketPassw = passw
+	return result
+}
+
+
+/*result.Firstname = firstname
+result.Lastname = lastname
+result.From1 = from1
+result.To1 = to1
+result.Departure1 = departure1
+result.Arrival1 = arrival1
+result.Train1ID = train1ID
+result.Seat1 = seat1
+result.From2 = from2
+result.To2 = to2
+result.Departure2 = departure2
+result.Arrival2 = arrival2
+result.Train2ID = train2ID
+result.Seat2 = seat2
+result.Price = price
+result.Km = km
+result.TicketID = strconv.FormatInt(id, 10)
+result.TicketPassw = passw
+
+query2 := "SELECT DATE FROM PURCHASES WHERE ID=" + strconv.FormatInt(id, 10)
+rows, err := db.Query(query2)
+if err != nil {
+	panic(err)
+}
+defer rows.Close()
+
+for rows.Next() {
+	err := rows.Scan(&d)
+	if err != nil {
+		panic(err)
+	}
+	result.Date = d[0:10]
+}*/
