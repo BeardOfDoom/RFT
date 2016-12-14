@@ -159,7 +159,7 @@ fmt.Println(result)
 	//TODO: kosz a vasarlast, itt a vasarlasi azon., jelszo es qr
 	//t, _ := template.ParseFiles("View/TrainsAndTickets/.html", "View/Layout/main.html")
 	//t.ExecuteTemplate(w, "layout", result)
-
+//TODO:fgv megkapja a resultot, es adja hozza a QR-t
 	var QR []byte
 	QR = QRCode.GenerateQR("8", "pASsWorD")
 	fmt.Println(QR)
