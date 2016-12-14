@@ -152,6 +152,11 @@ type Ticket struct {
 	Km					string
 }
 
+type PurchaseInfo struct {
+	TicketID		string
+	TicketPassw	string
+}
+
 func SQLFactory(username, password, host, db string, port int) SQLConfig {
 	return SQLConfig{username, password, host, port, db}
 }
@@ -933,12 +938,11 @@ func (this SQLConfig) MysqlUpdateWagonReservation(wagonID, seat, from1, to1, dep
 	return result
 }
 
-func (this SQLConfig) MysqlBuyTicket(firstname, lastname, from1, to1, departure1, arrival1, train1ID, seat1, from2, to2, departure2, arrival2, train2ID, seat2, price, km string) Ticket {
+func (this SQLConfig) MysqlBuyTicket(firstname, lastname, from1, to1, departure1, arrival1, train1ID, seat1, from2, to2, departure2, arrival2, train2ID, seat2, price, km string) PurchaseInfo {
 	fmt.Println(seat1)
-	var result Ticket
+	var result PurchaseInfo
 	passw := generateSalt()
 	query1 := "INSERT INTO PURCHASES (FIRSTNAME, LASTNAME, FROM1, TO1, DEPARTURE1, ARRIVAL1, TRAIN1_ID, SEAT1, FROM2, TO2, DEPARTURE2, ARRIVAL2, TRAIN2_ID, SEAT2, PRICE, KM, PASSW) VALUES ('"+ firstname +"', '"+ lastname +"', '"+ from1 +"', '"+ to1 +"', '"+ departure1 +"', '"+ arrival1 +"', '"+ train1ID +"', '"+ seat1 +"', '"+ from2 +"', '"+ to2 +"', '"+ departure2 +"', '"+ arrival2 +"', '"+ train2ID +"', '"+ seat2 +"', '"+ price +"', '"+ km +"', '"+passw+"')"
-	var d string
 
 
 	inf := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", this.username, this.password, this.host, this.port, this.db)
@@ -955,38 +959,42 @@ func (this SQLConfig) MysqlBuyTicket(firstname, lastname, from1, to1, departure1
 		panic(err)
 	}
 
-	result.Firstname = firstname
-	result.Lastname = lastname
-	result.From1 = from1
-	result.To1 = to1
-	result.Departure1 = departure1
-	result.Arrival1 = arrival1
-	result.Train1ID = train1ID
-	result.Seat1 = seat1
-	result.From2 = from2
-	result.To2 = to2
-	result.Departure2 = departure2
-	result.Arrival2 = arrival2
-	result.Train2ID = train2ID
-	result.Seat2 = seat2
-	result.Price = price
-	result.Km = km
 	result.TicketID = strconv.FormatInt(id, 10)
 	result.TicketPassw = passw
+	return result
+}
 
-	query2 := "SELECT DATE FROM PURCHASES WHERE ID=" + strconv.FormatInt(id, 10)
-	rows, err := db.Query(query2)
+
+/*result.Firstname = firstname
+result.Lastname = lastname
+result.From1 = from1
+result.To1 = to1
+result.Departure1 = departure1
+result.Arrival1 = arrival1
+result.Train1ID = train1ID
+result.Seat1 = seat1
+result.From2 = from2
+result.To2 = to2
+result.Departure2 = departure2
+result.Arrival2 = arrival2
+result.Train2ID = train2ID
+result.Seat2 = seat2
+result.Price = price
+result.Km = km
+result.TicketID = strconv.FormatInt(id, 10)
+result.TicketPassw = passw
+
+query2 := "SELECT DATE FROM PURCHASES WHERE ID=" + strconv.FormatInt(id, 10)
+rows, err := db.Query(query2)
+if err != nil {
+	panic(err)
+}
+defer rows.Close()
+
+for rows.Next() {
+	err := rows.Scan(&d)
 	if err != nil {
 		panic(err)
 	}
-	defer rows.Close()
-
-	for rows.Next() {
-		err := rows.Scan(&d)
-		if err != nil {
-			panic(err)
-		}
-		result.Date = d[0:10]
-	}
-	return result
-}
+	result.Date = d[0:10]
+}*/

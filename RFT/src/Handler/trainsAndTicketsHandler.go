@@ -153,8 +153,10 @@ func BuyTicket(w http.ResponseWriter, r *http.Request) {
 												r.FormValue("to2"), r.FormValue("departure2"), r.FormValue("arrival2"),
 												r.FormValue("train2ID"), r.FormValue("seat2"), r.FormValue("price"),
 												r.FormValue("km"))
-
+											
 	//TODO: kosz a vasarlast, itt a vasarlasi azon., jelszo es qr
+	//t, _ := template.ParseFiles("View/TrainsAndTickets/.html", "View/Layout/main.html")
+	//t.ExecuteTemplate(w, "layout", result)
 }
 
 func TicketInformation(w http.ResponseWriter, r *http.Request) {
