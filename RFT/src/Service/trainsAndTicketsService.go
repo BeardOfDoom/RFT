@@ -5,9 +5,9 @@ import (
 	"Settings"
 )
 
-func SearchTimetable(from, to, date, discount string, potjegy, helyi, atszallas, kerekpar bool) Adapter.Data {
+func SearchTimetable(from, to, date, discount string, potjegy, atszallas bool) Adapter.Data {
 	SQLAdapter := Adapter.SQLFactory(Settings.DBUSERNAME, Settings.DBPASSWORD, Settings.DBHOST, Settings.DBNAME, Settings.DBPORT)
-	result := SQLAdapter.MysqlSearchTimetable(from, to, date, discount, potjegy, helyi, atszallas, kerekpar)
+	result := SQLAdapter.MysqlSearchTimetable(from, to, date, discount, potjegy, atszallas)
 	return result
 }
 

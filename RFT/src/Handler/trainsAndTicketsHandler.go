@@ -49,7 +49,7 @@ func convertMonth(date string) string {
 func SearchTimetable(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
-	var withoutExtraTicket, withoutChange, withBicycleDelivery, withoutLocalTransportation bool
+	var withoutExtraTicket, withoutChange bool
 	var d string
 	//d tartalmazza a kedvezmenyt
 	discount := r.FormValue("discount")
@@ -75,24 +75,13 @@ func SearchTimetable(w http.ResponseWriter, r *http.Request) {
 	} else {
 		withoutExtraTicket = false
 	}
-	if r.FormValue("withoutLocalTransportation") != "" {
-		withoutLocalTransportation = true
-	} else {
-		withoutLocalTransportation = false
-	}
 	if r.FormValue("withoutChange") != "" {
 		withoutChange = true
 	} else {
 		withoutChange = false
 	}
-	if r.FormValue("withBicycleDelivery") != "" {
-		withBicycleDelivery = true
-	} else {
-		withBicycleDelivery = false
-	}
 	result := Service.SearchTimetable(r.FormValue("from"), r.FormValue("to"), date,
-		d, withoutExtraTicket, withoutLocalTransportation,
-		withoutChange, withBicycleDelivery)
+		d, withoutExtraTicket, withoutChange)
 
 	if len(result.Data) > 0 {
 		t, _ := template.ParseFiles("View/TrainsAndTickets/result.html", "View/Layout/main.html")
