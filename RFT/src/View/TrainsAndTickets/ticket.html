@@ -139,7 +139,7 @@
     document.write('<td colspan="10" class="inner" align="right">Fizetési mód: Jegy Átvételénél</td>');
     document.write('</tr>');
     document.write('<tr>');
-    document.write('<td colspan="10" align="right"><input type="submit" value="Vásárlás" /></td>');
+    document.write('<td colspan="10" align="right"><input type="submit" onClick="buyTheTicket(\'{{ .From1 }}\',\'{{ .To1 }}\',\'-1\',\'-1\',\'{{ .Departure1 }}\',\'{{ .Arrival1 }}\',\'-1\',\'-1\',\'{{ .Train1ID }}\',\'-1\',\'{{ .Price }}\',\'{{ .Km }}\', \'{{ .SeatNumber1 }}\', \'-1\', \'{{ .Type1 }}\', \'-1\');" value="Vásárlás" /></td>');
     document.write('</tr>');
     document.write('</table>');
     document.write('</td>');
@@ -229,7 +229,7 @@
             document.write('<td colspan="10" align="right">Fizetési mód: Jegy Átvételénél</td>');
             document.write('</tr>');
             document.write('<tr>');
-              document.write('<td colspan="10" align="right"><input type="submit" value="Vásárlás" /></td>');
+              document.write('<td colspan="10" align="right"><input type="submit" onClick="buyTheTicket(\'{{ .From1 }}\',\'{{ .To1 }}\',\'{{ .From2 }}\',\'{{ .To2 }}\',\'{{ .Departure1 }}\',\'{{ .Arrival1 }}\',\'{{ .Departure2 }}\',\'{{ .Arrival2 }}\',\'{{ .Train1ID }}\',\'{{ .Train2ID }}\',\'{{ .Price }}\',\'{{ .Km }}\', \'{{ .SeatNumber1 }}\', \'{{ .SeatNumber2 }}\', \'{{ .Type1 }}\', \'{{ .Type2 }}\');" value="Vásárlás" /></td>');
             document.write('</tr>');
           document.write('</table>');
         document.write('</td>');

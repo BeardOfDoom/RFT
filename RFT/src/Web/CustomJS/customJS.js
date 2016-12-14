@@ -6,6 +6,23 @@
       }
   }
 
+  function buyTheTicket(from1, to1, from2, to2, departure1, arrival1, departure2, arrival2, train1ID, train2ID, price, km, seat1, seat2, t1, t2) {
+    if (seat2 == -1) {
+      if ((t1 == "false") || (t1 == "true" && seat1 != "0")) {
+        var form5 = document.createElement("form");
+        form5.setAttribute("method", "post");
+        form5.setAttribute("action", "/");
+
+        document.body.appendChild(form5);
+        form5.submit();
+      }
+    } else {
+      if ((t1 == "false" && t2 == "false") || (t1 == "true" && t2 == "false" && seat1 != "0") || (t1 == "false" && t2 == "true" && seat2 != "0") || (t1 == "true" && t2 == "true" && seat1 != "0" && seat2 != "0")) {
+        alert("mehet");
+      }
+    }
+  }
+
   function sendSelectedSeat(selectedVagon, selectedSeat, from1, to1, from2, to2, departure1, arrival1, departure2, arrival2, train1ID, train2ID, price, km, seat1, seat2, selectedTrain) {
     var form4 = document.createElement("form");
     form4.setAttribute("method", "post");
