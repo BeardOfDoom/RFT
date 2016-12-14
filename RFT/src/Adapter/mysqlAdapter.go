@@ -106,26 +106,26 @@ type Wagon struct {
 
 type WagonData struct {
 	Wagons []Wagon
-	Train		TrainType
+	Train  TrainType
 }
 
 type TrainType struct {
-	From1      string
-	To1        string
-	Departure1 string
-	Arrival1   string
-	Train1ID   string
-	Type1      bool
-	SeatNumber1	string
-	From2      string
-	To2        string
-	Departure2 string
-	Arrival2   string
-	Train2ID   string
-	Type2      bool
-	SeatNumber2	string
-	Price      string
-	Km         string
+	From1       string
+	To1         string
+	Departure1  string
+	Arrival1    string
+	Train1ID    string
+	Type1       bool
+	SeatNumber1 string
+	From2       string
+	To2         string
+	Departure2  string
+	Arrival2    string
+	Train2ID    string
+	Type2       bool
+	SeatNumber2 string
+	Price       string
+	Km          string
 }
 
 func SQLFactory(username, password, host, db string, port int) SQLConfig {
@@ -734,7 +734,7 @@ func (this SQLConfig) MysqlSeatReserve(id, from1, to1, departure1, arrival1, tra
 	var d string
 	var traintype TrainType
 
-fmt.Println(query1)
+	fmt.Println(query1)
 	rows1, err := db.Query(query1)
 	if err != nil {
 		panic(err)

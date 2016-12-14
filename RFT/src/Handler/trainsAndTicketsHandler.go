@@ -126,10 +126,10 @@ func SeatReserve(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(r.FormValue("km"))
 	fmt.Println(r.FormValue("trainID"))
 	result := Service.SeatReserve(r.FormValue("trainID"), r.FormValue("from1"), r.FormValue("to1"),
-												r.FormValue("departure1"), r.FormValue("arrival1"), r.FormValue("train1ID"),
-												r.FormValue("from2"),	r.FormValue("to2"), r.FormValue("departure2"),
-												r.FormValue("arrival2"), r.FormValue("train2ID"), r.FormValue("price"),
-												r.FormValue("km"))
+		r.FormValue("departure1"), r.FormValue("arrival1"), r.FormValue("train1ID"),
+		r.FormValue("from2"), r.FormValue("to2"), r.FormValue("departure2"),
+		r.FormValue("arrival2"), r.FormValue("train2ID"), r.FormValue("price"),
+		r.FormValue("km"))
 	fmt.Println(result)
 
 	t, _ := template.ParseFiles("View/TrainsAndTickets/reservation.html", "View/Layout/main.html")
@@ -140,7 +140,7 @@ func CheckReservation(w http.ResponseWriter, r *http.Request) {
 	result := Service.CheckReservation(r.FormValue("wagonID"), r.FormValue("seat"))
 	fmt.Println(result)
 	if !result {
-			Service.UpdateWagonReservation(r.FormValue("wagonID"), r.FormValue("seat"))
+		Service.UpdateWagonReservation(r.FormValue("wagonID"), r.FormValue("seat"))
 	} else {
 		//TODO Matyi ird oda
 		/*t, _ := template.ParseFiles("View/TrainsAndTickets/reservation.html", "View/Layout/main.html")

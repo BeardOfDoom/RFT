@@ -6,10 +6,10 @@
       }
   }
 
-  function sendSelectedSeat(selectedVagon, selectedSeat, train) {
+  function sendSelectedSeat(selectedVagon, selectedSeat, from1, to1, from2, to2, departure1, arrival1, departure2, arrival2, train1ID, train2ID, price, km) {
     var form4 = document.createElement("form");
     form4.setAttribute("method", "post");
-    form4.setAttribute("action", "/CheckReservation");
+    form4.setAttribute("action", "/CheckReservation");//TODO
 
     var hiddenField1 = document.createElement("input");
     hiddenField1.setAttribute("type", "hidden");
@@ -23,17 +23,13 @@
     hiddenField2.setAttribute("value", selectedSeat);
     form4.appendChild(hiddenField2);
 
-    var hiddenField3 = document.createElement("input");
-    hiddenField3.setAttribute("type", "hidden");
-    hiddenField3.setAttribute("name", "train");
-    hiddenField3.setAttribute("value", train);
-    form4.appendChild(hiddenField3);
+
 
     document.body.appendChild(form4);
     form4.submit();
   }
 
-  function seatReserve(from1, to1, from2, to2, departure1, arrival1, departure2, arrival2, train1ID, train2ID, price, km, trainID) {
+  function seatReserve(from1, to1, from2, to2, departure1, arrival1, departure2, arrival2, train1ID, train2ID, price, km, trainID, seat1, seat2) {
     var form3 = document.createElement("form");
     form3.setAttribute("method", "post");
     form3.setAttribute("action", "/SeatReserve");
@@ -115,6 +111,18 @@
     hiddenField13.setAttribute("name", "trainID");
     hiddenField13.setAttribute("value", trainID);
     form3.appendChild(hiddenField13);
+
+    var hiddenField14 = document.createElement("input");
+    hiddenField14.setAttribute("type", "hidden");
+    hiddenField14.setAttribute("name", "seat1");
+    hiddenField14.setAttribute("value", seat1);
+    form3.appendChild(hiddenField14);
+
+    var hiddenField15 = document.createElement("input");
+    hiddenField15.setAttribute("type", "hidden");
+    hiddenField15.setAttribute("name", "seat2");
+    hiddenField15.setAttribute("value", seat2);
+    form3.appendChild(hiddenField15);
 
     document.body.appendChild(form3);
     form3.submit();
