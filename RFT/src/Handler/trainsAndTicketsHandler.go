@@ -2,13 +2,18 @@ package Handler
 
 import (
 	"Service"
-	"fmt"
 	"html/template"
 	"net/http"
 	"strings"
 	"QRCode"
-	"strconv"
 )
+
+type Purchase struct {
+	TicketID		string
+	TicketPassw	string
+	QRCode			[]byte
+}
+
 
 func convertMonth(date string) string {
 	var month string
@@ -148,6 +153,7 @@ func CheckReservation(w http.ResponseWriter, r *http.Request) {
 
 func BuyTicket(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
+	var res Purchase
 
 	result := Service.BuyTicket(r.FormValue("firstname"), r.FormValue("lastname"), r.FormValue("from1"),
 												r.FormValue("to1"), r.FormValue("departure1"), r.FormValue("arrival1"),
@@ -155,19 +161,16 @@ func BuyTicket(w http.ResponseWriter, r *http.Request) {
 												r.FormValue("to2"), r.FormValue("departure2"), r.FormValue("arrival2"),
 												r.FormValue("train2ID"), r.FormValue("seat2"), r.FormValue("price"),
 												r.FormValue("km"))
-fmt.Println(result)
-	//TODO: kosz a vasarlast, itt a vasarlasi azon., jelszo es qr
-	//t, _ := template.ParseFiles("View/TrainsAndTickets/.html", "View/Layout/main.html")
-	//t.ExecuteTemplate(w, "layout", result)
-//TODO:fgv megkapja a resultot, es adja hozza a QR-t
+
 	var QR []byte
-	QR = QRCode.GenerateQR("8", "pASsWorD")
-	fmt.Println(QR)
+	QR = QRCode.GenerateQR(result.TicketID, result.TicketPassw)
 
-	w.Header().Set("Content-Type", "image/png")
-	w.Header().Set("Content-Length", strconv.Itoa(len(QR)))
-	w.Write(QR);
+	res.TicketID = result.TicketID
+	res.TicketPassw = result.TicketPassw
+	res.QRCode = QR
 
+	t, _ := template.ParseFiles("View/TrainsAndTickets/succes.html", "View/Layout/main.html")
+	t.ExecuteTemplate(w, "layout", res)
 }
 
 func TicketInformation(w http.ResponseWriter, r *http.Request) {

@@ -599,6 +599,8 @@
       $("#5").addClass('active');
     } else if (url.indexOf("Registration") != -1) {
       return 0;
+    } else if (url.indexOf("BuyTicket") != -1) {
+      return 0;
     } else if (url.indexOf("Authentificate") != -1) {
       return 0;
     } else if (url.indexOf("Search") != -1) {

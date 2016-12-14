@@ -1,0 +1,72 @@
+{{define "content"}}
+<style>
+   body {
+   background: url(Web/Images/TrainsAndTickets/trainBlur.jpg) no-repeat center center fixed;
+   -webkit-background-size: cover;
+   -moz-background-size: cover;
+   -o-background-size: cover;
+   background-size: cover;
+   }
+
+   text {
+     font-family: 'Open Sans', sans-serif;
+   	 color:rgb(255,255,255);
+   	 font-size:28px;
+   	 outline: none;
+   	 font-weight:600;
+     border:none;
+     text-shadow: 0 0 0.2em #000, 0 0 0.2em #000;
+   }
+
+   a.tt, a.tt:active, a.tt:visited {
+     color:rgb(0, 0, 0);
+     border:none;
+     text-shadow: 0 0 0.2em #fff, 0 0 0.2em #fff;
+   }
+
+   a.tt:hover {
+     text-decoration: none;
+     text-shadow: 0 0 0.2em #737776, 0 0 0.2em #737776;
+   }
+
+   table {
+     margin-top: 2%;
+   }
+
+   td {
+     padding: 5;
+   }
+   </style>
+   <script>
+   $(document).ready(function(){
+     document.getElementById("ItemPreview").src = "data:image/png;base64," + {{ .QRCode }};
+   });
+   </script>
+   <table align="center">
+     <tr align="center">
+        <td colspan="2">
+          <text>Köszönjük a vásárlást!</text>
+        </td>
+     </tr>
+     <tr align="center">
+        <td colspan="2">
+          <text>Az alábbi információkkal, bármikor megtekintheti megvásárolt jegyét.</text>
+        </td>
+     </tr>
+     <tr>
+       <td align="center">
+         <text>Vásárlási azonosító: {{ .TicketID }}</text>
+       </td>
+     </tr>
+     <tr align="center">
+       <td>
+         <text>Jelszó: {{ .TicketPassw }}</text>
+       </td>
+     </tr>
+     <tr align="center">
+       <td colspan="2">
+          <img id="ItemPreview" src="" />
+       </td>
+     </tr>
+   </table>
+{{end}}

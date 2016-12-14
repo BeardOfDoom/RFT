@@ -14,7 +14,7 @@ func GenerateQR(id, pass string) []byte {
 
 	s, _ := url.QueryUnescape(data)
 	code, _ := qr.Encode(s, qr.L, qr.Auto)
-	intsize := 350
+	intsize := 200
 	code, _ = barcode.Scale(code, intsize, intsize)
 
 
@@ -23,12 +23,4 @@ func GenerateQR(id, pass string) []byte {
 
 	}
 	return buffer.Bytes()
-
-	//w.Header().Set("Content-Type", "image/png")
-	//w.Header().Set("Content-Length", strconv.Itoa(len(buffer.Bytes())))
-
-	//if _, err := w.Write(buffer.Bytes()); err != nil {
-		//http.Error(w, "", http.StatusInternalServerError)
-		//return
-	//}
 }
