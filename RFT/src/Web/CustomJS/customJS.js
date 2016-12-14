@@ -6,7 +6,7 @@
       }
   }
 
-  function sendSelectedSeat(selectedVagon, selectedSeat, from1, to1, from2, to2, departure1, arrival1, departure2, arrival2, train1ID, train2ID, price, km, seat1, seat2) {
+  function sendSelectedSeat(selectedVagon, selectedSeat, from1, to1, from2, to2, departure1, arrival1, departure2, arrival2, train1ID, train2ID, price, km, seat1, seat2, selectedTrain) {
     var form4 = document.createElement("form");
     form4.setAttribute("method", "post");
     form4.setAttribute("action", "/CheckReservation");
@@ -106,6 +106,12 @@
     hiddenField17.setAttribute("name", "seat");
     hiddenField17.setAttribute("value", selectedSeat);
     form4.appendChild(hiddenField17);
+
+    var hiddenField18 = document.createElement("input");
+    hiddenField18.setAttribute("type", "hidden");
+    hiddenField18.setAttribute("name", "selectedTrain");
+    hiddenField18.setAttribute("value", selectedTrain);
+    form4.appendChild(hiddenField18);
 
     document.body.appendChild(form4);
     form4.submit();
