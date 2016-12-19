@@ -57,7 +57,6 @@ func Map(w http.ResponseWriter, r *http.Request) {
 	result := Service.ListStationsByRouteID(r.FormValue("from"), r.FormValue("to"),
 		r.FormValue("departure"), r.FormValue("arrival"), r.FormValue("route"))
 
-	fmt.Println(result)
 
 	var neededStations []string
 	var outputStationList []Station
