@@ -5,19 +5,19 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
--- Schema sql7149018
+-- Schema sql7150127
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema sql7149018
+-- Schema sql7150127
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `sql7149018` DEFAULT CHARACTER SET utf8 ;
-USE `sql7149018` ;
+CREATE SCHEMA IF NOT EXISTS `sql7150127` DEFAULT CHARACTER SET utf8 ;
+USE `sql7150127` ;
 
 -- -----------------------------------------------------
--- Table `sql7149018`.`TRAINS`
+-- Table `sql7150127`.`TRAINS`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sql7149018`.`TRAINS` (
+CREATE TABLE IF NOT EXISTS `sql7150127`.`TRAINS` (
   `ID` INT AUTO_INCREMENT,
   `TYPE` VARCHAR(45) NOT NULL,
   `SPEED` INT NOT NULL,
@@ -28,9 +28,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sql7149018`.`WAGONS`
+-- Table `sql7150127`.`WAGONS`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sql7149018`.`WAGONS` (
+CREATE TABLE IF NOT EXISTS `sql7150127`.`WAGONS` (
   `ID` VARCHAR(50) NOT NULL,
   `SEATS_NUMBER` INT NOT NULL,
   `CLASS` INT NOT NULL DEFAULT 1,
@@ -43,15 +43,15 @@ CREATE TABLE IF NOT EXISTS `sql7149018`.`WAGONS` (
   INDEX `fk_WAGONS_TRAINS1_idx` (`TRAINS_ID` ASC),
   CONSTRAINT `fk_WAGONS_TRAINS1`
     FOREIGN KEY (`TRAINS_ID`)
-    REFERENCES `sql7149018`.`TRAINS` (`ID`)
+    REFERENCES `sql7150127`.`TRAINS` (`ID`)
     ON DELETE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sql7149018`.`SEATS`
+-- Table `sql7150127`.`SEATS`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sql7149018`.`SEATS` (
+CREATE TABLE IF NOT EXISTS `sql7150127`.`SEATS` (
   `ID` INT AUTO_INCREMENT,
   `RESERVED` TINYINT(1) NOT NULL,
   `NUMBER` INT NOT NULL,
@@ -61,28 +61,28 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sql7149018`.`WAGON_SEAT_CONNECTION`
+-- Table `sql7150127`.`WAGON_SEAT_CONNECTION`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sql7149018`.`WAGON_SEAT_CONNECTION` (
+CREATE TABLE IF NOT EXISTS `sql7150127`.`WAGON_SEAT_CONNECTION` (
   `SEATS_ID` INT NOT NULL,
   `WAGONS_ID` VARCHAR(50) NOT NULL,
   INDEX `fk_WAGON_SEAT_CONNECTION_SEATS1_idx` (`SEATS_ID` ASC),
   INDEX `fk_WAGON_SEAT_CONNECTION_WAGONS1_idx` (`WAGONS_ID` ASC),
   CONSTRAINT `fk_WAGON_SEAT_CONNECTION_SEATS1`
     FOREIGN KEY (`SEATS_ID`)
-    REFERENCES `sql7149018`.`SEATS` (`ID`)
+    REFERENCES `sql7150127`.`SEATS` (`ID`)
     ON DELETE NO ACTION,
   CONSTRAINT `fk_WAGON_SEAT_CONNECTION_WAGONS1`
     FOREIGN KEY (`WAGONS_ID`)
-    REFERENCES `sql7149018`.`WAGONS` (`ID`)
+    REFERENCES `sql7150127`.`WAGONS` (`ID`)
     ON DELETE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sql7149018`.`ROUTES`
+-- Table `sql7150127`.`ROUTES`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sql7149018`.`ROUTES` (
+CREATE TABLE IF NOT EXISTS `sql7150127`.`ROUTES` (
   `ID` INT AUTO_INCREMENT,
   PRIMARY KEY (`ID`),
   UNIQUE INDEX `ID_UNIQUE` (`ID` ASC))
@@ -90,9 +90,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sql7149018`.`TRAIN_ROUTE_CONNECTION`
+-- Table `sql7150127`.`TRAIN_ROUTE_CONNECTION`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sql7149018`.`TRAIN_ROUTE_CONNECTION` (
+CREATE TABLE IF NOT EXISTS `sql7150127`.`TRAIN_ROUTE_CONNECTION` (
   `START` DATETIME NOT NULL,
   `TRAINS_ID` INT NOT NULL,
   `ROUTES_ID` INT NOT NULL,
@@ -100,19 +100,19 @@ CREATE TABLE IF NOT EXISTS `sql7149018`.`TRAIN_ROUTE_CONNECTION` (
   INDEX `fk_TRAIN_ROUTE_CONNECTION_ROUTES1_idx` (`ROUTES_ID` ASC),
   CONSTRAINT `fk_TRAIN_ROUTE_CONNECTION_TRAINS1`
     FOREIGN KEY (`TRAINS_ID`)
-    REFERENCES `sql7149018`.`TRAINS` (`ID`)
+    REFERENCES `sql7150127`.`TRAINS` (`ID`)
     ON DELETE NO ACTION,
   CONSTRAINT `fk_TRAIN_ROUTE_CONNECTION_ROUTES1`
     FOREIGN KEY (`ROUTES_ID`)
-    REFERENCES `sql7149018`.`ROUTES` (`ID`)
+    REFERENCES `sql7150127`.`ROUTES` (`ID`)
     ON DELETE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sql7149018`.`STATIONS`
+-- Table `sql7150127`.`STATIONS`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sql7149018`.`STATIONS` (
+CREATE TABLE IF NOT EXISTS `sql7150127`.`STATIONS` (
   `ID` INT AUTO_INCREMENT,
   `NAME` VARCHAR(250) NOT NULL,
   `PLATFORMS` INT NOT NULL,
@@ -123,24 +123,24 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sql7149018`.`NEIGHBOURS`
+-- Table `sql7150127`.`NEIGHBOURS`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sql7149018`.`NEIGHBOURS` (
+CREATE TABLE IF NOT EXISTS `sql7150127`.`NEIGHBOURS` (
   `NEIGHBOUR_ID` INT NOT NULL,
   `DISTANCE` INT NOT NULL,
   `STATIONS_ID` INT NOT NULL,
   INDEX `fk_NEIGHBOURS_STATIONS1_idx` (`STATIONS_ID` ASC),
   CONSTRAINT `fk_NEIGHBOURS_STATIONS1`
     FOREIGN KEY (`STATIONS_ID`)
-    REFERENCES `sql7149018`.`STATIONS` (`ID`)
+    REFERENCES `sql7150127`.`STATIONS` (`ID`)
     ON DELETE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sql7149018`.`ROUTE_STATIONS_CONNECTION`
+-- Table `sql7150127`.`ROUTE_STATIONS_CONNECTION`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sql7149018`.`ROUTE_STATIONS_CONNECTION` (
+CREATE TABLE IF NOT EXISTS `sql7150127`.`ROUTE_STATIONS_CONNECTION` (
   `PLATFORM` INT NOT NULL,
   `EXPLETIVE_TICKET` TINYINT(1) NOT NULL,
   `ROUTES_ID` INT NOT NULL,
@@ -151,19 +151,19 @@ CREATE TABLE IF NOT EXISTS `sql7149018`.`ROUTE_STATIONS_CONNECTION` (
   INDEX `fk_ROUTE_STATIONS_CONNECTION_STATIONS1_idx` (`STATIONS_ID` ASC),
   CONSTRAINT `fk_ROUTE_STATIONS_CONNECTION_ROUTES1`
     FOREIGN KEY (`ROUTES_ID`)
-    REFERENCES `sql7149018`.`ROUTES` (`ID`)
+    REFERENCES `sql7150127`.`ROUTES` (`ID`)
     ON DELETE NO ACTION,
   CONSTRAINT `fk_ROUTE_STATIONS_CONNECTION_STATIONS1`
     FOREIGN KEY (`STATIONS_ID`)
-    REFERENCES `sql7149018`.`STATIONS` (`ID`)
+    REFERENCES `sql7150127`.`STATIONS` (`ID`)
     ON DELETE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sql7149018`.`TICKETS`
+-- Table `sql7150127`.`TICKETS`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sql7149018`.`TICKETS` (
+CREATE TABLE IF NOT EXISTS `sql7150127`.`TICKETS` (
   `PRICE` INT NOT NULL,
   `TYPE` VARCHAR(100) NOT NULL,
   `DISTANCE` INT NOT NULL,
@@ -172,9 +172,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sql7149018`.`USERS`
+-- Table `sql7150127`.`USERS`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sql7149018`.`USERS` (
+CREATE TABLE IF NOT EXISTS `sql7150127`.`USERS` (
   `FIRSTNAME` VARCHAR(100) NOT NULL,
   `LASTNAME` VARCHAR(100) NOT NULL,
   `NICKNAME` VARCHAR(45) NOT NULL,
@@ -189,9 +189,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sql7149018`.`PURCHASES`
+-- Table `sql7150127`.`PURCHASES`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sql7149018`.`PURCHASES` (
+CREATE TABLE IF NOT EXISTS `sql7150127`.`PURCHASES` (
   `ID` INT AUTO_INCREMENT,
   `FIRSTNAME` VARCHAR(100) NOT NULL,
   `LASTNAME` VARCHAR(100) NOT NULL,
