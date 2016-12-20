@@ -36,11 +36,14 @@ A többi felhasznált kép saját tervezésű és kivitelezésű.
 
   ✔ Google Go <br/>
   ✔ boombuler barcode <br/>
+  ✔ transit.js <br/>
+  ✔ OpenStreetMap <br/>
 
 - **Adatbázis**
 
   ✔ MySQL <br/>
   ✔ go-sql-driver <br/>
+  ✔ Google My Maps <br/>
 
 <br/>
 

@@ -94,13 +94,6 @@
 			</LineString>
 		</Placemark>
 		<Placemark>
-			<name>Császárszállás</name>
-			<styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
-			<Point>
-				<coordinates>21.7166716,47.8919133,0.0</coordinates>
-			</Point>
-		</Placemark>
-		<Placemark>
 			<name>Újfehértó</name>
 			<styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
 			<Point>
@@ -472,7 +465,7 @@
 			</Point>
 		</Placemark>
 		<Placemark>
-			<name>Záhony-Tiszabezdéd</name>
+			<name>Záhony - Tiszabezdéd</name>
 			<styleUrl>#line-000000-1-nodesc</styleUrl>
 			<LineString>
 				<tessellate>1</tessellate>
@@ -480,7 +473,7 @@
 			</LineString>
 		</Placemark>
 		<Placemark>
-			<name>Tiszabezdéd-Tuzsér</name>
+			<name>Tiszabezdéd - Tuzsér</name>
 			<styleUrl>#line-000000-1-nodesc</styleUrl>
 			<LineString>
 				<tessellate>1</tessellate>
@@ -488,7 +481,7 @@
 			</LineString>
 		</Placemark>
 		<Placemark>
-			<name>Tuzsér-Komoró</name>
+			<name>Tuzsér - Komoró</name>
 			<styleUrl>#line-000000-1-nodesc</styleUrl>
 			<LineString>
 				<tessellate>1</tessellate>
@@ -496,7 +489,7 @@
 			</LineString>
 		</Placemark>
 		<Placemark>
-			<name>Komoró-Fényeslitke</name>
+			<name>Komoró - Fényeslitke</name>
 			<styleUrl>#line-000000-1-nodesc</styleUrl>
 			<LineString>
 				<tessellate>1</tessellate>
@@ -504,7 +497,7 @@
 			</LineString>
 		</Placemark>
 		<Placemark>
-			<name>Fényeslitke-Kisvárda - Hármasút</name>
+			<name>Fényeslitke - Kisvárda-Hármasút</name>
 			<styleUrl>#line-000000-1-nodesc</styleUrl>
 			<LineString>
 				<tessellate>1</tessellate>
@@ -536,7 +529,7 @@
 			</LineString>
 		</Placemark>
 		<Placemark>
-			<name>Pátroha-Gégény</name>
+			<name>Pátroha - Gégény</name>
 			<styleUrl>#line-000000-1-nodesc</styleUrl>
 			<LineString>
 				<tessellate>1</tessellate>
@@ -544,7 +537,7 @@
 			</LineString>
 		</Placemark>
 		<Placemark>
-			<name>Gégény-Demecser</name>
+			<name>Gégény - Demecser</name>
 			<styleUrl>#line-000000-1-nodesc</styleUrl>
 			<LineString>
 				<tessellate>1</tessellate>
@@ -552,7 +545,7 @@
 			</LineString>
 		</Placemark>
 		<Placemark>
-			<name>Demecser-Kék</name>
+			<name>Demecser - Kék</name>
 			<styleUrl>#line-000000-1-nodesc</styleUrl>
 			<LineString>
 				<tessellate>1</tessellate>
@@ -597,6 +590,62 @@
 			<LineString>
 				<tessellate>1</tessellate>
 				<coordinates>21.7264938,47.995321,0.0 21.6951656,47.9668244,0.0 21.6938782,47.9644106,0.0 21.6940498,47.9606748,0.0 21.6954231,47.9584332,0.0 21.6988564,47.9560191,0.0 21.7058945,47.9468213,0.0</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>Nyíregyháza - Újfehértó</name>
+			<styleUrl>#line-000000-1-nodesc</styleUrl>
+			<LineString>
+				<tessellate>1</tessellate>
+				<coordinates>21.7058945,47.9468213,0.0 21.7145634,47.9323315,0.0 21.7154217,47.9296286,0.0 21.7174816,47.8943628,0.0 21.7049074,47.8563087,0.0 21.7044783,47.853717,0.0 21.7065489,47.8153268,0.0</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>Újfehértó - Téglás</name>
+			<styleUrl>#line-000000-1-nodesc</styleUrl>
+			<LineString>
+				<tessellate>1</tessellate>
+				<coordinates>21.7065489,47.8153268,0.0 21.7069674,47.8065544,0.0 21.7065382,47.8040467,0.0 21.7059374,47.8020577,0.0 21.6989422,47.7890556,0.0 21.6972685,47.7813854,0.0 21.6927624,47.7666185,0.0 21.6911316,47.7501739,0.0 21.6849411,47.7147679,0.0</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>Téglás - Hajdúhadház</name>
+			<styleUrl>#line-000000-1-nodesc</styleUrl>
+			<LineString>
+				<tessellate>1</tessellate>
+				<coordinates>21.6849411,47.7147679,0.0 21.6807032,47.70491,0.0 21.6806173,47.7034659,0.0 21.6814756,47.697054,0.0 21.6794881,47.6871874,0.0</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>Hajdúhadház - Bocskaikert</name>
+			<styleUrl>#line-000000-1-nodesc</styleUrl>
+			<LineString>
+				<tessellate>1</tessellate>
+				<coordinates>21.6794881,47.6871874,0.0 21.6778278,47.6805152,0.0 21.6691589,47.6562247,0.0 21.6664016,47.64195,0.0</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>Bocskaikert - Apafa</name>
+			<styleUrl>#line-000000-1-nodesc</styleUrl>
+			<LineString>
+				<tessellate>1</tessellate>
+				<coordinates>21.6664016,47.64195,0.0 21.6558337,47.5837846,0.0</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>Apafa - Debrecen-Csapókert</name>
+			<styleUrl>#line-000000-1-nodesc</styleUrl>
+			<LineString>
+				<tessellate>1</tessellate>
+				<coordinates>21.6558337,47.5837846,0.0 21.6478944,47.5405708,0.0</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>Debrecen-Csapókert - Debrecen</name>
+			<styleUrl>#line-000000-1-nodesc</styleUrl>
+			<LineString>
+				<tessellate>1</tessellate>
+				<coordinates>21.6478944,47.5405708,0.0 21.6458988,47.5300099,0.0 21.6448689,47.5280395,0.0 21.6415215,47.5252575,0.0 21.639204,47.5237506,0.0 21.6286898,47.5199831,0.0</coordinates>
 			</LineString>
 		</Placemark>
 		<Style id='icon-1899-0288D1-nodesc-normal'>
